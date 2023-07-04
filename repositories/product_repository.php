@@ -18,8 +18,18 @@ class ProductRepository
         return $products;
     }
 
+    /**
+     * Recupère un produit par id depuis la base de données
+     * 
+     * @param int $id l'id du produit
+     */
     public function findById($id)
     {
+        $sql = db()->prepare("SELECT * FROM produits WHERE id = ?");
+        $sql->execute([$id]);
+
+        $product = $sql->fetch();
+        return $product;
     }
 
     /**
@@ -41,6 +51,40 @@ class ProductRepository
             'description' => $description,
             'categorie_id' => $category
         ]);
+    }
+
+    /**
+     * Modifie un produit
+     * 
+     * @param int $id l'id du produit
+     * @param string $nom le nom du produit
+     * @param string $prix le prix du produit
+     * @param string $stock le stock du produit
+     * @param string $category la catégorie du produit
+     * @param string $description la description du produit
+     */
+    public function UpdateProduit($id, $nom, $prix, $stock, $category, $description)
+    {
+        $sql = db()->prepare("UPDATE produits SET nom = :nom, prix = :prix, stock = :stock, description = :description, categorie_id = :categorie_id WHERE id = :id");
+        $sql->execute([
+            'id' => $id,
+            'nom' => $nom,
+            'prix' => $prix,
+            'stock' => $stock,
+            'description' => $description,
+            'categorie_id' => $category
+        ]);
+    }
+
+    /**
+     * Supprime un produit
+     * 
+     * @param int $id l'id du produit
+     */
+    public function DeleteProduit($id)
+    {
+        $sql = db()->prepare("DELETE FROM produits WHERE id = ?");
+        $sql->execute([$id]);
     }
 }
 

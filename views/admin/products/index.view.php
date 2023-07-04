@@ -17,14 +17,18 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($produits as $produit): ?>
+                <?php foreach ($produits as $produit) : ?>
                     <tr>
                         <td><?= $produit['id'] ?></td>
                         <td><?= $produit['nom'] ?></td>
                         <td><?= $produit['category'] ?></td>
-                        <td><?= $produit['prix'] ?></td>
+                        <td><?= $produit['prix'] ?> XAF</td>
                         <td><?= $produit['stock'] ?></td>
-                        <td><?=actions_produits($produit['id'])?></td>
+                        <td>
+                            <div class="d-flex justify-content-evenly">
+                                <?= actions_produits($produit['id']) ?>
+                            </div>
+                        <td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

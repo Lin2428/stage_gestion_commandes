@@ -140,9 +140,11 @@ function css($name)
  */
 function actions_produits($id)
 {
-    $html = '<a href="' . $id . '" class="btn btn-info btn-sm">Détails<a> ';
-    $html .= '<a href="' . $id . '" class="btn btn-primary btn-sm">Modifier<a>';
-    $html .= ' <a href="' . $id . '" class="btn btn-danger btn-sm">supprimer';
+    $html = '<a href="'.SITE_URL .'/admin/produits/detail.php?id=' . $id . '" class="btn btn-info btn-sm">Détails</a> ';
+    $html .= '<a href="'.SITE_URL .'//admin/produits/update.php?id=' . $id . '" class="btn btn-primary btn-sm">Modifier</a>';
+    $html .= '<form action="'.SITE_URL .'//admin/produits/delete.php" method="POST">';
+    $html .='<input type="hidden" name="id" value="' . $id . '">';
+    $html .= '<button type="submit" class="btn btn-danger btn-sm">Supprimer</button></form>';
 
     return $html;
 }
@@ -160,27 +162,27 @@ function actions_produits($id)
  */
 function form_input($label, $name, $type = "text", $required = true, $default = null)
 {
-    $defaultValue = $_POST[$name] ?? '' ?? $default;
+    $defaultValue = $_POST[$name] ?? $default ?? '';
 
     $isRequired = $required ? 'required' : '';
 
     $class = "form-control mb-3";
-    if(!empty($_POST) && empty($_POST[$name])){
-        $class .= ' '.'is-invalid';
+    if (!empty($_POST) && empty($_POST[$name])) {
+        $class .= ' ' . 'is-invalid';
     }
 
-    $html = '<h5 class="card-title mt-3">'. $label .'</h5>';
-    $input = '<input type="'. $type .'" name="'. $name .'"'. $isRequired .' value="'.  $defaultValue .'" class="'. $class .'" placeholder="'. $label .'">';
-    
+    $html = '<h5 class="card-title mt-3">' . $label . '</h5>';
+    $input = '<input type="' . $type . '" name="' . $name . '"' . $isRequired . ' value="' .  $defaultValue . '" class="' . $class . '" placeholder="' . $label . '">';
 
 
-    if($type === "textarea"){
-        $input = '<textarea class="form-control" name="'. $name .'" rows="2"  placeholder="'. $label .'">'.  $defaultValue .'</textarea>';
+
+    if ($type === "textarea") {
+        $input = '<textarea class="form-control" name="' . $name . '" rows="2"  placeholder="' . $label . '">' .  $defaultValue . '</textarea>';
     }
 
-    $html .= $input ;
- 
-    
+    $html .= $input;
+
+
     return $html;
 }
 
@@ -190,7 +192,7 @@ function form_input($label, $name, $type = "text", $required = true, $default = 
  * @param string $message
  * @param string $type
  */
-function flash_message($message, $type = 'message')
+function flash_message($message, $type = "message")
 {
     $flash = [
         'message' => $message,
@@ -212,10 +214,13 @@ function read_flash_message()
     if ($flash) {
         unset($_SESSION['flash']);
 
-        $html = '<div class="alert-' . $flash['type'] . '" role="alert">' . $flash['message'] . '</div>';
+        $html = '<div class="alert alert-' . $flash['type'] . '">' . $flash['message'] . '</div>';
 
         return $html;
     }
 
     return '';
 }
+
+
+
