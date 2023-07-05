@@ -10,7 +10,7 @@ class ProductRepository
      */
     public function getAll()
     {
-        $sql = "SELECT p.id, p.nom, p.prix, p.stock, p.description, c.nom as category FROM produits p INNER JOIN categories c ON c.id = p.categorie_id";
+        $sql = "SELECT p.id, p.nom, p.prix, p.stock, p.description, p.image, c.nom as category FROM produits p INNER JOIN categories c ON c.id = p.categorie_id";
         $stmt = db()->query($sql);
 
         $products = $stmt->fetchAll();
@@ -25,11 +25,10 @@ class ProductRepository
      */
     public function findById($id)
     {
-        $sql = db()->prepare("SELECT * FROM produits WHERE id = ?");
-        $sql->execute([$id]);
+        $stmt = db()->prepare("SELECT p.id, p.nom, p.prix, p.stock, p.categorie_id, p.description, p.image, c.id as category_id, c.nom as category FROM produits p INNER JOIN categories c ON c.id = p.categorie_id WHERE p.id = ?");
+        $stmt->execute([$id]);
 
-        $product = $sql->fetch();
-        return $product;
+        return $stmt->fetch();
     }
 
     /**
@@ -40,16 +39,18 @@ class ProductRepository
      * @param string $stock le stock du produit
      * @param string $category la catégorie du produit
      * @param string $description la description du produit
+     * @param string $image l'imafe du produit
      */
-    public function CreateProduct($nom, $prix, $stock, $category, $description)
+    public function createProduct($nom, $prix, $stock, $category, $description, $image)
     {
-        $sql = db()->prepare("INSERT into produits (nom, prix, stock, description, categorie_id) VALUES (:nom, :prix, :stock, :description, :categorie_id)");
+        $sql = db()->prepare("INSERT into produits (nom, prix, stock, description, categorie_id, image) VALUES (:nom, :prix, :stock, :description, :categorie_id, :image)");
         $sql->execute([
             'nom' => $nom,
             'prix' => $prix,
             'stock' => $stock,
             'description' => $description,
-            'categorie_id' => $category
+            'categorie_id' => $category,
+            'image' => $image
         ]);
     }
 
@@ -63,16 +64,18 @@ class ProductRepository
      * @param string $category la catégorie du produit
      * @param string $description la description du produit
      */
-    public function UpdateProduit($id, $nom, $prix, $stock, $category, $description)
+    public function updateProduit($id, $nom, $prix, $stock, $category, $description, $image)
     {
-        $sql = db()->prepare("UPDATE produits SET nom = :nom, prix = :prix, stock = :stock, description = :description, categorie_id = :categorie_id WHERE id = :id");
+        $sql = db()->prepare("UPDATE produits SET nom = :nom, prix = :prix, stock = :stock, description = :description, categorie_id = :categorie_id, image = :image WHERE id = :id");
+        
         $sql->execute([
             'id' => $id,
             'nom' => $nom,
             'prix' => $prix,
             'stock' => $stock,
             'description' => $description,
-            'categorie_id' => $category
+            'categorie_id' => $category,
+            'image' => $image
         ]);
     }
 
@@ -81,28 +84,33 @@ class ProductRepository
      * 
      * @param int $id l'id du produit
      */
-    public function DeleteProduit($id)
+    public function deleteProduit($id)
     {
         $sql = db()->prepare("DELETE FROM produits WHERE id = ?");
         $sql->execute([$id]);
     }
-}
 
-class CategoryRepository
-{
-
-    /**
-     * Récupère tout les catégories depuis la base de données
-     * 
-     * @return array
-     */
-    public function getAll()
+    public function getCategories()
     {
-        $sql = "SELECT *FROM categories";
+        $sql = "SELECT * FROM categories";
         $stmt = db()->query($sql);
 
-        $category = $stmt->fetchAll();
+        $categories = $stmt->fetchAll();
 
-        return $category;
+        return $categories;
+    }
+
+    public function getCategoriesLookup()
+    {
+        $categories = $this->getCategories();
+        $options = [];
+
+        foreach ($categories as $category) {
+            $options[$category['id']] = $category['nom'];
+        }
+
+        return $options;
     }
 }
+
+

@@ -6,8 +6,8 @@ require '../../bootstrap.php';
 
 
 view(
-    name: 'admin.clients.index',
-    pageTitle: "Liste des clients",
+    name: 'admin.livreurs.index',
+    pageTitle: "Liste des livreurs",
     params: [
        
     ]

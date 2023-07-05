@@ -1,12 +1,6 @@
 <?php
 
 /**
- * Tout les fonctions utilitaires ici
- */
-
-session_start();
-
-/**
  * Rendre la vue. La vue doit se trouver dans le dossier `ROOT/views`
  * Le fichier de view doit se terminer par .view.php ex : `index.view.php`
  * 
@@ -135,16 +129,22 @@ function css($name)
  * affiche les bouton d'action de détails, d'edition et de suppréssion
  * 
  * @param string $id l'id du produit
+ * @param string $type le type de donnée
+ * @param bool $detail l'element a un detail
  * 
  * @return string $html le code des bouton
  */
-function actions_produits($id)
+function actions_produits($id, $type, $detail = true)
 {
-    $html = '<a href="'.SITE_URL .'/admin/produits/detail.php?id=' . $id . '" class="btn btn-info btn-sm">Détails</a> ';
-    $html .= '<a href="'.SITE_URL .'//admin/produits/update.php?id=' . $id . '" class="btn btn-primary btn-sm">Modifier</a>';
-    $html .= '<form action="'.SITE_URL .'//admin/produits/delete.php" method="POST">';
-    $html .='<input type="hidden" name="id" value="' . $id . '">';
-    $html .= '<button type="submit" class="btn btn-danger btn-sm">Supprimer</button></form>';
+    $html = "";
+    if($detail){
+        $html .= '<a href="' . base_url('/admin/'. $type .'/detail.php?id=' . $id) . '" class="btn btn-info btn-sm">Détails</a> ';
+    }
+    $html .= '<a href="' . base_url('/admin/'. $type .'/update.php?id=' . $id) . '" class="btn btn-primary btn-sm me-1">Modifier</a>';
+    $html .= '<form action="' . base_url('/admin/'. $type .'/delete.php') . '" method="POST" class="d-inline">';
+    $html .= '<input type="hidden" name="id" value="' . $id . '">';
+    $html .= '<button type="submit" class="btn btn-danger btn-sm ">Supprimer</button>';
+    $html .=' </form>';
 
     return $html;
 }
@@ -160,28 +160,38 @@ function actions_produits($id)
  * 
  * @return string $html le conde html
  */
-function form_input($label, $name, $type = "text", $required = true, $default = null)
+function form_input($label, $name, $type = "text", $required = true, $default = null, array $options = [])
 {
     $defaultValue = $_POST[$name] ?? $default ?? '';
 
     $isRequired = $required ? 'required' : '';
 
-    $class = "form-control mb-3";
-    if (!empty($_POST) && empty($_POST[$name])) {
-        $class .= ' ' . 'is-invalid';
+    $class = "form-control";
+    if (isset($_POST[$name]) && empty($_POST[$name]) && $required) {
+        $class .= ' is-invalid';
     }
 
-    $html = '<h5 class="card-title mt-3">' . $label . '</h5>';
-    $input = '<input type="' . $type . '" name="' . $name . '"' . $isRequired . ' value="' .  $defaultValue . '" class="' . $class . '" placeholder="' . $label . '">';
-
-
+    $html = '<div class="mb-3">';
+    $html .= '<label for="' . $name . '" class="form-label">' . $label . '</label>';
 
     if ($type === "textarea") {
-        $input = '<textarea class="form-control" name="' . $name . '" rows="2"  placeholder="' . $label . '">' .  $defaultValue . '</textarea>';
+        $html .= '<textarea id="' . $name . '" class="form-control" name="' . $name . '" rows="3"  placeholder="' . $label . '">' .  $defaultValue . '</textarea>';
+    } elseif ($type === 'select') {
+        $html .= '<select  name="' . $name . '" id="' . $name . '" ' . $isRequired . ' value="' .  $defaultValue . '" class="' . $class . '">';
+        foreach ($options as $value => $text) {
+            $selected = $defaultValue === $value ? 'selected' : '';
+            $html .= '<option ' . $selected . ' value="' . $value . '">' . $text . '</option>';
+        }
+        $html .= '</select>';
+    } else {
+        if ($type === 'file' && !empty($_FILES)) {
+            $defaultValue = uploadImage();
+            $class .= ' ' . $defaultValue;
+        }
+        $html .= '<input type="' . $type . '" name="' . $name . '" id="' . $name . '" ' . $isRequired . ' value="' .  $defaultValue . '" class="' . $class . '" placeholder="' . $label . '">';
     }
 
-    $html .= $input;
-
+    $html .= "</div>";
 
     return $html;
 }
@@ -192,7 +202,7 @@ function form_input($label, $name, $type = "text", $required = true, $default = 
  * @param string $message
  * @param string $type
  */
-function flash_message($message, $type = "message")
+function flash_message($message, $type = "success")
 {
     $flash = [
         'message' => $message,
@@ -214,7 +224,10 @@ function read_flash_message()
     if ($flash) {
         unset($_SESSION['flash']);
 
-        $html = '<div class="alert alert-' . $flash['type'] . '">' . $flash['message'] . '</div>';
+        $html = '<div class="alert alert-dismissible alert-' . $flash['type'] . '">';
+        $html .= '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+        $html .= '<div class="alert-message">' . $flash['message'] . '</div>';
+        $html .= '</div>';
 
         return $html;
     }
@@ -222,5 +235,72 @@ function read_flash_message()
     return '';
 }
 
+
+/**
+ * Verifie si le post n'est pas vide
+ * 
+ * @return bool
+ */
+function is_post(): bool
+{
+    return !empty($_POST);
+}
+
+/**
+ * Fait une rediretion de page et enregistre un message
+ * flash dans la fonction `flash_message`
+ * 
+ * @param string $url l'url de redirection
+ * @param string $message le message à enregistrer
+ * @param string $messageType le type du message
+ */
+function redirect(string $url, ?string $message = null, string $messageType = 'success'): void
+{
+    if ($message != null) {
+        flash_message($message, $messageType);
+    }
+    header("Location: $url");
+    exit;
+}
+
+/**
+ * Upload de l'image dans le dossier ./imgages
+ * et renvoie le chemin de l'image en question ou null
+ * s'il y a eu une erreur
+ * 
+ * @return string|null chemin de l'image
+ */
+function uploadImage(): ?string
+{
+    $extentionValide = ['jpg', 'png', 'jpeg'];
+
+    if ($_FILES['image']['error'] != UPLOAD_ERR_OK) {
+        return null;
+    }
+
+    $fileName = $_FILES['image']['name'];
+    $extention = pathinfo($fileName, PATHINFO_EXTENSION);
+
+
+    if (!in_array($extention, $extentionValide)) {
+        return 'is-invalid';
+    }
+
+    $tmpName = $_FILES['image']['tmp_name'];
+    $uniqueName = md5(uniqid(rand(), true));
+    $fileName = $uniqueName . '.' .  $extention;
+
+    move_uploaded_file($tmpName, "../../img/$fileName");
+
+    return $fileName;
+}
+
+/**
+ * Verifie si l'image n'est pas nulle
+ * 
+ * @param string $image l'image dans la base de données
+ * 
+ * @return string
+ */
 
 

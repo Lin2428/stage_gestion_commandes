@@ -21,21 +21,21 @@
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-sign-in.html">
-                    <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
+            <li class="sidebar-item <?= is_active('admin/categories') ?>">
+                <a class="sidebar-link" href="/admin/categories/">
+                    <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Catégories</span>
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-sign-up.html">
-                    <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign Up</span>
+            <li class="sidebar-item <?= is_active('admin/clients') ?>">
+                <a class="sidebar-link" href="/admin/clients">
+                    <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Clients</span>
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-blank.html">
-                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Blank</span>
+            <li class="sidebar-item <?= is_active('admin/livreurs') ?>">
+                <a class="sidebar-link" href="/admin/livreurs">
+                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Livreurs</span>
                 </a>
             </li>
 

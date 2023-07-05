@@ -1,28 +1,29 @@
 <?php
 require '../../bootstrap.php';
 
-$repo = new CategoryRepository();
-$category = $repo->getAll();
+$repo = new ProductRepository();
+$categories = $repo->getCategoriesLookup();
 
-if (isset($_POST) && !empty(($_POST))) {
-    if (!empty($_POST['nom'] && $_POST['prix']) && $_POST['category']) {
-        
-        $stock = $_POST['stock'];
-        if(empty($stock)){
-            $stock = "0";
+if (is_post()) {
+    if (!empty($_POST['nom'] && $_POST['prix']) && $_POST['category_id']) {
+        $image = '';
+        if (!empty($_FILES)) {
+            $image = uploadImage();
         }
+        if ($image != "is-invalid") {
+            $stock = intval($_POST['stock']);
 
-        $creat = new ProductRepository();
-        $creat->CreateProduct(
-            nom: $_POST['nom'],
-            prix: $_POST['prix'],
-            stock:  $stock,
-            category: $_POST['category'],
-            description: $_POST['description']
-        );
+            $repo->createProduct(
+                nom: $_POST['nom'],
+                prix: $_POST['prix'],
+                stock: $stock,
+                category: $_POST['category_id'],
+                description: $_POST['description'],
+                image: $image
+            );
 
-        flash_message("Le produit à bien été ajouté");
-        header('Location: /admin/produits');
+            redirect('/admin/produits', 'Le produit à bien ét& créer!');
+        }
     }
 }
 
@@ -30,6 +31,6 @@ view(
     name: 'admin.products.create',
     pageTitle: "Ajouter un produit",
     params: [
-        'category' => $category,
+        'categories' => $categories,
     ]
 );
