@@ -148,12 +148,12 @@ function liste_action($id, $dossier, $detail = true)
 {
     $html = "";
     if ($detail) {
-        $html .= '<a href="' . base_url('/admin/' . $dossier . '/detail.php?id=' . $id) . '" class="btn btn-info btn-sm">Détails</a> ';
+        $html .= '<a href="' . base_url('/admin/' . $dossier . '/detail.php?id=' . $id) . '" class=" btn badge bg-info">Détails</a> ';
     }
-    $html .= '<a href="' . base_url('/admin/' . $dossier . '/update.php?id=' . $id) . '" class="btn btn-primary btn-sm me-1">Modifier</a>';
-    $html .= '<form action="' . base_url('/admin/' . $dossier . '/delete.php') . '" method="POST" class="d-inline">';
+    $html .= '<a href="' . base_url('/admin/' . $dossier . '/update.php?id=' . $id) . '" class="btn badge bg-primary btn-sm me-1">Modifier</a>';
+    $html .= '<form action="' . base_url('/admin/' . $dossier . '/delete.php') . '" method="POST" class="d-inline text-align-center">';
     $html .= '<input type="hidden" name="id" value="' . $id . '">';
-    $html .= '<button type="submit" class="btn btn-danger btn-sm ">Supprimer</button>';
+    $html .= '<button type="submit" class="badge bg-danger btn-sm btn">Supprimer</button>';
     $html .= ' </form>';
 
     return $html;

@@ -1,6 +1,6 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
-        <a class="sidebar-brand" href="index.html">
+        <a class="sidebar-brand" href="">
             <span class="align-middle">AdminKit</span>
         </a>
 
@@ -39,13 +39,9 @@
                 </a>
             </li>
 
-            <li class="sidebar-header">
-                Tools & Components
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="ui-buttons.html">
-                    <i class="align-middle" data-feather="square"></i> <span class="align-middle">Buttons</span>
+            <li class="sidebar-item <?= is_active('admin/commandes') ?>">
+                <a class="sidebar-link" href="/admin/commandes">
+                    <i class="align-middle" data-feather="square"></i> <span class="align-middle">Commandes</span>
                 </a>
             </li>
 

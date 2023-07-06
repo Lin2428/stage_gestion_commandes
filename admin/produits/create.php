@@ -13,14 +13,12 @@ if (is_post()) {
         if ($image != "is-invalid") {
             $stock = intval($_POST['stock']);
 
-            $repo->createProduct(
-                nom: $_POST['nom'],
-                prix: $_POST['prix'],
-                stock: $stock,
-                category: $_POST['category_id'],
-                description: $_POST['description'],
-                image: $image
-            );
+            $data = $_POST;
+
+            $data['stock'] = $stock;
+            $data['image'] = $image;
+
+            $repo->createProduct($data);
 
             redirect('/admin/produits', 'Le produit à bien ét& créer!');
         }

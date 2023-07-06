@@ -89,4 +89,19 @@ class LivreurRepository
         $sql = db()->prepare("DELETE FROM livreurs WHERE id = ?");
         $sql->execute([$id]);
     }
+
+    /**
+     * Récupère les livreurs et les place dans des option
+     */
+    public function getLivreurLookup()
+    {
+        $livreurs = $this->getAll();
+        $options = [];
+
+        foreach ($livreurs as $livreur) {
+            $options[$livreur['id']] = $livreur['nom'] .' '. $livreur['prenom'];
+        }
+
+        return $options;
+    }
 }

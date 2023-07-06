@@ -36,15 +36,19 @@ class ClientRepository
      * @param string $prenom le prénom du client
      * @param string $email l'email du client
      * @param string $tel le tel du client
+     * @param string $password le mot de passe du client
+     * @param string $updated_at la derniere modification du client
      */
-    public function createClient($nom, $prenom, $email, $tel)
+    public function createClient($nom, $prenom, $email, $tel, $password, $updated_at)
     {
-        $sql = db()->prepare("INSERT into clients (nom, prenom, email, tel) VALUES (:nom, :prenom, :email, :tel)");
+        $sql = db()->prepare("INSERT into clients (nom, prenom, email, tel, password, updated_at) VALUES (:nom, :prenom, :email, :tel, :password, :updated_at)");
         $sql->execute([
             'nom' => $nom,
-            'prrenom' => $prenom,
+            'prenom' => $prenom,
             'email' => $email,
-            'tel' => $tel
+            'tel' => $tel,
+            'password' => $password,
+            'updated_at' => $updated_at
         ]);
     }
 

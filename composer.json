@@ -1,0 +1,12 @@
+{
+    "name": "ciboulette/gestion_commandes",
+    "authors": [
+        {
+            "name": "Marc-joe",
+            "email": "marcndzanangonoa@gmail.com"
+        }
+    ],
+    "require": {
+        "fakerphp/faker": "^1.23"
+    }
+}
