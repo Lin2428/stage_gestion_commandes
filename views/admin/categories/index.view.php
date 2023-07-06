@@ -18,7 +18,7 @@
                         <td><?= $categorie['id'] ?></td>
                         <td><?= $categorie['nom'] ?></td>
                         <td>
-                            <?= actions_produits(id: $categorie['id'], type: "categories", detail: false) ?>
+                            <?= liste_action(id: $categorie['id'], dossier: "categories", detail: false) ?>
                         <td>
                     </tr>
                 <?php endforeach; ?>

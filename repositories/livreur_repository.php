@@ -1,6 +1,6 @@
 <?php
 
-class ClientRepository
+class LivreurRepository
 {
 
     /**
@@ -36,31 +36,36 @@ class ClientRepository
      * @param string $prenom le prénom du livreur
      * @param string $email l'email du livreur
      * @param string $tel le tel du livreur
-     *  @param string $password le mot de passe du livreur
+     * @param string $password le mot de passe du livreur
+     * @param string $image l'image du du livreur
      */
-    public function createClient($nom, $prenom, $email, $tel)
+    public function createLivreur($nom, $prenom, $email, $tel, $password, $image)
     {
-        $sql = db()->prepare("INSERT into livreurs (nom, prenom, email, tel) VALUES (:nom, :prenom, :email, :tel)");
+        $sql = db()->prepare("INSERT into livreurs (nom, prenom, email, tel, password, image) VALUES (:nom, :prenom, :email, :tel, :password, :image)");
         $sql->execute([
             'nom' => $nom,
-            'prrenom' => $prenom,
+            'prenom' => $prenom,
             'email' => $email,
-            'tel' => $tel
+            'tel' => $tel,
+            'password' => $password,
+            'image' => $image
         ]);
     }
 
     /**
-     * Modifie un produit
+     * Modifie un livreur
      * 
-     * @param int $id l'id du client
-     * @param string $prenom le prénom du client
-     * @param string $email l'email du client
-     * @param string $tel le tel du client
-     * @param string $password le mot de passe du client
+     * @param int $id l'id du livreur
+     * @param string $nom le nom du livreur
+     * @param string $prenom le prénom du livreur
+     * @param string $email l'email du livreur
+     * @param string $tel le tel du livreur
+     * @param string $password le mot de passe du livreur
+     * @param string $image l'image du livreur
      */
-    public function updateClient($id, $nom, $prenom, $email, $tel, $password)
+    public function updateLivreur($id, $nom, $prenom, $email, $tel, $password, $image)
     {
-        $sql = db()->prepare("UPDATE clients SET nom = :nom, prenm = :prenom, email = :email, tel = :tel, password = :password WHERE id = :id");
+        $sql = db()->prepare("UPDATE livreurs SET nom = :nom, prenom = :prenom, email = :email, tel = :tel, password = :password, image = :image, updated_at = :updated_at  WHERE id = :id");
 
         $sql->execute([
             'id' => $id,
@@ -68,18 +73,20 @@ class ClientRepository
             'prenom' => $prenom,
             'email' => $email,
             'tel' => $tel,
-            'password' => $password
+            'password' => $password,
+            'image' => $image,
+            'updated_at' => date("Y-m-d")
         ]);
     }
 
     /**
-     * Supprime un client
+     * Supprime un livreur
      * 
-     * @param int $id l'id du client
+     * @param int $id l'id du livreur
      */
-    public function deleteClient($id)
+    public function deleteLivreur($id)
     {
-        $sql = db()->prepare("DELETE FROM clients WHERE id = ?");
+        $sql = db()->prepare("DELETE FROM livreurs WHERE id = ?");
         $sql->execute([$id]);
     }
 }

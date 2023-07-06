@@ -7,5 +7,6 @@ include ROOT . 'db.php';
 include ROOT . 'functions.php';
 
 // Repositories
-include REPO_PATH . 'product_repository.php';
-include REPO_PATH . 'categorie_repository.php';
+include_repo('product_repository.php');
+include_repo('categorie_repository.php');
+include_repo('livreur_repository.php');

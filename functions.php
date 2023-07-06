@@ -74,7 +74,17 @@ function debug($var)
     echo "</pre>";
 }
 
-
+/**
+ * Retourne le chémin d'un repository
+ * 
+ * @param string $repo le nom du repository
+ * 
+ * @return string
+ */
+function include_repo($repo)
+{
+    return include REPO_PATH . $repo;
+}
 
 /**
  * Inclu l'entête de page
@@ -128,23 +138,23 @@ function css($name)
 /**
  * affiche les bouton d'action de détails, d'edition et de suppréssion
  * 
- * @param string $id l'id du produit
- * @param string $type le type de donnée
- * @param bool $detail l'element a un detail
+ * @param string $id l'id de l'element
+ * @param string $dossier le dossier du fichier
+ * @param bool $detail si l'element a un detail
  * 
  * @return string $html le code des bouton
  */
-function actions_produits($id, $type, $detail = true)
+function liste_action($id, $dossier, $detail = true)
 {
     $html = "";
-    if($detail){
-        $html .= '<a href="' . base_url('/admin/'. $type .'/detail.php?id=' . $id) . '" class="btn btn-info btn-sm">Détails</a> ';
+    if ($detail) {
+        $html .= '<a href="' . base_url('/admin/' . $dossier . '/detail.php?id=' . $id) . '" class="btn btn-info btn-sm">Détails</a> ';
     }
-    $html .= '<a href="' . base_url('/admin/'. $type .'/update.php?id=' . $id) . '" class="btn btn-primary btn-sm me-1">Modifier</a>';
-    $html .= '<form action="' . base_url('/admin/'. $type .'/delete.php') . '" method="POST" class="d-inline">';
+    $html .= '<a href="' . base_url('/admin/' . $dossier . '/update.php?id=' . $id) . '" class="btn btn-primary btn-sm me-1">Modifier</a>';
+    $html .= '<form action="' . base_url('/admin/' . $dossier . '/delete.php') . '" method="POST" class="d-inline">';
     $html .= '<input type="hidden" name="id" value="' . $id . '">';
     $html .= '<button type="submit" class="btn btn-danger btn-sm ">Supprimer</button>';
-    $html .=' </form>';
+    $html .= ' </form>';
 
     return $html;
 }
@@ -294,13 +304,3 @@ function uploadImage(): ?string
 
     return $fileName;
 }
-
-/**
- * Verifie si l'image n'est pas nulle
- * 
- * @param string $image l'image dans la base de données
- * 
- * @return string
- */
-
-

@@ -1,10 +1,10 @@
 <?php
 require '../../bootstrap.php';
 
-if (isset($_POST) && !empty($_POST['id'])) {
+if (is_post() && !empty($_POST['id'])) {
 
-    $delete = new ProductRepository();
-    $delete->deleteProduit($_POST['id']);
+    $repo = new ProductRepository();
+    $$repo ->deleteProduit($_POST['id']);
     
     flash_message("Le produit a bient été supprimé");
     header('Location: admin/produits/');

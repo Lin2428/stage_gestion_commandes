@@ -32,7 +32,7 @@
                         <td><?= $produit['prix'] ?> XAF</td>
                         <td><?= $produit['stock'] ?></td>
                         <td>
-                            <?= actions_produits($produit['id'], "produits") ?>
+                            <?= liste_action($produit['id'], "produits") ?>
                         <td>
                     </tr>
                 <?php endforeach; ?>
