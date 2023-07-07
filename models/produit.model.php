@@ -10,6 +10,7 @@ class Produit
     private $image;
     private $stock;
     private $description;
+    private $statut;
 
     public function getId(): int
     {
@@ -41,13 +42,18 @@ class Produit
         return $this->image;
     }
 
-    public function getStock()
+    public function getStock(): int
     {
         return $this->stock;
     }
 
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
+    }
+
+    public function getStatut(): int
+    {
+        return $this->statut;
     }
 }

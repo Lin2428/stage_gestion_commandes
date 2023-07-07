@@ -10,7 +10,7 @@ class ProductRepository
      */
     public function getAll()
     {
-        $sql = "SELECT p.id, p.nom, p.prix, p.stock, p.description, p.image, c.nom as category, c.id as categoryId FROM produits p INNER JOIN categories c ON c.id = p.categorie_id";
+        $sql = "SELECT p.id, p.nom, p.prix, p.stock, p.description, p.image, p.statut, c.nom as category, c.id as categoryId FROM produits p INNER JOIN categories c ON c.id = p.categorie_id";
         $stmt = db()->query($sql);
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Produit::class);
@@ -27,21 +27,19 @@ class ProductRepository
      */
     public function findById($id)
     {
-        $stmt = db()->prepare("SELECT p.id, p.nom, p.prix, p.stock, p.categorie_id, p.description, p.image, c.id as category_id, c.nom as category FROM produits p INNER JOIN categories c ON c.id = p.categorie_id WHERE p.id = ?");
+        $stmt = db()->prepare("SELECT p.id, p.nom, p.prix, p.stock, p.categorie_id, p.description, p.image, c.id as categoryId, c.nom as category FROM produits p INNER JOIN categories c ON c.id = p.categorie_id WHERE p.id = ?");
         $stmt->execute([$id]);
 
-        return $stmt->fetch();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Produit::class);
+
+        $produit = $stmt->fetchAll();
+        return $produit;
     }
 
     /**
      * Ajoute un nouveau produit à la base de données 
      * 
-     * @param string $nom le nom du produit
-     * @param string $prix le prix du produit
-     * @param string $stock le stock du produit
-     * @param string $category la catégorie du produit
-     * @param string $description la description du produit
-     * @param string $image l'imafe du produit
+     * @param array $postData le post du produit
      */
     public function createProduct($postData)
     {
@@ -52,26 +50,13 @@ class ProductRepository
     /**
      * Modifie un produit
      * 
-     * @param int $id l'id du produit
-     * @param string $nom le nom du produit
-     * @param string $prix le prix du produit
-     * @param string $stock le stock du produit
-     * @param string $category la catégorie du produit
-     * @param string $description la description du produit
+     * @param array $postData le post du produit
      */
-    public function updateProduit($id, $nom, $prix, $stock, $category, $description, $image)
+    public function updateProduit($postData)
     {
-        $sql = db()->prepare("UPDATE produits SET nom = :nom, prix = :prix, stock = :stock, description = :description, categorie_id = :categorie_id, image = :image WHERE id = :id");
+        $sql = db()->prepare("UPDATE produits SET nom = :nom, prix = :prix, stock = :stock, description = :description, categorie_id = :category_id, image = :image WHERE id = :id");
         
-        $sql->execute([
-            'id' => $id,
-            'nom' => $nom,
-            'prix' => $prix,
-            'stock' => $stock,
-            'description' => $description,
-            'categorie_id' => $category,
-            'image' => $image
-        ]);
+        $sql->execute($postData);
     }
 
     /**
@@ -90,6 +75,8 @@ class ProductRepository
         $sql = "SELECT * FROM categories";
         $stmt = db()->query($sql);
 
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Category::class);
+
         $categories = $stmt->fetchAll();
 
         return $categories;
@@ -101,7 +88,7 @@ class ProductRepository
         $options = [];
 
         foreach ($categories as $category) {
-            $options[$category['id']] = $category['nom'];
+            $options[$category->getId()] = $category->getNom();
         }
 
         return $options;

@@ -1,9 +1,13 @@
+<?php
+
+?>
+
 <div class="d-flex align-items-center justify-content-between mb-4">
     <h1 class="h2">Détails de la commande</h1>
     <div class="d-flex">
-        <a href="<?= "/admin/commandes/update.php" ?>?id=<?= $commande['id'] ?>" class="btn btn-info me-2">Changer de livreur</a>
+        <a href="<?= "/admin/commandes/update.php" ?>?id= <?= $commande->getLivreur()->getId() ?>" class="btn btn-info me-2">Changer de livreur</a>
         <form action="<?= "/admin/commandes/delete.php" ?>" method="POST">
-            <input type="hidden" name="id" value="<?= $commande['id'] ?>">
+            <input type="hidden" name="id" value="<?= $commande->getId() ?>">
             <button type="submit" class="btn btn-danger me-2">Supprimer</button>
         </form>
         <a href="admin/commandes" class="btn btn-primary">Liste des commandes</a>
@@ -15,12 +19,12 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="text-muted">Numéro de la commande</div>
-                <strong><?= $commande['numero'] ?></strong>
-                <p>Statut <span class="badge bg-warning"><?= $commande['statut'] ?></span></p>
+                <strong><?= $commande->getNumero() ?></strong>
+                <p>Statut <span class="badge bg-warning"><?= $commande->getStatut() ?></span></p>
             </div>
             <div class="col-md-6 text-md-end">
                 <div class="text-muted">Date de création</div>
-                <strong><?= $commande['created_at'] ?></strong>
+                <strong><?= $commande->getCreatedAt() ?></strong>
             </div>
         </div>
 
@@ -30,25 +34,25 @@
             <div class="col-md-6">
                 <div class="text-muted">Client</div>
                 <strong>
-                    <strong><?= $commande['nom_client'] . ' ' .  $commande['prenom_client'] ?></strong>
+                    <strong><?= $commande->getClient()->getNom() . ' ' .  $commande->getClient()->getPrenom() ?></strong>
                 </strong>
                 <p>
-                    <?= $commande['adresse'] ?><br>
-                    <?= $commande['tel_client'] ?><br>
+                    <?= $commande->getAdresse() ?><br>
+                    <?= $commande->getClient()->getTel() ?><br>
                     <a href="#">
-                        <?= $commande['email_client'] ?>
+                        <?= $commande->getClient()->getEmail() ?>
                     </a>
                 </p>
             </div>
             <div class="col-md-6 text-md-end">
                 <div class="text-muted">Livreur</div>
                 <strong>
-                    <?= $commande['nom_livreur'] . ' ' .  $commande['prenom_livreur'] ?>
+                <?= $commande->getLivreur()->getNom() . ' ' .  $commande->getLivreur()->getPrenom() ?>
                 </strong>
                 <p>
-                    <?= $commande['tel_livreur'] ?><br>
+                <?= $commande->getLivreur()->getTel() ?><br>
                     <a href="#">
-                        <?= $commande['email_livreur'] ?>
+                    <?= $commande->getLivreur()->getEmail() ?>
                     </a>
                 </p>
             </div>
@@ -66,10 +70,10 @@
             <tbody>
                 <?php foreach ($articles as $article) : ?>
                     <tr>
-                        <td><?= $article['nom_produit'] ?></td>
-                        <td><?= $article['prix'] ?> XAF</td>
-                        <td><?= $article['quantite'] ?></td>
-                        <td class="text-end"><?= $article['quantite'] * $article['prix'] ?></td>
+                        <td><?= $article->getNomProduit() ?></td>
+                        <td><?= $article->getPrix() ?> XAF</td>
+                        <td><?= $article->getQuantite() ?></td>
+                        <td class="text-end"><?= $article->getQuantite() * $article->getPrix() ?></td>
                     </tr>
                 <?php endforeach ?>
 
@@ -84,7 +88,7 @@
 
         <div class="text-md-end">
             <div class="text-muted">Derniere modification </div>
-            <strong><?= $commande['updated_at'] ?></strong>
+            <strong><?= $commande->getUpdatedAt() ?></strong>
         </div>
     </div>
 </div>

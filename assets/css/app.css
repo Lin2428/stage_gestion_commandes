@@ -1,4 +1,10 @@
 
+.bouton_action{
+    color: white;
+    width: 80px;
+}
+
+
 img.image-liste-produit{
     width: 45px;
     height: 45px;

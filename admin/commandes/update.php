@@ -4,7 +4,7 @@ require '../../bootstrap.php';
 $id = $_GET['id'];
 
 $repoCommande = new CommandeRepository();
-$commande = $repoCommande->finById($id);
+$commande = $repoCommande->findById($id);
 
 $repoLivreur = new LivreurRepository();
 $livreurs = $repoLivreur->getLivreurLookup();

@@ -8,5 +8,8 @@
     ],
     "require": {
         "fakerphp/faker": "^1.23"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^6.3"
     }
 }

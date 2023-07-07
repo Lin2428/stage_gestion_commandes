@@ -2,7 +2,7 @@
 
     <div class="d-flex justify-content-between">
         <h1 class="h2 d-inline align-middle">Ajouter un produit</h1>
-        <a href="admin/products" class="btn btn-primary mb-4">Liste des produits</a>
+        <a href="/admin/produits" class="btn btn-primary mb-4">Liste des produits</a>
     </div>
     <form method="POST" enctype="multipart/form-data">
         <div class="card">

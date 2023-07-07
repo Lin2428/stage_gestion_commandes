@@ -7,28 +7,27 @@ $id = $_GET['id'];
 $repo = new ProductRepository();
 $produit = $repo->findById($id);
 $categories = $repo->getCategoriesLookup();
-
 if (is_post()) {
     if (!empty($_POST['nom'] && $_POST['prix']) && $_POST['category_id']) {
         $image = '';
         if (!empty($_FILES['image']['name'])){
             $image = uploadImage();
         }else{
-            $image = $produit['image'];
+            $image = $produit[0]->getImage();
         }
         if ($image <> "is-invalid") {
+
             $stock = intval($_POST['stock']);
 
-            $repo->updateProduit(
-                id: $id,
-                nom: $_POST['nom'],
-                prix: $_POST['prix'],
-                stock: $stock,
-                category: $_POST['category_id'],
-                description: $_POST['description'],
-                image: $image
-            );
-            unlink(base_url('/img/'.$produit['image']));
+            $data = $_POST;
+            $data['id'] = $id;
+            $data['stock'] = $stock;
+            $data['image'] = $image;
+
+            $stock = intval($_POST['stock']);
+
+            $repo->updateProduit($data);
+            unlink(image($produit[0]->getImage()));
 
             redirect('/admin/produits', "Le produit à bien été Modifier");
         }

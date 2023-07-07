@@ -10,15 +10,16 @@
                     <th>ID</th>
                     <th>Nom</th>
                     <th>Action</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($categories as $categorie) : ?>
                     <tr>
-                        <td><?= $categorie['id'] ?></td>
-                        <td><?= $categorie['nom'] ?></td>
+                        <td><?= $categorie->getId() ?></td>
+                        <td><?= $categorie->getNom() ?></td>
                         <td>
-                            <?= liste_action(id: $categorie['id'], dossier: "categories", detail: false) ?>
+                            <?= liste_action(id: $categorie->getId(), dossier: "categories", detail: false, desactive: true) ?>
                         <td>
                     </tr>
                 <?php endforeach; ?>

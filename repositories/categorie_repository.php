@@ -8,12 +8,17 @@ class CategoryRepository
      * 
      * @return array
      */
+
     public function getAll()
     {
         $sql = "SELECT c.nom, c.id FROM categories c";
         $stmt = db()->query($sql);
 
-        return $stmt->fetchAll();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Category::class);
+
+        $categories = $stmt->fetchAll();
+
+        return $categories;
     }
 
     /**
@@ -21,41 +26,40 @@ class CategoryRepository
      * 
      * @param int $id l'id de la catégorie
      */
+
     public function findById($id)
     {
         $stmt = db()->prepare("SELECT nom FROM categories WHERE id = ?");
         $stmt->execute([$id]);
 
-        return $stmt->fetch();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Category::class);
+
+        return $stmt->fetchAll();
     }
 
     /**
      * Ajoute une catégories à la base de données
      * 
-     *@param $nom le nom de la catégories
+     *@param array $data les données a inserer
      */
-    public function createCategorie($nom)
+
+    public function createCategorie($data)
     {
         $sql = db()->prepare("INSERT into categories (nom) VALUES (:nom)");
-        $sql->execute([
-            'nom' => $nom,
-        ]);
+        $sql->execute($data);
     }
 
     /**
      * Modifie une catégories
      * 
-     * @param int $id l'id de la catégorie
-     * @param string $nom le nom de la catégorie
+     *@param array $data les données a inserer
      */
-    public function updateCategory($id, $nom)
+
+    public function updateCategory($data)
     {
         $sql = db()->prepare("UPDATE categories SET nom = :nom WHERE id = :id");
-        
-        $sql->execute([
-            'id' => $id,
-            'nom' => $nom
-        ]);
+
+        $sql->execute($data);
     }
 
     /**
@@ -63,6 +67,7 @@ class CategoryRepository
      * 
      * @param int $id l'id de la catégorie
      */
+    
     public function deleteCategory($id)
     {
         $sql = db()->prepare("DELETE FROM categories WHERE id = ?");

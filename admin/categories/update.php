@@ -9,10 +9,9 @@ $categorie = $repo->findById($id);
 
 if (is_post()) {
     if (!empty($_POST['nom'])) {
-        $repo->updateCategory(
-            id: $id,
-            nom: $_POST['nom'],
-        );
+        $data = $_POST;
+        $data['id'] = $id;
+        $repo->updateCategory($data);
 
         redirect('/admin/categories', "Le produit à bien été Modifier");
     }

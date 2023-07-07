@@ -9,19 +9,19 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12 col-lg-6">
-                        <?= form_input(label: "Nom", name: "nom", default: $livreur['nom']) ?>
-                        <?= form_input(label: "Prénom", name: "prenom", default: $livreur['prenom']) ?>
+                        <?= form_input(label: "Nom", name: "nom", default: $livreur[0]->getNom()) ?>
+                        <?= form_input(label: "Prénom", name: "prenom", default: $livreur[0]->getPrenom()) ?>
                         <?= form_input(label: "Photo", name: "image", type: "file", required: false) ?>
-                        <?php if ($livreur['image']) : ?>
+                        <?php if ($livreur[0]->getImage()) : ?>
                             <div class="image-update-prouit">
-                                <img src="<?= base_url('/img/'. $livreur['image']) ?>" alt="">
+                                <img src="<?= image($livreur[0]->getImage()) ?>" alt="">
                             </div>
                         <?php endif ?>
                     </div>
 
                     <div class="col-12 col-lg-6">
-                        <?= form_input(label: "Email", name: "email", type: "email", default: $livreur['email']) ?>
-                        <?= form_input(label: "Télephone", name: "tel", type: "number", default: $livreur['tel']) ?>
+                        <?= form_input(label: "Email", name: "email", type: "email", default: $livreur[0]->getEmail()) ?>
+                        <?= form_input(label: "Télephone", name: "tel", type: "number", default: $livreur[0]->getTel()) ?>
                         <?= form_input(label: "Mot de passe", name: "password", type: "passeword", required: false) ?>
                     </div>
                     <div class="col-3 mt-4">

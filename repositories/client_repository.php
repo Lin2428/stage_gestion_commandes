@@ -10,8 +10,10 @@ class ClientRepository
      */
     public function getAll()
     {
-        $sql = "SELECT c.id, c.nom, c.prenom, c.email, c.tel, c.created_at, c.updated_at FROM clients c";
+        $sql = "SELECT c.id, c.nom, c.prenom, c.email, c.tel, c.password, c.created_at as createdAt, updated_at as updatedAt FROM clients c";
         $stmt = db()->query($sql);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Client::class);
 
         return $stmt->fetchAll();
     }
@@ -26,6 +28,8 @@ class ClientRepository
         $stmt = db()->prepare("SELECT c.id, c.nom, c.prenom, c.email, c.tel, c.created_at, c.updated_at FROM clients c WHERE c.id = ?");
         $stmt->execute([$id]);
 
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Client::class);
+        
         return $stmt->fetch();
     }
 

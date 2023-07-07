@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var Produit[] $produits
  */
@@ -17,7 +18,9 @@
                 <th>Catégorie</th>
                 <th>Prix</th>
                 <th>Stock</th>
+                <th>Statut</th>
                 <th>Actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -26,7 +29,7 @@
                     <td><?= $produit->getId() ?></td>
                     <td>
                         <div class="">
-                            <img class="image-liste-produit" src="<?= base_url('/img/' . $produit->getImage()) ?>" alt="image">
+                            <img class="image-liste-produit" src="<?= image($produit->getImage()) ?>" alt="image">
                         </div>
                     </td>
                     <td><?= $produit->getNom() ?></td>
@@ -34,7 +37,15 @@
                     <td><?= $produit->getPrix() ?> XAF</td>
                     <td><?= $produit->getStock() ?></td>
                     <td>
-                        <?= liste_action($produit->getId(), "produits") ?>
+                        <?php if ($produit->getStatut() === 1 || $produit->getStock() < 1 ) : ?>
+                            <span class=" badge bg-warning">Hors vente</span>
+                        <?php else : ?>
+                            <span class=" badge bg-success">En vente</span>
+                        <?php endif ?>
+
+                    </td>
+                    <td>
+                        <?= liste_action($produit->getId(), "produits", desactive: true, statut: $produit->getStatut()) ?>
                     <td>
                 </tr>
             <?php endforeach; ?>

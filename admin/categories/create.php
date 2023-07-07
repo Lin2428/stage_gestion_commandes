@@ -5,7 +5,8 @@ $repo = new CategoryRepository();
 
 if (is_post()) {
     if (!empty($_POST['nom'])) {
-        $repo->createCategorie($_POST['nom']);
+        $data = $_POST;
+        $repo->createCategorie($data);
 
         redirect("/admin/categories/", "La catégorie a bien été ajouté!");
     }
@@ -13,6 +14,6 @@ if (is_post()) {
 
 view(
     name: "admin.categories.create",
-    pageTitle: "Catégories",
+    pageTitle: "Ajouter Catégories",
     params: []
 );

@@ -4,33 +4,27 @@
 
 <div class="card">
     <div class="card-body">
-        <table class="table table-responsive table-striped" style="width:100%">
+        <table class="table table-responsive" style="width:100%">
             <thead>
                 <tr>
-                    <th>id</th>
                     <th>Nom</th>
                     <th>Prénom</th>
                     <th>Email</th>
                     <th>Tél</th>
-                    <th>Inscription</th>
-                    <th>Edition</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($clients as $client) : ?>
                     <tr>
-                        <td><?= $client['id'] ?></td>
-                        <td><?= $client['nom'] ?></td>
-                        <td><?= $client['prenom'] ?></td>
-                        <td><?= $client['email'] ?></td>
-                        <td><?= $client['tel'] ?></td>
-                        <td><?= $client['created_at'] ?></td>
-                        <td><?= $client['updated_at'] ?></td>
+                        <td><?= $client->getNom() ?></td>
+                        <td><?= $client->getPrenom() ?></td>
+                        <td><?= $client->getEmail() ?></td>
+                        <td><?= $client->getTel() ?></td>
                         <td>
                             <form action="<?= base_url('/admin/clients/delete.php') ?>" method="POST" class="d-inline">
-                                <input type="hidden" name="id" value="<?= $client['id'] ?>">
-                                <button type="submit" class="btn btn-danger btn-sm ">Supprimer</button>
+                                <input type="hidden" name="id" value="<?= $client->getId() ?>">
+                                <button type="submit" class="btn btn-warning btn-sm ">Désactiver</button>
                             </form>
                         </td>
                     </tr>

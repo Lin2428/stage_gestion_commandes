@@ -7,9 +7,11 @@ class CommandeRepository
      */
     public function getAll()
     {
-        $sql = "SELECT cm.id, cm.numero, cm.adresse, cm.statut, cm.created_at, cm.updated_at, cl.nom as nom_client, cl.prenom as prenom_client, lv.nom as nom_livreur, lv.prenom as prenom_livreur FROM commandes cm INNER JOIN clients cl ON cm.client_id = cl.id INNER JOIN livreurs lv ON cm.livreur_id = lv.id";
+        $sql = "SELECT cm.id, cm.numero, cm.adresse, cm.statut, cm.created_at as createdAt, cm.updated_at as updatedAt, cm.client_id as clientId, cm.livreur_id as livreurId FROM commandes cm ";
         $stmt = db()->query($sql);
 
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Commande::class);
+        
         return $stmt->fetchAll();
     }
 
@@ -18,12 +20,17 @@ class CommandeRepository
      * 
      * @param $id l'id de la commande
      */
-    public function finById($id)
+    public function findById($id)
     {
-        $stmt = db()->prepare("SELECT cm.id, cm.numero, cm.adresse, cm.statut, cm.created_at, cm.updated_at, cl.nom as nom_client, cl.prenom as prenom_client, cl.email as email_client, cl.tel as tel_client, lv.nom as nom_livreur, lv.prenom as prenom_livreur, lv.tel as tel_livreur, lv.email as email_livreur, lv.id as id_livreur FROM commandes cm INNER JOIN clients cl ON cm.client_id = cl.id INNER JOIN livreurs lv ON cm.livreur_id = lv.id WHERE cm.id = ?");
+        $stmt = db()->prepare("SELECT cm.id, cm.numero, cm.adresse, cm.statut, cm.created_at as createdAt, cm.updated_at as updatedAt, cm.client_id as clientId, cm.livreur_id as livreurId, c.nom as clientNom, c.prenom as clientPrenom, c.tel as clientTel, c.email as clientEmail, l.nom as livreurNom, l.prenom as livreurPrenom, l.tel as livreurTel, l.email as livreurEmail  FROM commandes cm INNER JOIN clients c ON c.id = cm.client_id INNER JOIN livreurs l ON l.id = cm.livreur_id WHERE cm.id = ?");
         $stmt->execute([$id]);
 
-        return $stmt->fetch();
+        // $stmt->setFetchMode(PDO::FETCH_CLASS, Commande::class);
+        
+        $data = $stmt->fetch();
+        $commande = Commande::parse($data);
+
+        return $commande;
     }
 
     /**
@@ -31,10 +38,11 @@ class CommandeRepository
      * 
      * @param $id l'id de la commande
      */
-    public function getArticleById($id)
+    public function getArticleById($commande)
     {
-        $stmt = db()->prepare("SELECT pc.prix, pc.quantite, p.nom as nom_produit  From produits_commandes pc INNER JOIN produits p ON p.id = pc.produit_id WHERE pc.commande_id = ?");
-        $stmt->execute([$id]);
+        $stmt = db()->query("SELECT pc.id, pc.prix, pc.quantite, p.id as produitId, p.nom as nomProduit, pc.commande_id as commandeId  FROM produits_commandes pc INNER JOIN produits p ON p.id = pc.produit_id WHERE commande_id = $commande");
+        
+        $stmt->setFetchMode(PDO::FETCH_CLASS, ProduitCommande::class);
 
         return $stmt->fetchAll();
     }

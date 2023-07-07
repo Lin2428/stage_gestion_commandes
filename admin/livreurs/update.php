@@ -13,26 +13,25 @@ if (is_post()) {
         if (!empty($_FILES['image']['name'])) {
             $image = uploadImage();
         } else {
-            $image = $livreur['image'];
+            $image = $livreur[0]->getImage();
         }
 
         if (!empty($_POST['password'])) {
             $password = $_POST['password'];
         } else {
-            $password = $livreur['password'];
+            $password = $livreur[0]->getPassword();
         }
 
         if ($image != "is-invalid") {
 
-            $repo->updateLivreur(
-                id: $id,
-                nom: $_POST['nom'],
-                prenom: $_POST['prenom'],
-                email: $_POST['email'],
-                tel: $_POST['tel'],
-                password: $password,
-                image: $image
-            );
+            $data = $_POST;
+
+            $data['id'] = $id;
+            $data['image'] = $image;
+            $data['password'] = $password;
+            $data['updated_at'] = date('Y-m-d');
+
+            $repo->updateLivreur($data);
             unlink(base_url('/img/' . $livreur['image']));
 
             redirect('/admin/livreurs', "Le livreur à bien été Modifier");

@@ -1,13 +1,19 @@
 <?php
 session_start();
 
+require 'vendor/autoload.php';
 require 'constant.php';
 
 include ROOT . 'db.php';
 include ROOT . 'functions.php';
 
 
-require ROOT . 'models' . DS .'produit.model.php';
+model('produit.model.php');
+model('category.model.php');
+model('client.model.php');
+model('livreur.model.php');
+model('commande.model.php');
+model('produit_commande.model.php');
 
 // Repositories
 include_repo('product_repository.php');

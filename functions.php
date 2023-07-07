@@ -67,12 +67,14 @@ function is_active(string $url): string
 /**
  * Formate le code à debuger avec la balise <pre> de html
  */
+/*
 function debug($var)
 {
     echo "<pre>";
     var_dump($var);
     echo "</pre>";
 }
+*/
 
 /**
  * Retourne le chémin d'un repository
@@ -122,6 +124,15 @@ function base_url($link)
 }
 
 /**
+ * Require le fichier model d'une entité
+ * 
+ * @param $nom le nom du fichier
+ */
+function model($nom){
+    return require ROOT . 'models' . DS . $nom;
+}
+
+/**
  * Load css from asset dir
  */
 function css($name)
@@ -131,6 +142,15 @@ function css($name)
     }
 
     return '<link href="' . SITE_URL . '/assets/' . $name . '" rel="stylesheet">';
+}
+
+/**
+ * Load l'image depuis assets
+ * 
+ * @param $image l'image 
+ */
+function image($name){
+ return base_url('/assets/dist/img/'. $name);
 }
 
 
@@ -144,16 +164,22 @@ function css($name)
  * 
  * @return string $html le code des bouton
  */
-function liste_action($id, $dossier, $detail = true)
+function liste_action($id, $dossier, $detail = true, $desactive = false, int $statut = 2)
 {
-    $html = "";
-    if ($detail) {
-        $html .= '<a href="' . base_url('/admin/' . $dossier . '/detail.php?id=' . $id) . '" class=" btn badge bg-info">Détails</a> ';
+    $active = $desactive ? "Désactiver" : 'supprimer';
+    $class = "bg-danger";
+    if($desactive === true && $statut === 1){
+        $active = "Activer";
+        $class = "bg-success";
     }
-    $html .= '<a href="' . base_url('/admin/' . $dossier . '/update.php?id=' . $id) . '" class="btn badge bg-primary btn-sm me-1">Modifier</a>';
+    $html = '';
+    if ($detail) {
+        $html .= '<a href="' . base_url('/admin/' . $dossier . '/detail.php?id=' . $id) . '" class=" btn bouton_action btn-sm bg-info">Détails</a> ';
+    }
+    $html .= '<a href="' . base_url('/admin/' . $dossier . '/update.php?id=' . $id) . '" class="btn bouton_action bg-primary btn-sm me-1">Modifier</a>';
     $html .= '<form action="' . base_url('/admin/' . $dossier . '/delete.php') . '" method="POST" class="d-inline text-align-center">';
     $html .= '<input type="hidden" name="id" value="' . $id . '">';
-    $html .= '<button type="submit" class="badge bg-danger btn-sm btn">Supprimer</button>';
+    $html .= '<button type="submit" class="bouton_action '. $class .'  btn-sm btn">'. $active .'</button>';
     $html .= ' </form>';
 
     return $html;
@@ -300,7 +326,7 @@ function uploadImage(): ?string
     $uniqueName = md5(uniqid(rand(), true));
     $fileName = $uniqueName . '.' .  $extention;
 
-    move_uploaded_file($tmpName, "../../img/$fileName");
+    move_uploaded_file($tmpName, "../../assets/dist/img/".$fileName);
 
     return $fileName;
 }
