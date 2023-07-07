@@ -7,12 +7,13 @@ class CommandeRepository
      */
     public function getAll()
     {
-        $sql = "SELECT cm.id, cm.numero, cm.adresse, cm.statut, cm.created_at as createdAt, cm.updated_at as updatedAt, cm.client_id as clientId, cm.livreur_id as livreurId FROM commandes cm ";
+        $sql = "SELECT cm.id, cm.numero, cm.adresse, cm.statut, cm.created_at as createdAt, c.nom as clientNom, c.prenom as clientPrenom, l.nom as livreurNom, l.prenom as livreurPrenom FROM commandes cm INNER JOIN clients c ON c.id = cm.client_id INNER JOIN livreurs l ON l.id = cm.livreur_id";
         $stmt = db()->query($sql);
+        $data = $stmt->fetchAll();
 
-        $stmt->setFetchMode(PDO::FETCH_CLASS, Commande::class);
+        $data = Commande::parse($data);
         
-        return $stmt->fetchAll();
+        return $data;
     }
 
     /**

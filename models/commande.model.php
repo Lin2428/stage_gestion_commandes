@@ -19,7 +19,8 @@ class Commande
     /**
      * @var Livreur
      */
-    private $livreur;
+
+     private $livreur;
 
 
     public static function parse($data): Commande
