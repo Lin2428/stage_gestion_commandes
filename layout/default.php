@@ -62,7 +62,7 @@
     <script src="<?= base_url('assets/dist/js/app.js') ?>"></script>
 
     <script>
-       /* document.addEventListener("DOMContentLoaded", function() {
+       document.addEventListener("DOMContentLoaded", function() {
             var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
             var gradient = ctx.createLinearGradient(0, 0, 0, 225);
             gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
@@ -71,25 +71,25 @@
             new Chart(document.getElementById("chartjs-dashboard-line"), {
                 type: "line",
                 data: {
-                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                    labels: ["Jan", "Feb", "Mar", "Avr", "Mai", "Juin", "Juil", "Août", "Sep", "Oct", "Nov", "Dec"],
                     datasets: [{
-                        label: "Sales ($)",
+                        label: "FCFA (XAF)",
                         fill: true,
                         backgroundColor: gradient,
                         borderColor: window.theme.primary,
                         data: [
-                            2115,
-                            1562,
-                            1584,
-                            1892,
-                            1587,
-                            1923,
-                            2566,
-                            2448,
-                            2805,
-                            3438,
-                            2917,
-                            3327
+                            21150,
+                            15620,
+                            15840,
+                            18920,
+                            15870,
+                            19230,
+                            25660,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0
                         ]
                     }]
                 },
@@ -118,7 +118,7 @@
                         }],
                         yAxes: [{
                             ticks: {
-                                stepSize: 1000
+                                stepSize: 10000
                             },
                             display: true,
                             borderDash: [3, 3],
@@ -129,10 +129,10 @@
                     }
                 }
             });
-        });*/
+        });
     </script>
-    <script>
-        /*document.addEventListener("DOMContentLoaded", function() {
+    <script>/*
+        document.addEventListener("DOMContentLoaded", function() {
             // Pie chart
             new Chart(document.getElementById("chartjs-dashboard-pie"), {
                 type: "pie",
