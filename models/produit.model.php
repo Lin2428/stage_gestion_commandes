@@ -37,7 +37,7 @@ class Produit
         return $this->categoryId;
     }
 
-    public function getImage(): string
+    public function getImage(): ?string
     {
         return $this->image;
     }

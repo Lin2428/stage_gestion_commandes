@@ -3,10 +3,22 @@ require '../../bootstrap.php';
 
 if (is_post() && !empty($_POST['id'])) {
 
-    // $repo = new ClientRepository();
-    // $repo->deleteClient($_POST['id']);
+    $id = $_POST['id'];
 
-    redirect('admin/livreurs/', "Le livreur a bient été désactivé");
-} else {
-    redirect('admin/livreurs/', "Il ne s'est rien passé", "danger");
+    $repos = new ClientRepository();
+    $client = $repos->findById($id);
+
+    $statut = 0;
+    if ($client->getStatut() === 0) {
+        $statut = 1;
+
+        flash_message("le client a bient été mis en ligne");
+    } else {
+
+        flash_message("le client a bient été mis hors ligne");
+    }
+
+    $repos->updateStatut($id, $statut);
+
+    redirect('admin/clients/');
 }

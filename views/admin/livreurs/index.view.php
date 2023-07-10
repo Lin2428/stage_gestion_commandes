@@ -29,8 +29,13 @@
                         <td><?= $livreur->getPrenom() ?></td>
                         <td><?= $livreur->getEmail() ?></td>
                         <td><?= $livreur->getTel() ?></td>
-                        <td><span class="badge bg-success">Active</span></td>
-                        <td><?= liste_action(id: $livreur->getId(), dossier: "livreurs", desactive: true) ?></td>
+                        <td><?php if ($livreur->getStatut() === 0) : ?>
+                                <span class=" badge bg-warning">Inactif</span>
+                            <?php else : ?>
+                                <span class=" badge bg-success">Actif</span>
+                            <?php endif ?>
+                        </td>
+                        <td><?= liste_action(id: $livreur->getId(), dossier: "livreurs", desactive: true, statut: $livreur->getStatut()) ?></td>
                     </tr>
                 <?php endforeach ?>
             </tbody>

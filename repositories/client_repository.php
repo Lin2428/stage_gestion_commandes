@@ -10,7 +10,7 @@ class ClientRepository
      */
     public function getAll()
     {
-        $sql = "SELECT c.id, c.nom, c.prenom, c.email, c.tel, c.password, c.created_at as createdAt, updated_at as updatedAt FROM clients c";
+        $sql = "SELECT c.id, c.nom, c.prenom, c.email, c.tel, c.password, c.created_at as createdAt, updated_at as updatedAt, statut FROM clients c";
         $stmt = db()->query($sql);
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Client::class);
@@ -25,7 +25,7 @@ class ClientRepository
      */
     public function findById($id)
     {
-        $stmt = db()->prepare("SELECT c.id, c.nom, c.prenom, c.email, c.tel, c.created_at, c.updated_at FROM clients c WHERE c.id = ?");
+        $stmt = db()->prepare("SELECT c.id, c.nom, c.prenom, c.email, c.tel, c.created_at, c.updated_at, statut FROM clients c WHERE c.id = ?");
         $stmt->execute([$id]);
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Client::class);
@@ -89,4 +89,20 @@ class ClientRepository
         $sql = db()->prepare("DELETE FROM clients WHERE id = ?");
         $sql->execute([$id]);
     }
+
+    /**
+     * Met ajour le status d'un client
+     * 
+     * @param int $id l'id du client
+     */
+
+     public function updateStatut($id, $statut)
+     {
+         $sql = db()->prepare("UPDATE clients SET statut = :statut WHERE id = :id");
+ 
+         $sql->execute([
+             'id' => $id,
+             'statut' => $statut,
+         ]);
+     }
 }

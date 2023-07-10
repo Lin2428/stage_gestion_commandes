@@ -1,5 +1,5 @@
 <?php
-
+new DateTime();
 ?>
 
 <div class="d-flex align-items-center justify-content-between mb-4">
@@ -24,7 +24,7 @@
             </div>
             <div class="col-md-6 text-md-end">
                 <div class="text-muted">Date de création</div>
-                <strong><?= $commande->getCreatedAt() ?></strong>
+                <strong><?= date_format(date_create($commande->getCreatedAt()), 'd/m/Y') ?></strong>
             </div>
         </div>
 
@@ -88,7 +88,7 @@
 
         <div class="text-md-end">
             <div class="text-muted">Derniere modification </div>
-            <strong><?= $commande->getUpdatedAt() ?></strong>
+            <strong><?= date_format(date_create($commande->getUpdatedAt()), 'd/m/Y') ?></strong>
         </div>
     </div>
 </div>

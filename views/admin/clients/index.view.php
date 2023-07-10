@@ -11,6 +11,7 @@
                     <th>Prénom</th>
                     <th>Email</th>
                     <th>Tél</th>
+                    <th>Statut</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -21,10 +22,23 @@
                         <td><?= $client->getPrenom() ?></td>
                         <td><?= $client->getEmail() ?></td>
                         <td><?= $client->getTel() ?></td>
+                        <td><?php if ($client->getStatut() === 0) : ?>
+                                <span class=" badge bg-warning">Inactif</span>
+                            <?php else : ?>
+                                <span class=" badge bg-success">Actif</span>
+                            <?php endif ?>
+                        </td>
                         <td>
                             <form action="<?= base_url('/admin/clients/delete.php') ?>" method="POST" class="d-inline">
                                 <input type="hidden" name="id" value="<?= $client->getId() ?>">
-                                <button type="submit" class="btn btn-warning btn-sm ">Désactiver</button>
+                                <?php if ($client->getStatut() === 1) : ?>
+                                    <?php $texte = "Désactivé"; $class = "btn-danger" ?>
+                                    <?php else : ?>
+                                    <?php $texte = "Activé"; $class = "btn-success" ?>
+                                <?php endif ?>
+
+                                <button type="submit" class="btn <?= $class ?> btn-sm bouton_action"><?= $texte ?></button>
+                                
                             </form>
                         </td>
                     </tr>

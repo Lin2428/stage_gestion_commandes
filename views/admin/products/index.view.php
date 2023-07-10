@@ -37,7 +37,7 @@
                     <td><?= $produit->getPrix() ?> XAF</td>
                     <td><?= $produit->getStock() ?></td>
                     <td>
-                        <?php if ($produit->getStatut() === 1 || $produit->getStock() < 1 ) : ?>
+                        <?php if ($produit->getStatut() === 0) : ?>
                             <span class=" badge bg-warning">Hors vente</span>
                         <?php else : ?>
                             <span class=" badge bg-success">En vente</span>

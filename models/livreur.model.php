@@ -11,6 +11,7 @@ class Livreur
     private $createdAt;
     private $updatedAt;
     private $image;
+    private $statut;
 
     public static function parse($data): self
     {
@@ -67,6 +68,11 @@ class Livreur
     public function getImage(): string
     {
         return $this->image;
+    }
+
+    public function getStatut(): int
+    {
+        return $this->statut;
     }
 
 }

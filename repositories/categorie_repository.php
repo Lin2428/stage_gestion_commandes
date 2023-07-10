@@ -11,7 +11,7 @@ class CategoryRepository
 
     public function getAll()
     {
-        $sql = "SELECT c.nom, c.id FROM categories c";
+        $sql = "SELECT c.nom, c.id, c.statut FROM categories c";
         $stmt = db()->query($sql);
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Category::class);
@@ -29,7 +29,7 @@ class CategoryRepository
 
     public function findById($id)
     {
-        $stmt = db()->prepare("SELECT nom FROM categories WHERE id = ?");
+        $stmt = db()->prepare("SELECT nom, statut FROM categories WHERE id = ?");
         $stmt->execute([$id]);
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Category::class);
@@ -45,7 +45,7 @@ class CategoryRepository
 
     public function createCategorie($data)
     {
-        $sql = db()->prepare("INSERT into categories (nom) VALUES (:nom)");
+        $sql = db()->prepare("INSERT into categories (nom, statut) VALUES (:nom, :statut)");
         $sql->execute($data);
     }
 
@@ -73,4 +73,20 @@ class CategoryRepository
         $sql = db()->prepare("DELETE FROM categories WHERE id = ?");
         $sql->execute([$id]);
     }
+
+     /**
+     * Met ajour le status d'une catégorie
+     * 
+     * @param int $id l'id de la categoriee la categorie produit
+     */
+
+     public function updateStatut($id, $statut)
+     {
+         $sql = db()->prepare("UPDATE categories SET statut = :statut WHERE id = :id");
+ 
+         $sql->execute([
+             'id' => $id,
+             'statut' => $statut,
+         ]);
+     }
 }

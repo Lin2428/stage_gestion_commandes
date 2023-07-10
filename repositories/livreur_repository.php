@@ -10,7 +10,7 @@ class LivreurRepository
      */
     public function getAll()
     {
-        $sql = "SELECT l.id, l.nom, l.prenom, l.email, l.tel, l.password, l.updated_at as updatedAt, l.created_at as createdAt, l.image FROM livreurs l";
+        $sql = "SELECT l.id, l.nom, l.prenom, l.email, l.tel, l.password, l.updated_at as updatedAt, l.created_at as createdAt, l.image, l.statut FROM livreurs l";
         $stmt = db()->query($sql);
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Livreur::class);
@@ -25,7 +25,7 @@ class LivreurRepository
      */
     public function findById($id)
     {
-        $stmt = db()->prepare("SELECT l.id, l.nom, l.prenom, l.email, l.tel, l.password, l.updated_at as updatedAt, l.created_at as createdAt, l.image FROM livreurs l WHERE id = ?");
+        $stmt = db()->prepare("SELECT l.id, l.nom, l.prenom, l.email, l.tel, l.password, l.updated_at as updatedAt, l.created_at as createdAt, l.image, statut FROM livreurs l WHERE id = ?");
         $stmt->execute([$id]);
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Livreur::class);
@@ -93,4 +93,20 @@ class LivreurRepository
 
         return $options;
     }
+
+    /**
+     * Met ajour le statut d'un livreur
+     * 
+     * @param int $id l'id du livreur
+     */
+
+     public function updateStatut($id, $statut)
+     {
+         $sql = db()->prepare("UPDATE livreurs SET statut = :statut WHERE id = :id");
+ 
+         $sql->execute([
+             'id' => $id,
+             'statut' => $statut,
+         ]);
+     }
 }

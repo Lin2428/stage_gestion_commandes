@@ -10,6 +10,7 @@ class Client
     private $password;
     private $createdAt;
     private $updatedAt;
+    private $statut;
 
     public static function parse($data): self
     {
@@ -60,5 +61,10 @@ class Client
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    public function getStatut()
+    {
+        return $this->statut;
     }
 }

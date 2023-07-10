@@ -10,7 +10,7 @@
                     <th>Numéro</th>
                     <th>Statut</th>
                     <th>Création</th>
-                    <th class="text-center">ID Client</th>
+                    <th class="text-center">Client</th>
                     <th>ID Livreur</th>
                     <th>Action</th>
                 </tr>
@@ -21,9 +21,9 @@
                         <td><?= $commande->getNumero() ?></td>
                        
                         <td><span class="badge bg-warning"><?= $commande->getStatut() ?></span></td>
-                        <td><?= $commande->getCreatedAt() ?></td>
-                        <td><?= $commande->getClientId() ?></td>
-                        <td><?= $commande->getLivreurId() ?></td>
+                        <td><?= date_format(date_create($commande->getCreatedAt()), 'd/m/Y')  ?></td>
+                        <td class="text-center"><?= $commande->clientNom ?></td>
+                        <td><?= $commande->livreurNom ?></td>
                         <td><?= liste_action($commande->getId(), "commandes") ?></td>
                     </tr>
                 <?php endforeach ?>

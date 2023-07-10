@@ -17,6 +17,7 @@ if (is_post()) {
 
             $data['stock'] = $stock;
             $data['image'] = $image;
+            $data['statut'] = 1;
 
             $repo->createProduct($data);
 

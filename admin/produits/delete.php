@@ -3,10 +3,20 @@ require '../../bootstrap.php';
 
 if (is_post() && !empty($_POST['id'])) {
 
-    // $repo = new ProductRepository();
-    // $repo ->deleteProduit($_POST['id']);
-    
-    flash_message("Le produit a bient été mis hors vente");
+    $id = $_POST['id'];
+
+    $repos = new ProductRepository();
+    $produit = $repos->findById($id);
+
+    $statut = 0;
+    if ($produit[0]->getStatut() === 0) {
+        $statut = 1;
+        flash_message("Le produit a bient été mis en vente");
+    }else{
+        flash_message("Le produit a bient été mis hors vente");
+    }
+
+    $repos->updateStatut($id, $statut);
     header('Location: admin/produits/');
     die();
 } else {

@@ -164,11 +164,11 @@ function image($name){
  * 
  * @return string $html le code des bouton
  */
-function liste_action($id, $dossier, $detail = true, $desactive = false, int $statut = 2)
+function liste_action($id, $dossier, $detail = true, $desactive = false, int $statut = 0)
 {
     $active = $desactive ? "Désactiver" : 'supprimer';
     $class = "bg-danger";
-    if($desactive === true && $statut === 1){
+    if($desactive === true && $statut === 0){
         $active = "Activer";
         $class = "bg-success";
     }

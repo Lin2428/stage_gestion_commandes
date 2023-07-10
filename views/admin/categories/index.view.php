@@ -9,7 +9,8 @@
                 <tr>
                     <th>ID</th>
                     <th>Nom</th>
-                    <th>Action</th>
+                    <th>Statut</th>
+                    <th class="text-center">Action</th>
                     <th></th>
                 </tr>
             </thead>
@@ -19,7 +20,15 @@
                         <td><?= $categorie->getId() ?></td>
                         <td><?= $categorie->getNom() ?></td>
                         <td>
-                            <?= liste_action(id: $categorie->getId(), dossier: "categories", detail: false, desactive: true) ?>
+                        <?php if ($categorie->getStatut() === 0) : ?>
+                            <span class=" badge bg-warning">Inactive</span>
+                        <?php else : ?>
+                            <span class=" badge bg-success">Active</span>
+                        <?php endif ?>
+
+                    </td>
+                        <td class="text-center">
+                            <?= liste_action(id: $categorie->getId(), dossier: "categories", detail: false, desactive: true, statut: $categorie->getStatut()) ?>
                         <td>
                     </tr>
                 <?php endforeach; ?>
