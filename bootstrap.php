@@ -7,7 +7,7 @@ require 'constant.php';
 include ROOT . 'db.php';
 include ROOT . 'functions.php';
 
-
+model('admin.model.php');
 model('produit.model.php');
 model('category.model.php');
 model('client.model.php');

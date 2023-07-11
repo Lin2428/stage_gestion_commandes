@@ -10,7 +10,7 @@
                     <th>Numéro</th>
                     <th>Statut</th>
                     <th>Création</th>
-                    <th class="text-center">Client</th>
+                    <th>Client</th>
                     <th>ID Livreur</th>
                     <th>Action</th>
                 </tr>
@@ -19,15 +19,18 @@
                 <?php foreach ($commandes as $commande) : ?>
                     <tr>
                         <td><?= $commande->getNumero() ?></td>
-                       
+
                         <td><span class="badge bg-warning"><?= $commande->getStatut() ?></span></td>
                         <td><?= date_format(date_create($commande->getCreatedAt()), 'd/m/Y')  ?></td>
-                        <td class="text-center"><?= $commande->clientNom ?></td>
+                        <td><?= $commande->clientNom ?></td>
                         <td><?= $commande->livreurNom ?></td>
                         <td><?= liste_action($commande->getId(), "commandes") ?></td>
                     </tr>
                 <?php endforeach ?>
             </tbody>
         </table>
+        <div class="d-flex justify-content-center align-items-center">
+            <?php paginate($pageCount, $page, '/admin/commandes'); ?>
+        </div>
     </div>
 </div>

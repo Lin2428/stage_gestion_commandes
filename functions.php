@@ -330,3 +330,8 @@ function uploadImage(): ?string
 
     return $fileName;
 }
+
+
+function paginate($pageCount, $currentPage, $baseUrl) {
+    require LAYOUT_PATH . 'parts' . DS . 'pagination.php';
+}

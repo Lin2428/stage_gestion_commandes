@@ -6,29 +6,31 @@ class AdminRepository
      * Recupère les prix de la date courant
      */
 
-    public function getCurrentRevenu()
+    public function getCurrent()
     {
-        $date = date("Y-m-d");
-        $stmt = db()->prepare("SELECT prix FROM produits_commandes WHERE created_at = ?");
 
-        $stmt->execute([$date]);
+        $sql = ("SELECT SUM(pc.prix) as revenuCurrent, COUNT(DISTINCT c.id) as nbCommande  FROM produits_commandes pc INNER JOIN commandes c ON c.id = pc.commande_id WHERE DATE(c.created_at) = DATE(NOW())");
 
-        $revenu =  $stmt->fetchAll();
+        $stmt =  db()->query($sql);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Admin::class);
+
+        $revenu = $stmt->fetch();
         return $revenu;
     }
 
     /**
-     * Récupère les commandes de la date courant
+     * Récupère les commandes livrées de la date courant
      */
-    public function getCurrentCommandes()
+    public function getLivrer()
     {
-        $date = date("Y-m-d");
-        $stmt = db()->prepare("SELECT statut FROM commandes WHERE created_at = ?");
+        $sql = ("SELECT COUNT(DISTINCT id) as nbLivrer FROM commandes WHERE statut = 'livrer' AND DATE(created_at) = DATE(NOW())");
 
-        $stmt->execute([$date]);
+        $stmt = db()->query($sql);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Admin::class);
 
-        $commande =  $stmt->fetchAll();
-        return $commande;
+        $nbLivrer = $stmt->fetch();
+
+        return $nbLivrer;
     }
 
     /**
@@ -36,11 +38,12 @@ class AdminRepository
      */
     public function getRevenuTotal()
     {
-        $stmt = db()->prepare("SELECT prix FROM produits_commandes");
+        $sql = ("SELECT SUM(prix) as total FROM produits_commandes");
 
-        $stmt->execute();
+        $stmt = db()->query($sql);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Admin::class);
 
-        $revenu =  $stmt->fetchAll();
+        $revenu =  $stmt->fetch();
         return $revenu;
     }
 }
