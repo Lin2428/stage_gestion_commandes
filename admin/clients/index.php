@@ -2,12 +2,22 @@
 require '../../bootstrap.php';
 
 $repo = new ClientRepository();
-$clients = $repo->getAll();
+
+$perPage = 10;
+$page = intval($_GET['page'] ?? 1);
+
+$total = $repo->getCount();
+
+$itemCount = intval(ceil($total / $perPage));
+
+$clients = $repo->getAll($page, $perPage);
 
 view(
     name: 'admin.clients.index',
     pageTitle: "Liste des clients",
     params: [
        'clients' => $clients,
+       'pageCount' => $itemCount,
+        'page' => $page,
     ]
 );

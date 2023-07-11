@@ -2,7 +2,16 @@
 require '../../bootstrap.php';
 
 $repo = new ProductRepository();
-$produits = $repo->getAll();
+
+$perPage = 10;
+$page = intval($_GET['page'] ?? 1);
+
+$total = $repo->getCount();
+
+$itemCount = intval(ceil($total / $perPage));
+
+$produits = $repo->getAll($page, $perPage);
+
 
 
 view(
@@ -10,5 +19,7 @@ view(
     pageTitle: "Liste des produits",
     params: [
         'produits' => $produits,
+        'pageCount' => $itemCount,
+        'page' => $page,
     ]
 );

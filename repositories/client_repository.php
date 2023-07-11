@@ -4,18 +4,34 @@ class ClientRepository
 {
 
     /**
+     * Récupère le nombre de clients
+     */
+    public function getCount()
+    {
+        $sql = "SELECT COUNT(*) FROM clients";
+        $stmt = db()->query($sql);
+        $count = $stmt->fetchColumn();
+
+        return $count;
+    }
+
+    /**
      * Recupère tout les clients depuis la base de données
      * 
      * @return array
      */
-    public function getAll()
+    public function getAll($page, $perPage)
     {
-        $sql = "SELECT c.id, c.nom, c.prenom, c.email, c.tel, c.password, c.created_at as createdAt, updated_at as updatedAt, statut FROM clients c";
-        $stmt = db()->query($sql);
+        $stmt = db()->prepare("SELECT c.id, c.nom, c.prenom, c.email, c.tel, c.password, c.created_at as createdAt, updated_at as updatedAt, statut FROM clients c LIMIT :l OFFSET :o");
+        $offset = ($page - 1) * $perPage;
+        $stmt->bindParam('l', $perPage, PDO::PARAM_INT);
+        $stmt->bindParam('o', $offset, PDO::PARAM_INT);
+        $stmt->execute();
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Client::class);
+        $client = $stmt->fetchAll();
 
-        return $stmt->fetchAll();
+        return  $client;
     }
 
     /**

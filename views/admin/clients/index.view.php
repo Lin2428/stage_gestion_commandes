@@ -32,12 +32,12 @@
                             <form action="<?= base_url('/admin/clients/delete.php') ?>" method="POST" class="d-inline">
                                 <input type="hidden" name="id" value="<?= $client->getId() ?>">
                                 <?php if ($client->getStatut() === 1) : ?>
-                                    <?php $texte = "Désactivé"; $class = "btn-danger" ?>
+                                    <?php $class = "btn-danger" ?>
                                     <?php else : ?>
-                                    <?php $texte = "Activé"; $class = "btn-success" ?>
+                                    <?php $class = "btn-success" ?>
                                 <?php endif ?>
 
-                                <button type="submit" class="btn <?= $class ?> btn-sm bouton_action"><?= $texte ?></button>
+                                <button type="submit" class="btn <?= $class ?> btn-sm bouton_action"><span data-feather="power"></span></button>
                                 
                             </form>
                         </td>
@@ -45,5 +45,8 @@
                 <?php endforeach ?>
             </tbody>
         </table>
+        <div class="d-flex justify-content-center align-items-center">
+            <?php paginate($pageCount, $page, '/admin/clients'); ?>
+        </div>
     </div>
 </div>

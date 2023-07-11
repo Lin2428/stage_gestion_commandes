@@ -4,17 +4,33 @@ class ProductRepository
 {
 
     /**
+     * Récupère le nombre de cproduits
+     */
+    public function getCount()
+    {
+        $sql = "SELECT COUNT(*) FROM produits";
+        $stmt = db()->query($sql);
+        $count = $stmt->fetchColumn();
+
+        return $count;
+    }
+
+
+    /**
      * Recupère tout les produits depuis la base de données
      * 
      * @return array
      */
-    public function getAll()
+    public function getAll($page, $perPage)
     {
-        $sql = "SELECT p.id, p.nom, p.prix, p.stock, p.description, p.image, p.statut, c.nom as category, c.id as categoryId FROM produits p INNER JOIN categories c ON c.id = p.categorie_id";
-        $stmt = db()->query($sql);
+        $stmt = db()->prepare("SELECT p.id, p.nom, p.prix, p.stock, p.description, p.image, p.statut, c.nom as category, c.id as categoryId FROM produits p INNER JOIN categories c ON c.id = p.categorie_id LIMIT :l OFFSET :o");
+
+        $offset = ($page - 1) * $perPage;
+        $stmt->bindParam('l', $perPage, PDO::PARAM_INT);
+        $stmt->bindParam('o', $offset, PDO::PARAM_INT);
+        $stmt->execute();
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Produit::class);
-
         $products = $stmt->fetchAll();
 
         return $products;

@@ -166,20 +166,20 @@ function image($name){
  */
 function liste_action($id, $dossier, $detail = true, $desactive = false, int $statut = 0)
 {
-    $active = $desactive ? "Désactiver" : 'supprimer';
+    $active = $desactive ? "power" : 'x';
     $class = "bg-danger";
     if($desactive === true && $statut === 0){
-        $active = "Activer";
+        $active = "power";
         $class = "bg-success";
     }
     $html = '';
     if ($detail) {
-        $html .= '<a href="' . base_url('/admin/' . $dossier . '/detail.php?id=' . $id) . '" class=" btn bouton_action btn-sm bg-info">Détails</a> ';
+        $html .= '<a href="' . base_url('/admin/' . $dossier . '/detail.php?id=' . $id) . '" class=" btn bouton_action btn-sm bg-info"><span data-feather="info"><span></a> ';
     }
-    $html .= '<a href="' . base_url('/admin/' . $dossier . '/update.php?id=' . $id) . '" class="btn bouton_action bg-primary btn-sm me-1">Modifier</a>';
+    $html .= '<a href="' . base_url('/admin/' . $dossier . '/update.php?id=' . $id) . '" class="btn bouton_action bg-primary btn-sm me-1"><span data-feather="edit"><span></a>';
     $html .= '<form action="' . base_url('/admin/' . $dossier . '/delete.php') . '" method="POST" class="d-inline text-align-center">';
     $html .= '<input type="hidden" name="id" value="' . $id . '">';
-    $html .= '<button type="submit" class="bouton_action '. $class .'  btn-sm btn">'. $active .'</button>';
+    $html .= '<button type="submit" class="bouton_action '. $class .'  btn-sm btn"><span data-feather="'. $active .'"><span></button>';
     $html .= ' </form>';
 
     return $html;

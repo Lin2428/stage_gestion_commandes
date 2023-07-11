@@ -51,4 +51,7 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+    <div class="d-flex justify-content-center align-items-center">
+        <?php paginate($pageCount, $page, '/admin/produits'); ?>
+    </div>
 </div>
