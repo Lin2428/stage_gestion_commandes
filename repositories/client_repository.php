@@ -20,12 +20,27 @@ class ClientRepository
      * 
      * @return array
      */
-    public function getAll($page, $perPage)
+    public function getAll($page, $perPage, array $filters = [])
     {
-        $stmt = db()->prepare("SELECT c.id, c.nom, c.prenom, c.email, c.tel, c.password, c.created_at as createdAt, updated_at as updatedAt, statut FROM clients c LIMIT :l OFFSET :o");
+        $sql = "SELECT c.id, c.nom, c.prenom, c.email, c.tel, c.password, c.created_at as createdAt, updated_at as updatedAt, statut FROM clients c";
+        
+        $search = $filters['search'] ?? null;
+
+        if(!empty($search)){
+            $sql .= " WHERE c.nom LIKE :search OR c.email LIKE :search OR c.tel LIKE :search ";
+        }
+        
+        $sql .= " LIMIT :l OFFSET :o";
+
+        $stmt = db()->prepare($sql);
         $offset = ($page - 1) * $perPage;
         $stmt->bindParam('l', $perPage, PDO::PARAM_INT);
         $stmt->bindParam('o', $offset, PDO::PARAM_INT);
+
+        if(!empty($search)){
+            $search = "%$search%";
+            $stmt->bindParam('search', $search);
+        }
         $stmt->execute();
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Client::class);

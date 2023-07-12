@@ -9,7 +9,7 @@ $total = $repo->getCount();
 
 $itemCount = intval(ceil($total / $perPage));
 
-$commandes = $repo->getAll($page, $perPage);
+$commandes = $repo->getAll($page, $perPage, $_GET);
 
 view(
     name: 'admin.commandes.index',

@@ -19,13 +19,81 @@ class CommandeRepository
      * @param int $premier le premier nombre de la limite
      * @param int $nombre le nombre de commante à récuperer
      */
-    public function getAll($page, $perPage)
+    public function getAll($page, $perPage, array $filters = [])
     {
-        $stmt = db()->prepare("SELECT cm.id, cm.numero, cm.adresse, cm.statut, cm.created_at as createdAt, cm.updated_at as updatedAt, cm.client_id as clientId, cm.livreur_id as livreurId, c.nom as clientNom, c.prenom as clientPrenom, c.tel as clientTel, c.email as clientEmail, l.nom as livreurNom, l.prenom as livreurPrenom, l.tel as livreurTel, l.email as livreurEmail  FROM commandes cm INNER JOIN clients c ON c.id = cm.client_id INNER JOIN livreurs l ON l.id = cm.livreur_id LIMIT :l OFFSET :o");
+        $sql = "SELECT cm.id, cm.numero, cm.adresse, cm.statut, cm.created_at as createdAt, cm.updated_at as updatedAt, cm.client_id as clientId, cm.livreur_id as livreurId, c.nom as clientNom, c.prenom as clientPrenom, c.tel as clientTel, c.email as clientEmail, l.nom as livreurNom, l.prenom as livreurPrenom, l.tel as livreurTel, l.email as livreurEmail  FROM commandes cm INNER JOIN clients c ON c.id = cm.client_id INNER JOIN livreurs l ON l.id = cm.livreur_id ";
         
+        $statut = $filters['statut'] ?? null;
+
+        $whereAdded = false;
+
+        if(!empty($statut)) {
+            $whereAdded = true;
+            $sql .= " WHERE cm.statut = :statut ";
+        }
+
+        $search = $filters['search'] ?? null;
+        if(!empty($search)) {
+            if(!$whereAdded) {
+                $sql .= " WHERE ";
+            } else {
+                $sql .= " AND ";
+            }
+
+            $sql .= " (c.nom LIKE :search OR c.tel LIKE :search) ";
+            $whereAdded = true;
+        }
+
+        $numero = $filters['numero'] ?? null;
+        if(!empty($numero)) {
+            if(!$whereAdded) {
+                $sql .= " WHERE ";
+            } else {
+                $sql .= " AND ";
+            }
+
+            $sql .= " cm.numero LIKE :numero";
+            $whereAdded = true;
+        }
+
+        $date = $filters['date'] ?? null;
+        if(!empty($date)) {
+            if(!$whereAdded) {
+                $sql .= " WHERE ";
+            } else {
+                $sql .= " AND ";
+            }
+
+            $sql .= " (DATE(cm.created_at) = :date OR DATE(cm.updated_at) = :date)";
+            $whereAdded = true;
+        }
+
+        $sql .= " LIMIT :l OFFSET :o";
+
+        $stmt = db()->prepare($sql);
+
         $offset = ($page - 1) * $perPage;
         $stmt->bindParam('l', $perPage, PDO::PARAM_INT);
         $stmt->bindParam('o', $offset, PDO::PARAM_INT);
+
+        if(!empty($statut)) {
+            $stmt->bindParam('statut', $statut);
+        }
+
+        if(!empty($search)) {
+            $search = "%$search%";
+            $stmt->bindParam('search', $search);
+        }
+
+        if(!empty($numero)) {
+            $numero = "%$numero%";
+            $stmt->bindParam('numero', $numero);
+        }
+
+        if(!empty($date)) {
+            $stmt->bindParam('date', $date);
+        }
+
         $stmt->execute();
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Commande::class);
@@ -70,16 +138,17 @@ class CommandeRepository
      * Modifie le livreur d'une commande
      * 
      * @param $id l'id de la commande
+     * 
      * @param $livreur_id l'id du livreur
      */
     public function updateLivreurCommande($id, $livreur_id)
     {
-        $sql = db()->prepare("UPDATE commandes SET livreur_id = :livreur_id, updated_at = :updated_at WHERE id = :id");
+        $sql = db()->prepare("UPDATE commandes SET livreur_id = :livreur_id, updated_at = CURRENT_TIMESTAMP() WHERE id = :id");
 
         $sql->execute([
             'id' => $id,
             'livreur_id' => $livreur_id,
-            'updated_at' => date('Y-m-d')
         ]);
     }
+
 }

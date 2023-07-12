@@ -10,7 +10,9 @@ $total = $repo->getCount();
 
 $itemCount = intval(ceil($total / $perPage));
 
-$produits = $repo->getAll($page, $perPage);
+$produits = $repo->getAll($page, $perPage, $_GET);
+
+$categories = $repo->getCategoriesLookup();
 
 
 
@@ -21,5 +23,6 @@ view(
         'produits' => $produits,
         'pageCount' => $itemCount,
         'page' => $page,
+        'categories' => $categories,
     ]
 );

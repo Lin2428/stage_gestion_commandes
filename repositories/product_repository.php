@@ -21,13 +21,81 @@ class ProductRepository
      * 
      * @return array
      */
-    public function getAll($page, $perPage)
+    public function getAll($page, $perPage, array $filters = [])
     {
-        $stmt = db()->prepare("SELECT p.id, p.nom, p.prix, p.stock, p.description, p.image, p.statut, c.nom as category, c.id as categoryId FROM produits p INNER JOIN categories c ON c.id = p.categorie_id LIMIT :l OFFSET :o");
+        $sql = "SELECT p.id, p.nom, p.prix, p.stock, p.description, p.image, p.statut, c.nom as category, c.id as categoryId FROM produits p INNER JOIN categories c ON c.id = p.categorie_id";
+
+        $statut = $filters['statut'] ?? "";
+
+        $whereAdded = false;
+
+        if (($statut == 1) || ($statut == 0)) {
+            $whereAdded = true;
+            $sql .= " WHERE p.statut = :statut ";
+        }
+
+        $search = $filters['search'] ?? null;
+        if (!empty($search)) {
+            if (!$whereAdded) {
+                $sql .= " WHERE";
+            } else {
+                $sql .= " AND";
+            }
+
+            $sql .= " (p.id = :search OR p.prix = :search) ";
+            $whereAdded = true;
+        }
+
+        $category = $filters['category'] ?? null;
+        if (!empty($category)) {
+            if (!$whereAdded) {
+                $sql .= " WHERE";
+            } else {
+                $sql .= " AND";
+            }
+
+            $sql .= " p.categorie_id = :category";
+            $whereAdded = true;
+        }
+
+        $nom = $filters['nom'] ?? null;
+        if (!empty($nom)) {
+            if (!$whereAdded) {
+                $sql .= " WHERE";
+            } else {
+                $sql .= " AND ";
+            }
+
+            $sql .= " p.nom LIKE :nom";
+            $whereAdded = true;
+        }
+
+        $sql .= " LIMIT :l OFFSET :o";
+
+
+        $stmt = db()->prepare($sql);
 
         $offset = ($page - 1) * $perPage;
         $stmt->bindParam('l', $perPage, PDO::PARAM_INT);
         $stmt->bindParam('o', $offset, PDO::PARAM_INT);
+
+        if (($statut == 1) || ($statut == 0)) {
+            $stmt->bindParam('statut', $statut);
+        }
+
+        if (!empty($search)) {
+            $stmt->bindParam('search', $search);
+        }
+
+        if (!empty($category)) {
+            $stmt->bindParam('category', $category);
+        }
+
+        if (!empty($nom)) {
+            $nom = "%$nom%";
+            $stmt->bindParam('nom', $nom);
+        }
+
         $stmt->execute();
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Produit::class);
@@ -91,7 +159,7 @@ class ProductRepository
      */
     public function getCategories()
     {
-        $sql = "SELECT * FROM categories";
+        $sql = "SELECT * FROM categories WHERE statut = 1";
         $stmt = db()->query($sql);
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Category::class);

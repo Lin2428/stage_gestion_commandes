@@ -10,7 +10,7 @@ new DateTime();
             <input type="hidden" name="id" value="<?= $commande->getId() ?>">
             <button type="submit" class="btn btn-danger me-2">Supprimer</button>
         </form>
-        <a href="admin/commandes" class="btn btn-primary">Liste des commandes</a>
+        <a href="/admin/commandes" class="btn btn-primary">Liste des commandes</a>
     </div>
 </div>
 

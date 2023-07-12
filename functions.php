@@ -188,7 +188,7 @@ function liste_action($id, $dossier, $detail = true, $desactive = false, int $st
 /**
  * Retourne une card comportant un champs input
  * 
- * @param string $label le label de l'input
+ * @param string|bool $label le label de l'input
  * @param string $type le type de l'input
  * @param string $name le name de l'input
  * @param string $default la valeur par defau du champs
@@ -196,26 +196,41 @@ function liste_action($id, $dossier, $detail = true, $desactive = false, int $st
  * 
  * @return string $html le conde html
  */
-function form_input($label, $name, $type = "text", $required = true, $default = null, array $options = [])
+function form_input($label, $name, $type = "text", $required = true, $placeholder = '', $default = null, array $options = [], $valueSource = 'POST')
 {
-    $defaultValue = $_POST[$name] ?? $default ?? '';
+    if($valueSource === 'POST') {
+        $data = $_POST;
+    } else {
+        $data = $_GET;
+    }
+
+    $defaultValue = $data[$name] ?? $default ?? '';
 
     $isRequired = $required ? 'required' : '';
 
     $class = "form-control";
-    if (isset($_POST[$name]) && empty($_POST[$name]) && $required) {
-        $class .= ' is-invalid';
+    if($type === 'select') {
+        $class = 'form-select';
     }
 
-    $html = '<div class="mb-3">';
-    $html .= '<label for="' . $name . '" class="form-label">' . $label . '</label>';
-
+    if (isset($data[$name]) && empty($data[$name]) && $required) {
+        $class .= ' is-invalid';
+    }
+    
+    
+    if($label) {
+        $html = '<div class="mb-3">';
+        $html .= '<label for="' . $name . '" class="form-label">' . $label . '</label>';
+    } else {
+        $html = '<div>';
+    }
+    
     if ($type === "textarea") {
         $html .= '<textarea id="' . $name . '" class="form-control" name="' . $name . '" rows="3"  placeholder="' . $label . '">' .  $defaultValue . '</textarea>';
     } elseif ($type === 'select') {
         $html .= '<select  name="' . $name . '" id="' . $name . '" ' . $isRequired . ' value="' .  $defaultValue . '" class="' . $class . '">';
         foreach ($options as $value => $text) {
-            $selected = $defaultValue === $value ? 'selected' : '';
+            $selected = $defaultValue == $value ? 'selected' : '';
             $html .= '<option ' . $selected . ' value="' . $value . '">' . $text . '</option>';
         }
         $html .= '</select>';
@@ -224,7 +239,7 @@ function form_input($label, $name, $type = "text", $required = true, $default = 
             $defaultValue = uploadImage();
             $class .= ' ' . $defaultValue;
         }
-        $html .= '<input type="' . $type . '" name="' . $name . '" id="' . $name . '" ' . $isRequired . ' value="' .  $defaultValue . '" class="' . $class . '" placeholder="' . $label . '">';
+        $html .= '<input type="' . $type . '" name="' . $name . '" id="' . $name . '" ' . $isRequired . ' value="' .  $defaultValue . '" class="' . $class . '" placeholder="' . $label.$placeholder. '">';
     }
 
     $html .= "</div>";

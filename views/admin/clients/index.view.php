@@ -1,6 +1,12 @@
 <div class="d-flex justify-content-between mb-4">
     <h1 class="h2">Liste des clients</h1>
 </div>
+<div class="d-flex flex-row-reverse">
+    <form method="GET" class="d-flex mb-2" role="search">
+        <?= form_input(label: false, name: 'search', required: false, placeholder: 'Réchercher par nom ou tel', valueSource: 'GET') ?>
+        <button class="btn btn-outline-secondary ms-1" type="submit"><span data-feather="search"></span></button>
+    </form>
+</div>
 
 <div class="card">
     <div class="card-body">
@@ -33,12 +39,12 @@
                                 <input type="hidden" name="id" value="<?= $client->getId() ?>">
                                 <?php if ($client->getStatut() === 1) : ?>
                                     <?php $class = "btn-danger" ?>
-                                    <?php else : ?>
+                                <?php else : ?>
                                     <?php $class = "btn-success" ?>
                                 <?php endif ?>
 
                                 <button type="submit" class="btn <?= $class ?> btn-sm bouton_action"><span data-feather="power"></span></button>
-                                
+
                             </form>
                         </td>
                     </tr>
@@ -46,7 +52,9 @@
             </tbody>
         </table>
         <div class="d-flex justify-content-center align-items-center">
-            <?php paginate($pageCount, $page, '/admin/clients'); ?>
+            <?php if ($pageCount != null && $page != null) : ?>
+                <?php paginate($pageCount, $page, '/admin/clients'); ?>
+            <?php endif ?>
         </div>
     </div>
 </div>

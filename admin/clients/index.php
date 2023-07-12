@@ -10,7 +10,9 @@ $total = $repo->getCount();
 
 $itemCount = intval(ceil($total / $perPage));
 
-$clients = $repo->getAll($page, $perPage);
+$clients = $repo->getAll($page, $perPage, $_GET);
+
+$search = null;
 
 view(
     name: 'admin.clients.index',
@@ -19,5 +21,6 @@ view(
        'clients' => $clients,
        'pageCount' => $itemCount,
         'page' => $page,
+        'search' => $search,
     ]
 );

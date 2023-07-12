@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </div>
-            <h4 class="mt-1 mb-3"><?= number_format($current->getCurrentRevenu(), 0, ',', ' ')  ?> XAF</h4>
+            <h4 class="mt-1 mb-3"><?= number_format((int) $current->getCurrentRevenu(), 0, ',', ' ')  ?> XAF</h4>
             <div class="mb-0">
                 <span class="badge badge-success-light"> <i class="mdi mdi-arrow-bottom-right"></i> 3.65% </span>
                 <span class="text-muted">du revenu total</span>
