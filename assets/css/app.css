@@ -1,49 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.bouton_action{
-    color: white;
-}
-
-
-
-img.image-liste-produit{
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.image-detail-produit{
-    width: 200px;
-    height: 200px;
-    overflow: hidden;
-    border-radius: 50%;
-    align-items: center;
-    background: lavender;
-}
-
-.image-detail-produit img{
-    width: 225px;
-    height: 225;
-}
-
-.image-update-prouit{
-    width: 200px;
-    height: 200px;
-    overflow: hidden;
+@layer base {
+    body {
+        font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    }
     
-    align-items: center;
-    background: lavender;
-}
-.image-update-prouit img{
-    width: 225px;
-    height: 225;
-}
+    /*------------ NAVIGATION ---------------*/
 
-img.image-liste-livreur {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    object-fit: cover;
+    .nav {
+        @apply flex justify-between items-center w-full bg-white py-3 px-4 lg:px-8;
+    }
+
+    .nav-logo {
+        @apply text-2xl font-bold;
+    }
+
+    .nav-contact {
+        @apply hidden md:flex items-center space-x-3;
+    }
+
+    .nav-contact i {
+        @apply text-4xl text-green-500;
+    }
+
+    .nav-contact > div {
+        @apply flex flex-col;
+    }
+
+    .nav-contact-title {
+        @apply text-xs text-gray-400;
+    }
+
+    .nav-contact-phone {
+        @apply font-bold text-xl text-primary;
+    }
+
+    .nav-links {
+        @apply flex space-x-3;
+    }
+
+    .nav .nav-links {
+        @apply hidden md:flex;
+    }
+
+    .nav-link {
+        @apply relative inline-flex justify-center items-center border border-gray-400 rounded-[50%] transition-colors duration-300 h-10 w-10 hover:bg-primary hover:text-white hover:border-primary;
+    }
+
+    .badge {
+        @apply block absolute px-1.5 bg-amber-500 text-xs font-bold rounded-xl top-[50%] -translate-y-5 translate-x-3 shadow;
+    }
+
+    .nav-mobile {
+        @apply md:hidden fixed bottom-0 left-0 right-0 bg-white shadow border-t border-gray-300;
+    }
+
+    .nav-mobile .nav-links {
+        @apply flex w-full space-x-0 divide-x divide-gray-300 ;
+    }
+
+    .nav-mobile .nav-link {
+        @apply flex-1 flex flex-col items-center border-0 h-auto px-2 py-2 sm:px-4 sm:py-5 rounded-none space-y-1.5 overflow-x-hidden;
+    }
+
+    .nav-mobile .nav-link i {
+        @apply text-xl;
+    }
+
+    .nav-title {
+        @apply text-[10px] sm:text-xs font-bold whitespace-nowrap;
+    }
+
+    /*------------ FIN NAVIGATION ---------------*/
+
+    /*------------ BANIERE ---------------*/
+
+
+    .baner{
+        @apply flex justify-between py-3 px-6 bg-baner h-[350px] bg-cover bg-center items-center;
+    }
+
+    .baner-text{
+        @apply text-white;
+    }
+
+    .baner-title{
+        @apply text-3xl max-sm:text-lg lg:text-6xl font-bold md:mb-4;
+    }
+
+    .baner-text-1{
+        @apply max-sm:text-sm md:text-2xl font-bold text-green-600 md:mb-3;
+    }
+
+    .baner-text-2{
+        @apply max-sm:text-xs
+    }
+
+    /*------------ FIN BANIERE ---------------*/
+
+    /*------------ CATEGORIE ---------------*/
+
+    .categories {
+        @apply bg-gray-100 py-9 px-8;
+    }
+
+    .category-container {
+        @apply flex;
+    }
+    
+    .category {
+        @apply relative px-4;
+    }
+
+    .category .category-img {
+        @apply relative h-[81px];
+    }
+
+    .category-title {
+        @apply text-xs font-bold uppercase;
+    }
+
+    .category-splash {
+        fill: currentColor;
+        @apply w-[110px] absolute top-[50%] -translate-y-[50%] transition-transform duration-300 scale-[0.2] text-primary;
+    }
+
+    .category:hover .category-splash {
+        @apply scale-110;
+    }
+
+    /*------------FIN CATEGORIE ---------------*/
+
+    /*------------ PRODUIT ---------------*/
+
+    .produit{
+        @apply py-6 px-10 mt-6;
+    }
+
+    .card{
+        @apply max-w-[20rem] items-center border border-gray-300 rounded-3xl p-3;
+    }
+
+   
+
+    .card:hover .card-head{
+        @apply bg-primary;
+    }
+
+    .card .card-links{
+        @apply flex justify-between ;
+    }
+
+    .card-links .statut{
+        @apply bg-black py-[4px] px-2 items-center rounded-full text-white text-xs font-bold;
+    }
+
+    .card .card-head{
+        @apply relative h-[17.5rem]  py-3 px-3 rounded-3xl p-3;
+    }
+
+    .effect{
+        @apply absolute h-[8.5rem] bg-[#fff8e8] w-[100%] border border-black rounded-3xl;
+    }
+
+    .card-head .card-img{
+        @apply absolute max-w-[150px] mt-6 translate-x-[35%];
+    }
+
+    .card-body{
+        @apply px-2 pt-3 pb-2;
+    }
+    
+    .title{
+        @apply font-bold ;
+    }
+    
+    .desc{
+        @apply text-xs text-gray-500 h-8 overflow-hidden mb-5;
+    }
+
+    .card-footer{
+        @apply flex justify-between items-center;
+    }
 }
-
-

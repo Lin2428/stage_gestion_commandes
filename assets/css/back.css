@@ -1,0 +1,47 @@
+
+.bouton_action{
+    color: white;
+}
+
+img.image-liste-produit{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.image-detail-produit{
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+    align-items: center;
+    background: lavender;
+}
+
+.image-detail-produit img{
+    width: 225px;
+    height: 225;
+}
+
+.image-update-prouit{
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    
+    align-items: center;
+    background: lavender;
+}
+.image-update-prouit img{
+    width: 225px;
+    height: 225;
+}
+
+img.image-liste-livreur {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
