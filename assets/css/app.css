@@ -54,7 +54,7 @@
     }
 
     .nav-mobile {
-        @apply md:hidden fixed bottom-0 left-0 right-0 bg-white shadow border-t border-gray-300;
+        @apply md:hidden fixed bottom-0 left-0 z-50 right-0 bg-white shadow border-t border-gray-300;
     }
 
     .nav-mobile .nav-links {
@@ -103,85 +103,100 @@
     /*------------ CATEGORIE ---------------*/
 
     .categories {
-        @apply bg-gray-100 py-9 px-8;
+        @apply bg-primary/5 py-9 px-8;
     }
 
     .category-container {
-        @apply flex;
-    }
-    
-    .category {
-        @apply relative px-4;
+       @apply grid grid-cols-4 max-sm:grid-cols-3  md:grid-cols-8 gap-4 items-center;
     }
 
-    .category .category-img {
-        @apply relative h-[81px];
+    @media(max-width: 570px) {
+        .category-container {
+            @apply  grid-cols-2;
+         }
     }
 
     .category-title {
-        @apply text-xs font-bold uppercase;
-    }
+        @apply text-xs font-bold uppercase -left-[50%];
+    } 
 
     .category-splash {
         fill: currentColor;
-        @apply w-[110px] absolute top-[50%] -translate-y-[50%] transition-transform duration-300 scale-[0.2] text-primary;
-    }
+        @apply w-[110px] absolute -z-10 transition-transform duration-300 scale-[0.3] text-primary;
+    } 
 
     .category:hover .category-splash {
-        @apply scale-110;
+        @apply -z-10 scale-110;
     }
 
     /*------------FIN CATEGORIE ---------------*/
 
     /*------------ PRODUIT ---------------*/
 
-    .produit{
-        @apply py-6 px-10 mt-6;
+    .produit {
+        @apply py-6 px-6 mt-6 md:px-8;
     }
 
-    .card{
-        @apply max-w-[20rem] items-center border border-gray-300 rounded-3xl p-3;
+    .produits-container {
+        @apply grid grid-cols-2 max-sm:grid-cols-1 xl:grid-cols-4 gap-4;
     }
 
-   
-
-    .card:hover .card-head{
-        @apply bg-primary;
+    .card {
+        @apply max-w-[20rem] items-center border border-gray-200 rounded-3xl p-2.5 mx-auto;
     }
 
-    .card .card-links{
-        @apply flex justify-between ;
+    .card-head {
+        @apply relative flex items-center justify-center h-[17.5rem] transition-transform duration-300;
     }
 
-    .card-links .statut{
+    .card-head::before {
+        content: '';
+        width: 100%;
+        position: absolute;
+        height: 50%;
+        bottom: 0;
+        z-index: -1;
+        transition: all;
+        transition-duration: 300ms;
+        @apply bg-primary/10 rounded-2xl;
+    }
+
+    .card .card-links {
+        @apply absolute left-2.5 right-2.5 top-2 flex justify-between items-center;
+    }
+
+    .card-links .statut {
         @apply bg-black py-[4px] px-2 items-center rounded-full text-white text-xs font-bold;
     }
 
-    .card .card-head{
-        @apply relative h-[17.5rem]  py-3 px-3 rounded-3xl p-3;
+    .card-img {
+        width: 80%;
+        transition-property: transform;
+        transition-duration: 300ms;
     }
 
-    .effect{
-        @apply absolute h-[8.5rem] bg-[#fff8e8] w-[100%] border border-black rounded-3xl;
+    .card:hover .card-head::before {
+        height: 100%;
+        @apply bg-primary;
     }
 
-    .card-head .card-img{
-        @apply absolute max-w-[150px] mt-6 translate-x-[35%];
+    .card:hover .card-img {
+        transform: scale(1.25);
     }
 
-    .card-body{
+    .card-body {
         @apply px-2 pt-3 pb-2;
     }
     
-    .title{
+    .title {
         @apply font-bold ;
     }
     
-    .desc{
-        @apply text-xs text-gray-500 h-8 overflow-hidden mb-5;
+    .desc {
+        @apply text-xs text-gray-500 h-8 overflow-hidden mb-3;
     }
 
-    .card-footer{
+    .card-footer {
         @apply flex justify-between items-center;
     }
 }
