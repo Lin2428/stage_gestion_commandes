@@ -757,7 +757,7 @@ body {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 @media not all and (min-width: 640px) {
@@ -768,6 +768,12 @@ body {
 
 @media (min-width: 768px) {
   .category-container {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .category-container {
     grid-template-columns: repeat(8, minmax(0, 1fr));
   }
 }
@@ -777,10 +783,6 @@ body {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-
-/* .category {
-        @apply relative px-4;
-    } */
 
 .category-title {
   left: -50%;
@@ -795,8 +797,8 @@ body {
   position: absolute;
   z-index: -10;
   width: 110px;
-  --tw-scale-x: 0;
-  --tw-scale-y: 0;
+  --tw-scale-x: 0.05;
+  --tw-scale-y: 0.05;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   --tw-text-opacity: 1;
   color: rgb(255 194 34 / var(--tw-text-opacity));
@@ -824,6 +826,13 @@ body {
   padding-right: 1.5rem;
 }
 
+@media (min-width: 640px) {
+  .produit {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
 @media (min-width: 768px) {
   .produit {
     padding-left: 2rem;
@@ -833,7 +842,7 @@ body {
 
 .produits-container {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
 }
 
@@ -852,7 +861,7 @@ body {
 .card {
   margin-left: auto;
   margin-right: auto;
-  max-width: 20rem;
+  max-width: 30rem;
   align-items: center;
   border-radius: 1.5rem;
   border-width: 1px;
@@ -869,6 +878,16 @@ body {
   justify-content: center;
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.card-lien-produit{
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  bottom: 0;
+  z-index: 1;
+  transition: all;
   transition-duration: 300ms;
 }
 
@@ -932,10 +951,6 @@ body {
   padding-right: 0.5rem;
   padding-top: 0.75rem;
   padding-bottom: 0.5rem;
-}
-
-.title {
-  font-weight: 700;
 }
 
 .desc {
@@ -1329,6 +1344,11 @@ body {
 .hover\:text-black:hover {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.hover\:text-primary:hover {
+  --tw-text-opacity: 1;
+  color: rgb(255 194 34 / var(--tw-text-opacity));
 }
 
 .hover\:text-white:hover {

@@ -107,7 +107,7 @@
     }
 
     .category-container {
-       @apply grid grid-cols-4 max-sm:grid-cols-3  md:grid-cols-8 gap-4 items-center;
+       @apply grid grid-cols-4 max-sm:grid-cols-3 md:grid-cols-6 xl:grid-cols-8 gap-5 items-center;
     }
 
     @media(max-width: 570px) {
@@ -122,7 +122,7 @@
 
     .category-splash {
         fill: currentColor;
-        @apply w-[110px] absolute -z-10 transition-transform duration-300 scale-[0.3] text-primary;
+        @apply w-[110px] absolute -z-10 transition-transform duration-300 scale-[0.05] text-primary;
     } 
 
     .category:hover .category-splash {
@@ -134,19 +134,29 @@
     /*------------ PRODUIT ---------------*/
 
     .produit {
-        @apply py-6 px-6 mt-6 md:px-8;
+        @apply py-6 px-6 sm:px-2 mt-6 md:px-8;
     }
 
     .produits-container {
-        @apply grid grid-cols-2 max-sm:grid-cols-1 xl:grid-cols-4 gap-4;
+        @apply grid grid-cols-3 max-sm:grid-cols-1 xl:grid-cols-4 gap-4;
     }
 
     .card {
-        @apply max-w-[20rem] items-center border border-gray-200 rounded-3xl p-2.5 mx-auto;
+        @apply max-w-[30rem] items-center border border-gray-200 rounded-3xl p-2.5 mx-auto;
     }
 
     .card-head {
         @apply relative flex items-center justify-center h-[17.5rem] transition-transform duration-300;
+    }
+
+    .card-lien-produit{
+        width: 100%;
+        position: absolute;
+        height: 100%;
+        bottom: 0;
+        z-index: 1;
+        transition: all;
+        transition-duration: 300ms;
     }
 
     .card-head::before {
@@ -186,10 +196,6 @@
 
     .card-body {
         @apply px-2 pt-3 pb-2;
-    }
-    
-    .title {
-        @apply font-bold ;
     }
     
     .desc {
