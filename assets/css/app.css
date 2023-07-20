@@ -205,4 +205,50 @@
     .card-footer {
         @apply flex justify-between items-center;
     }
+
+    /*------------ FIN PRODUIT ---------------*/
+
+    /*------------ MODAL ---------------*/
+
+    .card-modal{
+        @apply fixed z-50 right-0 top-0 w-[340px] bg-white h-[100%] scroll-my-0;
+        overflow-x: hidden;
+    }
+
+    .modal{
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0px;
+        background-color: rgba(0,0,0,.7);
+        overflow-x: hidden;
+        z-index: 30;
+    }
+    
+    .desactive-modal {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        overflow-x: hidden;
+        z-index: 40;
+        cursor: auto;
+    }
+
+    .card-modal-body{
+        @apply h-[60%] overflow-auto;
+    }
+
+    .modal-produit{
+        @apply flex justify-start p-3 items-center  mx-3;
+        border-bottom: solid 0.1px rgba(207, 204, 204, 0.699) ;
+    }
+
+    .modal-image{
+        @apply max-w-[60px];
+    }
+
+    .modal-foot{
+        @apply mx-4 bottom-0;
+        border-top: solid 0.1px rgba(207, 204, 204, 0.699) ;
+    }
 }

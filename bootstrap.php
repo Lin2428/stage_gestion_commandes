@@ -14,6 +14,7 @@ model('client.model.php');
 model('livreur.model.php');
 model('commande.model.php');
 model('produit_commande.model.php');
+model('panier.model.php');
 
 // Repositories
 include_repo('product_repository.php');

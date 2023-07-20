@@ -11,7 +11,7 @@ class CategoryRepository
 
     public function getAll()
     {
-        $sql = "SELECT c.nom, c.id, c.statut FROM categories c";
+        $sql = "SELECT * FROM categories ";
         $stmt = db()->query($sql);
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Category::class);
@@ -29,7 +29,7 @@ class CategoryRepository
 
     public function findById($id)
     {
-        $stmt = db()->prepare("SELECT nom, statut FROM categories WHERE id = ?");
+        $stmt = db()->prepare("SELECT * FROM categories WHERE id = ?");
         $stmt->execute([$id]);
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Category::class);
@@ -45,7 +45,7 @@ class CategoryRepository
 
     public function createCategorie($data)
     {
-        $sql = db()->prepare("INSERT into categories (nom, statut) VALUES (:nom, :statut)");
+        $sql = db()->prepare("INSERT into categories (nom, statut, image) VALUES (:nom, :statut, :image)");
         $sql->execute($data);
     }
 
@@ -57,7 +57,7 @@ class CategoryRepository
 
     public function updateCategory($data)
     {
-        $sql = db()->prepare("UPDATE categories SET nom = :nom WHERE id = :id");
+        $sql = db()->prepare("UPDATE categories SET nom = :nom, image = :image WHERE id = :id");
 
         $sql->execute($data);
     }

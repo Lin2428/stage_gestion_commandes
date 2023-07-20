@@ -107,16 +107,17 @@ class ProductRepository
     /**
      * Recupère un produit par id depuis la base de données
      * 
-     * @param int $id l'id du produit
+     * @param int| array $id l'id du produit
      */
     public function findById($id)
     {
-        $stmt = db()->prepare("SELECT p.id, p.nom, p.prix, p.stock, p.categorie_id, p.description, p.statut, p.image, c.id as categoryId, c.nom as category FROM produits p INNER JOIN categories c ON c.id = p.categorie_id WHERE p.id = ?");
-        $stmt->execute([$id]);
+        $stmt = db()->prepare('SELECT p.id, p.nom, p.prix, p.stock, p.categorie_id, p.description, p.statut, p.image, c.id as categoryId, c.nom as category FROM produits p INNER JOIN categories c ON c.id = p.categorie_id WHERE p.id IN ('.implode(',', $id).')');
+        $stmt->execute();
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Produit::class);
 
         $produit = $stmt->fetchAll();
+        
         return $produit;
     }
 

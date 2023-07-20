@@ -10,7 +10,6 @@ $status = [
     '0' => 'Produit hors vente',
 ];
 
-array_unshift($categories, 'Selectionner une catégories')
 ?>
 <div class="d-flex justify-content-between mb-4">
     <h1 class="h2">Liste des produits</h1>
@@ -43,22 +42,30 @@ array_unshift($categories, 'Selectionner une catégories')
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($produits as $produit) : ?>
+                <?php foreach ($produits as $produit): ?>
                     <tr>
-                        <td><?= $produit->getId() ?></td>
                         <td>
-                            <div class="">
-                                <img class="image-liste-produit" src="<?= image($produit->getImage()) ?>" alt="image">
-                            </div>
+                            <?= $produit->getId() ?>
                         </td>
-                        <td><?= $produit->getNom() ?></td>
-                        <td><?= $produit->getCategory() ?></td>
-                        <td><?= $produit->getPrix() ?> XAF</td>
-                        <td><?= $produit->getStock() ?></td>
                         <td>
-                            <?php if ($produit->getStatut() === 0) : ?>
+                            <img class="image-liste-produit" src="<?= image($produit->getImage()) ?>" alt="image">
+                        </td>
+                        <td>
+                            <?= $produit->getNom() ?>
+                        </td>
+                        <td>
+                            <?= $produit->getCategory() ?>
+                        </td>
+                        <td>
+                            <?= $produit->getPrix() ?> XAF
+                        </td>
+                        <td>
+                            <?= $produit->getStock() ?>
+                        </td>
+                        <td>
+                            <?php if ($produit->getStatut() === 0): ?>
                                 <span class=" badge bg-warning">Hors vente</span>
-                            <?php else : ?>
+                            <?php else: ?>
                                 <span class=" badge bg-success">En vente</span>
                             <?php endif ?>
 
