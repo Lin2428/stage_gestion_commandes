@@ -38,7 +38,7 @@ if (!empty($_GET['ajout'])) {
 </section>
 
 <section class="produit">
-    <div class="produits-container">
+    <div class="grid grid-cols-3 max-sm:grid-cols-1 xl:grid-cols-4 gap-4">
         <?php foreach ($produits as $produit): ?>
             <div class="card">
                 <a href="#">

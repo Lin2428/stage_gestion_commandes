@@ -137,10 +137,6 @@
         @apply py-6 px-6 sm:px-2 mt-6 md:px-8;
     }
 
-    .produits-container {
-        @apply grid grid-cols-3 max-sm:grid-cols-1 xl:grid-cols-4 gap-4;
-    }
-
     .card {
         @apply max-w-[30rem] items-center border border-gray-200 rounded-3xl p-2.5 mx-auto;
     }
@@ -279,4 +275,20 @@
         border-top: solid 0.1px rgba(207, 204, 204, 0.699);
         border-bottom: solid 0.1px rgba(207, 204, 204, 0.699);
     }
+
+    /*------------ FIN DESCRIPTION ---------------*/
+
+    /*------------ FILTER ---------------*/
+    .filter{
+        @apply w-[25rem] m-3;
+    }
+
+    .filter-category-container{
+        @apply border border-gray-300 rounded-3xl p-2 mb-10;
+    }
+
+    .filter-category{
+        @apply bg-[#fbf7e8] p-3 rounded-3xl;
+    }
+
 }
