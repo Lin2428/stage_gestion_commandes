@@ -210,12 +210,12 @@
 
     /*------------ MODAL ---------------*/
 
-    .card-modal{
+    .card-modal {
         @apply fixed z-50 right-0 top-0 w-[340px] bg-white h-[100%] scroll-my-0;
         overflow-x: hidden;
     }
 
-    .modal{
+    .modal {
         height: 100%;
         width: 100%;
         position: fixed;
@@ -234,11 +234,11 @@
         cursor: auto;
     }
 
-    .card-modal-body{
+    .card-modal-body {
         @apply h-[60%] overflow-auto;
     }
 
-    .modal-produit{
+    .modal-produit {
         @apply flex justify-start p-3 items-center  mx-3;
         border-bottom: solid 0.1px rgba(207, 204, 204, 0.699) ;
     }
@@ -247,8 +247,36 @@
         @apply max-w-[60px];
     }
 
-    .modal-foot{
+    .modal-foot {
         @apply mx-4 bottom-0;
         border-top: solid 0.1px rgba(207, 204, 204, 0.699) ;
+    }
+
+     /*------------ FIN MODAL ---------------*/
+
+    /*------------ DESCRIPTION ---------------*/
+
+    .description {
+        @apply md:flex justify-between p-3 md:p-10 max-sm:pb-10;
+    }
+
+    .desc-image {
+        @apply w-[70%] bg-[#f7f4ef] rounded-xl md:p-5 mx-auto md:mr-5 mx-auto;
+    }
+
+    .desc-text {
+        @apply md:pl-10;
+    }
+
+    .title-desc {
+        
+        @apply font-bold ;
+        font-size: 3em;
+    }
+
+    .quantite {
+        @apply py-3 items-center mb-4;
+        border-top: solid 0.1px rgba(207, 204, 204, 0.699);
+        border-bottom: solid 0.1px rgba(207, 204, 204, 0.699);
     }
 }

@@ -49,7 +49,7 @@ if (!empty($_GET['ajout'])) {
                                     class="bi bi-heart-fill text-xl"></i></a>
                         </div>
                         <img class="card-img" src="<?= base_url('/assets/dist/img/' . $produit->getImage()) ?>" alt="">
-                        <a class="card-lien-produit" href=""></a>
+                        <a class="card-lien-produit" href="description.php/?id=<?= $produit->getId() ?>"></a>
                     </div>
                 </a>
                 <div class="card-body">
@@ -60,7 +60,7 @@ if (!empty($_GET['ajout'])) {
                         <span class="text-gray-200"><i class="bi bi-star"></i></span>
                         <span class="text-gray-200"><i class="bi bi-star"></i></span>
                     </div>
-                    <a href="" class="font-bold hover:text-primary">
+                    <a href="description.php/?id=<?= $produit->getId() ?>" class="font-bold hover:text-primary">
                         <?= $produit->getNom() ?>
                     </a>
                     <p class="desc">
