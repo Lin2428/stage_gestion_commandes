@@ -201,4 +201,18 @@ class ProductRepository
             'statut' => $statut,
         ]);
     }
+
+    /**
+     * Rétourne le nombre des produit comportant une meme catégory
+     * @param int $id l'id de la catégorie
+     */
+
+     public function getCountCategory($id) {
+        $sql = "SELECT COUNT(*) as count FROM produits WHERE categorie_id = $id";
+
+        $stmt = db()->query($sql);
+
+        return $stmt->fetch();
+     }
+     
 }

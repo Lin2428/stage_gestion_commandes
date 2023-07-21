@@ -14,6 +14,7 @@ module.exports = {
       backgroundImage: {
         'baner': "url('../image/baner.jpg')",
         'splash': "url('../image/splash.jpg')",
+        'shop': "url('../image/baner-shop.jpg')",
       },
     },
   },

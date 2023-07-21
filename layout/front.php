@@ -9,9 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <?= css('css/output.css') ?>
+    <?= css('css/app_js_css.css') ?>
 </head>
 <body>
 <?php layout_part('front-nav') ?>
 <?= $content ?>
+<?= js('js/app.js') ?>
 </body>
 </html>

@@ -145,6 +145,18 @@ function css($name)
 }
 
 /**
+ * Load js from asset dir
+ */
+function js($name)
+{
+    if (!str_contains($name, '.js')) {
+        $name .= '.js';
+    }
+
+    return '<script src="'. SITE_URL . '/assets/' . $name . '" ></script>';
+}
+
+/**
  * Load l'image depuis assets
  * 
  * @param $image l'image 

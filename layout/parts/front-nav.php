@@ -1,6 +1,6 @@
 <nav class="nav">
     <a href="/" class="nav-logo">Logo</a>
-    
+
     <div class="nav-contact">
         <i class="bi bi-truck"></i>
         <div>
@@ -10,11 +10,14 @@
     </div>
 
     <div class="nav-links">
+    <a href="shop.php" class="nav-link">
+        <i class="bi bi-shop"></i>
+    </a>
         <a href="#" class="nav-link">
             <i class="bi bi-search"></i>
         </a>
         <a href="#" class="nav-link">
-        <span class="badge">5</span>
+            <span class="badge">5</span>
             <i class="bi bi-basket2-fill"></i>
         </a>
         <a href="#" class="nav-link">
