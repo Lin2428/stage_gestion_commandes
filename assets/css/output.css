@@ -1018,6 +1018,57 @@ body {
 
 /*------------ DESCRIPTION ---------------*/
 
+.prev {
+  position: absolute;
+  right: 0px;
+  top: 8.8rem;
+  margin-right: 1.5rem;
+  display: none;
+  width: 200px;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 0.375rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.btn-produit-prev:hover .prev {
+  display: flex;
+}
+
+.nex {
+  position: absolute;
+  right: 0px;
+  top: 8.8rem;
+  margin-right: 1.5rem;
+  display: none;
+  width: 200px;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 0.375rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.btn-produit-nex:hover .nex {
+  display: flex;
+}
+
+.prev-image {
+  margin-right: 0.75rem;
+  width: 70px;
+}
+
 .description {
   justify-content: space-between;
   padding: 0.75rem;
@@ -1362,6 +1413,10 @@ body {
   margin-bottom: 0px;
 }
 
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -1430,6 +1485,10 @@ body {
   margin-top: -1.5rem;
 }
 
+.ml-3 {
+  margin-left: 0.75rem;
+}
+
 .block {
   display: block;
 }
@@ -1468,10 +1527,6 @@ body {
 
 .h-6 {
   height: 1.5rem;
-}
-
-.h-\[4rem\] {
-  height: 4rem;
 }
 
 .w-24 {
@@ -1648,8 +1703,12 @@ body {
   background-color: rgb(255 194 34 / var(--tw-bg-opacity));
 }
 
-.bg-primary\/10 {
-  background-color: rgb(255 194 34 / 0.1);
+.bg-shop {
+  background-image: url('../image/baner-shop.jpg');
+}
+
+.bg-cover {
+  background-size: cover;
 }
 
 .p-0 {
@@ -1675,6 +1734,11 @@ body {
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
+}
+
+.px-3\.5 {
+  padding-left: 0.875rem;
+  padding-right: 0.875rem;
 }
 
 .px-4 {
@@ -1876,6 +1940,11 @@ body {
   border-color: rgb(255 194 34 / var(--tw-border-opacity));
 }
 
+.hover\:bg-orange-400:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(251 146 60 / var(--tw-bg-opacity));
+}
+
 .hover\:text-black:hover {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -1916,6 +1985,10 @@ body {
 @media (min-width: 768px) {
   .md\:ml-12 {
     margin-left: 3rem;
+  }
+
+  .md\:ml-3 {
+    margin-left: 0.75rem;
   }
 
   .md\:flex {

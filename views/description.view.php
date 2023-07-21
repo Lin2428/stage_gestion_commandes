@@ -1,4 +1,42 @@
-<div class=" h-[4rem] w-[100%] bg-primary/10"></div>
+<div class="flex justify-between items-center p-5 w-[100%] bg-shop bg-cover mb-10">
+    <div>
+        <a href="" class=" font-sans text-gray-500 hover:text-primary">Home ></a><a href=""
+            class=" font-sans text-gray-500 hover:text-primary">
+            <?= $produit[0]->getCategory() ?> >
+        </a><span class="font-sans text-gray-600">
+            <?= $produit[0]->getNom() ?>
+        </span>
+    </div>
+    <div>
+        <a href="./?id=<?= $prev->getId() ?>" class="btn-produit-prev bg-primary hover:bg-orange-400 mr-2 rounded-full px-3.5 py-2  font-bold text-sm">< 
+        <div class="prev">
+            <img class="prev-image" src="<?= image($prev->getImage()) ?>" alt="">
+            <p>
+                <span class="font-bold text-sm">
+                    <?= $prev->getNom() ?>
+                </span><br>
+                <span class="text-primary font-sans">
+                    <?= $prev->getPrix() ?> XAF
+                </span>
+            </p>
+    </div>
+    </button>
+    <a href="./?id=<?= $next->getId() ?>" class="btn-produit-nex bg-primary hover:bg-orange-400 rounded-full px-3.5 py-2 font-bold text-sm">>
+        <div class="nex">
+            <img class="prev-image" src="<?= image($next->getImage()) ?>" alt="">
+            <p>
+                <span class="font-bold text-sm">
+                    <?= $next->getNom() ?>
+                </span><br>
+                <span class="text-primary font-sans">
+                    <?= $next->getPrix() ?> XAF
+                </span>
+            </p>
+        </div>
+    </a>
+</div>
+
+</div>
 
 <div class="description">
     <div class="desc-image">
@@ -25,11 +63,14 @@
             <button class="bg-[#f7f4ef] rounded-full px-3 py-1.5 font-bold text-sm">-</button>
             <span class="p-2">1</span>
             <button class="bg-[#f7f4ef] rounded-full px-3 py-1.5 font-bold text-sm">+</button>
-            <button class="bg-primary p-4 rounded-md hover:text-white md:w-[60%] w-[50%] font-bold text-xs md:ml-12"><i class="bi bi-basket2-fill"></i> AJOUTER AU PANIER</button>
-            <button class="px-4 py-3 bg-gray-200 rounded-md text-gray-400 hover:text-primary"><i class="bi bi-heart-fill"></i></button>
+            <button class="bg-primary p-4 rounded-md hover:text-white md:w-[60%] w-[50%] font-bold text-xs md:ml-12"><i
+                    class="bi bi-basket2-fill"></i> AJOUTER AU PANIER</button>
+            <button class="ml-3 px-4 py-3 bg-gray-100 rounded-md text-gray-400 hover:text-primary"><i class="bi bi-heart-fill"></i></button>
         </div>
         <p class="font-sans text-sm">Catégorie:
-            <a href="" class="font-borld text-sm text-gray-400 hover:text-primary hover:underline"><?= $produit[0]->getCategory() ?></a>
+            <a href="" class="font-borld text-sm text-gray-400 hover:text-primary hover:underline">
+                <?= $produit[0]->getCategory() ?>
+            </a>
         </p>
     </div>
 </div>

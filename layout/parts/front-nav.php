@@ -10,7 +10,7 @@
     </div>
 
     <div class="nav-links">
-    <a href="shop.php" class="nav-link">
+    <a href="../../shop.php" class="nav-link">
         <i class="bi bi-shop"></i>
     </a>
         <a href="#" class="nav-link">

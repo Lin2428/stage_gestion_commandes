@@ -252,6 +252,25 @@
 
     /*------------ DESCRIPTION ---------------*/
 
+    .prev {
+        @apply absolute hidden w-[200px] justify-start py-1 bg-white rounded-md shadow-xl right-0 top-[8.8rem] mr-6 items-center; 
+    }
+    .btn-produit-prev:hover .prev{
+        @apply flex;
+    }
+
+    .nex {
+        @apply absolute hidden w-[200px] justify-start py-1 bg-white rounded-md shadow-xl right-0 top-[8.8rem] mr-6 items-center; 
+    }
+
+    .btn-produit-nex:hover .nex {
+        @apply flex;
+    }
+
+    .prev-image {
+        @apply w-[70px] mr-3; 
+    }
+
     .description {
         @apply md:flex justify-between p-3 md:p-10 max-sm:pb-10;
     }
