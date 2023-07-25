@@ -1,11 +1,11 @@
 <div class="flex justify-between items-center p-5 w-[100%] bg-shop bg-cover mb-10">
-    <div>
+    <div class="md:flex">
         <a href="" class=" font-sans text-gray-500 hover:text-primary">Home ></a><a href=""
             class=" font-sans text-gray-500 hover:text-primary">
             <?= $produit[0]->getCategory() ?> >
-        </a><span class="font-sans text-gray-600">
+        </a><p class="font-sans text-gray-600">
             <?= $produit[0]->getNom() ?>
-        </span>
+        </p>
     </div>
     <div>
         <a href="./?id=<?= $prev->getId() ?>" class="btn-produit-prev bg-primary hover:bg-orange-400 mr-2 rounded-full px-3.5 py-2  font-bold text-sm">< 
@@ -60,12 +60,16 @@
             <?= $produit[0]->getPrix() ?> XAF
         </p>
         <div class="quantite">
-            <button class="bg-[#f7f4ef] rounded-full px-3 py-1.5 font-bold text-sm">-</button>
-            <span class="p-2">1</span>
-            <button class="bg-[#f7f4ef] rounded-full px-3 py-1.5 font-bold text-sm">+</button>
-            <button class="bg-primary p-4 rounded-md hover:text-white md:w-[60%] w-[50%] font-bold text-xs md:ml-12"><i
-                    class="bi bi-basket2-fill"></i> AJOUTER AU PANIER</button>
-            <button class="ml-3 px-4 py-3 bg-gray-100 rounded-md text-gray-400 hover:text-primary"><i class="bi bi-heart-fill"></i></button>
+            <div>
+                <button class="bg-[#f7f4ef] rounded-full px-3 py-1.5 font-bold text-sm">-</button>
+                <span class="p-2">1</span>
+                <button class="bg-[#f7f4ef] rounded-full px-3 py-1.5 font-bold text-sm">+</button>
+                
+            </div>
+            <div class="md:w-[70%] md:mt-0 mt-4">
+                <button class="bg-primary p-4 rounded-md hover:text-white w-[80%] font-bold text-xs"><i class="bi bi-basket2-fill"></i> AJOUTER AU PANIER</button>
+                <button class="px-4 py-3 bg-gray-100 rounded-md text-gray-400 hover:text-primary"><i class="bi bi-heart-fill"></i></button>
+            </div>
         </div>
         <p class="font-sans text-sm">Catégorie:
             <a href="" class="font-borld text-sm text-gray-400 hover:text-primary hover:underline">

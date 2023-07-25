@@ -19,7 +19,7 @@
                             <div class="card-head">
                                 <div class="card-links">
                                     <span class="statut">Sale!</span>
-                                    <a href="#" class="text-gray-200 z-10  hover:text-black"><i
+                                    <a href="./?favorie=<?= $produit->getId() ?>" class="text-text-<?= $_SESSION['favorie'][$produit->getId()] ? "[#ff0000]" : "gray-400" ?> z-10  hover:text-black"><i
                                             class="bi bi-heart-fill text-xl"></i></a>
                                 </div>
                                 <img class="card-img" src="<?= base_url('/assets/dist/img/' . $produit->getImage()) ?>"
@@ -45,7 +45,7 @@
                                 <span class="prix-produit text-primary font-bold text-lg">
                                     <?= $produit->getPrix() ?> XAF
                                 </span>
-                                <a href="./?ajout=<?= $produit->getId() ?>"
+                                <a href="./?ajout_panier=<?= $produit->getId() ?>"
                                     class="bg-primary px-3 py-2 w-[2.5rem] hover:text-white rounded-2xl"><i
                                         class="bi bi-basket2-fill"></i></i></a>
                             </div>

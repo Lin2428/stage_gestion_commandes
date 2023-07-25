@@ -16,12 +16,12 @@
         <a href="#" class="nav-link">
             <i class="bi bi-search"></i>
         </a>
-        <a href="#" class="nav-link">
-            <span class="badge">5</span>
+        <a href="panier.php" class="nav-link">
+            <span class="badge"><?= $_SESSION['panier'] ? count($_SESSION['panier']) : 0  ?></span>
             <i class="bi bi-basket2-fill"></i>
         </a>
-        <a href="#" class="nav-link">
-            <span class="badge">10</span>
+        <a href="favorie.php" class="nav-link">
+            <span class="badge"><?= $_SESSION['favorie'] ? count($_SESSION['favorie']) : 0  ?></span>
             <i class="bi bi-bag-heart-fill"></i>
         </a>
         <a href="#" class="nav-link">
@@ -40,13 +40,13 @@
             <i class="bi bi-search"></i>
             <span class="nav-title">Recherche</span>
         </a>
-        <a href="#" class="nav-link">
-            <span class="badge">5</span>
+        <a href="panier.php" class="nav-link">
+            <span class="badge"><?= $_SESSION['panier'] ? count($_SESSION['panier']) : 0  ?></span>
             <i class="bi bi-basket2-fill"></i>
             <span class="nav-title">Panier</span>
         </a>
-        <a href="#" class="nav-link">
-            <span class="badge">10</span>
+        <a href="favorie.php" class="nav-link">
+            <span class="badge"><?= $_SESSION['favorie'] ? count($_SESSION['favorie']) : 0  ?></span>
             <i class="bi bi-bag-heart-fill"></i>
             <span class="nav-title">Favoris</span>
         </a>
