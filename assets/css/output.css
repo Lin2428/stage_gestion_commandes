@@ -1447,6 +1447,10 @@ body {
           margin-inline-end: 0.5rem;
 }
 
+.ml-3 {
+  margin-left: 0.75rem;
+}
+
 .mr-2 {
   margin-right: 0.5rem;
 }
@@ -1483,10 +1487,6 @@ body {
 
 .mt-\[-1\.5rem\] {
   margin-top: -1.5rem;
-}
-
-.ml-3 {
-  margin-left: 0.75rem;
 }
 
 .block {
@@ -1985,10 +1985,6 @@ body {
 @media (min-width: 768px) {
   .md\:ml-12 {
     margin-left: 3rem;
-  }
-
-  .md\:ml-3 {
-    margin-left: 0.75rem;
   }
 
   .md\:flex {
