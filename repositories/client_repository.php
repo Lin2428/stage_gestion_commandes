@@ -23,13 +23,13 @@ class ClientRepository
     public function getAll($page, $perPage, array $filters = [])
     {
         $sql = "SELECT c.id, c.nom, c.prenom, c.email, c.tel, c.password, c.created_at as createdAt, updated_at as updatedAt, statut FROM clients c";
-        
+
         $search = $filters['search'] ?? null;
 
-        if(!empty($search)){
+        if (!empty($search)) {
             $sql .= " WHERE c.nom LIKE :search OR c.email LIKE :search OR c.tel LIKE :search ";
         }
-        
+
         $sql .= " LIMIT :l OFFSET :o";
 
         $stmt = db()->prepare($sql);
@@ -37,7 +37,7 @@ class ClientRepository
         $stmt->bindParam('l', $perPage, PDO::PARAM_INT);
         $stmt->bindParam('o', $offset, PDO::PARAM_INT);
 
-        if(!empty($search)){
+        if (!empty($search)) {
             $search = "%$search%";
             $stmt->bindParam('search', $search);
         }
@@ -46,7 +46,7 @@ class ClientRepository
         $stmt->setFetchMode(PDO::FETCH_CLASS, Client::class);
         $client = $stmt->fetchAll();
 
-        return  $client;
+        return $client;
     }
 
     /**
@@ -60,7 +60,7 @@ class ClientRepository
         $stmt->execute([$id]);
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Client::class);
-        
+
         return $stmt->fetch();
     }
 
@@ -127,13 +127,30 @@ class ClientRepository
      * @param int $id l'id du client
      */
 
-     public function updateStatut($id, $statut)
+    public function updateStatut($id, $statut)
+    {
+        $sql = db()->prepare("UPDATE clients SET statut = :statut WHERE id = :id");
+
+        $sql->execute([
+            'id' => $id,
+            'statut' => $statut,
+        ]);
+    }
+
+    /**
+     * Récupère les id deja attribué depuis la base de données
+     */
+
+     public function getId()
      {
-         $sql = db()->prepare("UPDATE clients SET statut = :statut WHERE id = :id");
- 
-         $sql->execute([
-             'id' => $id,
-             'statut' => $statut,
-         ]);
+         $sql = ("SELECT id_existant as id FROM id_existants");
+         $stmt = db()->query($sql);
+
+         return $stmt->fetchAll();
+     }
+
+     public function setId($id) 
+     {
+        $id 
      }
 }

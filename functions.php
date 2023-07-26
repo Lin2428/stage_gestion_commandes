@@ -128,7 +128,8 @@ function base_url($link)
  * 
  * @param $nom le nom du fichier
  */
-function model($nom){
+function model($nom)
+{
     return require ROOT . 'models' . DS . $nom;
 }
 
@@ -153,7 +154,7 @@ function js($name)
         $name .= '.js';
     }
 
-    return '<script src="'. SITE_URL . '/assets/' . $name . '" ></script>';
+    return '<script src="' . SITE_URL . '/assets/' . $name . '" ></script>';
 }
 
 /**
@@ -161,8 +162,9 @@ function js($name)
  * 
  * @param $image l'image 
  */
-function image($name){
- return base_url('/assets/dist/img/'. $name);
+function image($name)
+{
+    return base_url('/assets/dist/img/' . $name);
 }
 
 
@@ -180,7 +182,7 @@ function liste_action($id, $dossier, $detail = true, $desactive = false, int $st
 {
     $active = $desactive ? "power" : 'x';
     $class = "bg-danger";
-    if($desactive === true && $statut === 0){
+    if ($desactive === true && $statut === 0) {
         $active = "power";
         $class = "bg-success";
     }
@@ -191,7 +193,7 @@ function liste_action($id, $dossier, $detail = true, $desactive = false, int $st
     $html .= '<a href="' . base_url('/admin/' . $dossier . '/update.php?id=' . $id) . '" class="btn bouton_action bg-primary btn-sm me-1"><span data-feather="edit"><span></a>';
     $html .= '<form action="' . base_url('/admin/' . $dossier . '/delete.php') . '" method="POST" class="d-inline text-align-center">';
     $html .= '<input type="hidden" name="id" value="' . $id . '">';
-    $html .= '<button type="submit" class="bouton_action '. $class .'  btn-sm btn"><span data-feather="'. $active .'"><span></button>';
+    $html .= '<button type="submit" class="bouton_action ' . $class . '  btn-sm btn"><span data-feather="' . $active . '"><span></button>';
     $html .= ' </form>';
 
     return $html;
@@ -210,7 +212,7 @@ function liste_action($id, $dossier, $detail = true, $desactive = false, int $st
  */
 function form_input($label, $name, $type = "text", $required = true, $placeholder = '', $default = null, array $options = [], $valueSource = 'POST')
 {
-    if($valueSource === 'POST') {
+    if ($valueSource === 'POST') {
         $data = $_POST;
     } else {
         $data = $_GET;
@@ -221,26 +223,26 @@ function form_input($label, $name, $type = "text", $required = true, $placeholde
     $isRequired = $required ? 'required' : '';
 
     $class = "form-control";
-    if($type === 'select') {
+    if ($type === 'select') {
         $class = 'form-select';
     }
 
     if (isset($data[$name]) && empty($data[$name]) && $required) {
         $class .= ' is-invalid';
     }
-    
-    
-    if($label) {
+
+
+    if ($label) {
         $html = '<div class="mb-3">';
         $html .= '<label for="' . $name . '" class="form-label">' . $label . '</label>';
     } else {
         $html = '<div>';
     }
-    
+
     if ($type === "textarea") {
-        $html .= '<textarea id="' . $name . '" class="form-control" name="' . $name . '" rows="3"  placeholder="' . $label . '">' .  $defaultValue . '</textarea>';
+        $html .= '<textarea id="' . $name . '" class="form-control" name="' . $name . '" rows="3"  placeholder="' . $label . '">' . $defaultValue . '</textarea>';
     } elseif ($type === 'select') {
-        $html .= '<select  name="' . $name . '" id="' . $name . '" ' . $isRequired . ' value="' .  $defaultValue . '" class="' . $class . '">';
+        $html .= '<select  name="' . $name . '" id="' . $name . '" ' . $isRequired . ' value="' . $defaultValue . '" class="' . $class . '">';
         foreach ($options as $value => $text) {
             $selected = $defaultValue == $value ? 'selected' : '';
             $html .= '<option ' . $selected . ' value="' . $value . '">' . $text . '</option>';
@@ -251,7 +253,7 @@ function form_input($label, $name, $type = "text", $required = true, $placeholde
             $defaultValue = uploadImage();
             $class .= ' ' . $defaultValue;
         }
-        $html .= '<input type="' . $type . '" name="' . $name . '" id="' . $name . '" ' . $isRequired . ' value="' .  $defaultValue . '" class="' . $class . '" placeholder="' . $label.$placeholder. '">';
+        $html .= '<input type="' . $type . '" name="' . $name . '" id="' . $name . '" ' . $isRequired . ' value="' . $defaultValue . '" class="' . $class . '" placeholder="' . $label . $placeholder . '">';
     }
 
     $html .= "</div>";
@@ -351,9 +353,9 @@ function uploadImage(): ?string
 
     $tmpName = $_FILES['image']['tmp_name'];
     $uniqueName = md5(uniqid(rand(), true));
-    $fileName = $uniqueName . '.' .  $extention;
+    $fileName = $uniqueName . '.' . $extention;
 
-    move_uploaded_file($tmpName, "../../assets/dist/img/".$fileName);
+    move_uploaded_file($tmpName, "../../assets/dist/img/" . $fileName);
 
     return $fileName;
 }
@@ -361,7 +363,8 @@ function uploadImage(): ?string
 /**
  * Retour la pagination
  */
-function paginate($pageCount, $currentPage, $baseUrl) {
+function paginate($pageCount, $currentPage, $baseUrl)
+{
     require LAYOUT_PATH . 'parts' . DS . 'pagination.php';
 }
 
@@ -369,12 +372,25 @@ function paginate($pageCount, $currentPage, $baseUrl) {
  * Rétour la baner 
  */
 
-function baner($title, $linkName = "Home", $link = "./home") {
+function baner($title, $linkName = "Home", $link = "./home")
+{
     $html = '<div class="shop-baner">';
-    $html .= '<p class="titre-baner">'. $title .'</p>';
-    $html .= '<span class="link-baner"><a href="'. $link .'" class="text-gray-400 hover:text-primary">'. $linkName .'</a>';
-    $html .= '<span class="font-bold text-xs text-gray-400"><i class="bi bi-chevron-right"></i></span> '. $title .'</span>';
+    $html .= '<p class="titre-baner">' . $title . '</p>';
+    $html .= '<span class="link-baner"><a href="' . $link . '" class="text-gray-400 hover:text-primary">' . $linkName . '</a>';
+    $html .= '<span class="font-bold text-xs text-gray-400"><i class="bi bi-chevron-right"></i></span> ' . $title . '</span>';
     $html .= '</div>';
 
-    return $html ;
+    return $html;
+}
+
+
+/**
+ * Crée un id temporaire pour le client si il nest pas connecté
+ * 
+ * @param string l'$idClient du client si elle exite
+ */
+function createIdClient($idClient)
+{
+    setcookie("client", (string) $idClient);
+
 }

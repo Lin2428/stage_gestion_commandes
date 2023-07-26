@@ -42,7 +42,7 @@ if (!empty($_GET['ajout_panier'])) {
                     <div class="card-head">
                         <div class="card-links">
                             <span class="statut">Sale!</span>
-                            <a href="./?favorie=<?= $produit->getId() ?>" class="text-<?= $_SESSION['favorie'][$produit->getId()] ? "[#ff0000]" : "gray-400" ?> z-10  hover:text-black ">
+                            <a href="./?favorie=<?= $produit->getId() ?>" class="text-gray-400 z-10  hover:text-black ">
                                 <i class="bi bi-heart-fill text-xl"></i>
                             </a>
                         </div>

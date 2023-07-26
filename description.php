@@ -1,8 +1,6 @@
 <?php
 require 'bootstrap.php';
 
-$panier = new Panier();
-
 $id[0] = intval($_GET['id']);
 $repoProduit = new ProductRepository();
 

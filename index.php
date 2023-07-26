@@ -1,9 +1,21 @@
 <?php
 require 'bootstrap.php';
+$idClient = '';
+$id = null ;
 
-$panier = new Panier();
+$repoClient = new ClientRepository;
+$idExistant = $repoClient->getId();
 
-$favorie = new Favorie();
+if(!empty($idExistant)){
+    $id = (int) end($idExistant[array_key_last($idExistant)]) + 1;
+}else{
+    $id = $idClient;
+}
+
+createIdClient($id);
+
+
+
 
 $repoCategory = new CategoryRepository();
 $categories = $repoCategory->getAll();
@@ -19,45 +31,6 @@ $itemCount = intval(ceil($total / $perPage));
 
 $produits = $repoProduit->getAll($page, $perPage, $_GET);
 
-/**
- * Ajout au panier
- */
-if (isset($_GET['ajout_panier'])) {
-    $id[0] = $_GET['ajout_panier'];
-
-    $ajoutProduit = $repoProduit->findById($id);
-
-    if ($ajoutProduit) {
-        $panier->add($ajoutProduit[0]->getId());
-    }
-}
-
-$produitPanier = [];
-if ($_SESSION['panier']) {
-    $id = array_keys($_SESSION['panier']);
-
-    $produitPanier = $repoProduit->findById($id);
-}
-
-/**
- * Ajout au favorie
- */
-
-if (isset($_GET['favorie'])) {
-    $id[0] = intval($_GET['favorie']);
-
-    $produit = $repoProduit->findById($id);
-
-    if ($produit) {
-        $getFavorie = $favorie->getFavorie($produit[0]->getId());
-        if($getFavorie === true){  
-             //$favorie->delete($produit[0]->getId());
-        }else{
-            $favorie->add($produit[0]->getId());
-        } 
-    }
-}
-
 
 view(
     name: 'home',
@@ -66,6 +39,5 @@ view(
     params: [
         'categories' => $categories,
         'produits' => $produits,
-        'produitPanier' => $produitPanier,
     ]
 );
