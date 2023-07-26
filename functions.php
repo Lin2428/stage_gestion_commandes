@@ -358,7 +358,23 @@ function uploadImage(): ?string
     return $fileName;
 }
 
-
+/**
+ * Retour la pagination
+ */
 function paginate($pageCount, $currentPage, $baseUrl) {
     require LAYOUT_PATH . 'parts' . DS . 'pagination.php';
+}
+
+/**
+ * Rétour la baner 
+ */
+
+function baner($title, $linkName = "Home", $link = "./home") {
+    $html = '<div class="shop-baner">';
+    $html .= '<p class="titre-baner">'. $title .'</p>';
+    $html .= '<span class="link-baner"><a href="'. $link .'" class="text-gray-400 hover:text-primary">'. $linkName .'</a>';
+    $html .= '<span class="font-bold text-xs text-gray-400"><i class="bi bi-chevron-right"></i></span> '. $title .'</span>';
+    $html .= '</div>';
+
+    return $html ;
 }

@@ -300,7 +300,15 @@
     /*------------ BANER SHOP ---------------*/
 
     .shop-baner {
-        @apply flex justify-center items-center w-[100%] py-[5rem] bg-shop bg-cover bg-center;
+        @apply flex flex-col justify-center items-center w-[100%] py-[5rem] bg-shop bg-cover bg-center;
+    }
+
+    .shop-baner .titre-baner{
+        @apply font-bold text-5xl mb-4;
+    }
+
+    .shop-baner .link-baner{
+        @apply px-3 font-sans;
     }
 
     /*------------ FILTER ---------------*/

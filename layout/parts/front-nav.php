@@ -16,11 +16,11 @@
         <a href="#" class="nav-link">
             <i class="bi bi-search"></i>
         </a>
-        <a href="panier.php" class="nav-link">
+        <a href="/panier.php" class="nav-link">
             <span class="badge"><?= $_SESSION['panier'] ? count($_SESSION['panier']) : 0  ?></span>
             <i class="bi bi-basket2-fill"></i>
         </a>
-        <a href="favorie.php" class="nav-link">
+        <a href="/favorie.php" class="nav-link">
             <span class="badge"><?= $_SESSION['favorie'] ? count($_SESSION['favorie']) : 0  ?></span>
             <i class="bi bi-bag-heart-fill"></i>
         </a>
@@ -32,7 +32,7 @@
 
 <nav class="nav-mobile">
     <div class="nav-links">
-        <a href="#" class="nav-link">
+        <a href="/" class="nav-link">
             <i class="bi bi-shop"></i>
             <span class="nav-title">Shop</span>
         </a>
