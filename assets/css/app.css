@@ -362,7 +362,7 @@
     }
 
     .detail-panier-mobile{
-        @apply flex justify-between py-4 border-b-[0.05px];
+        @apply flex justify-between items-center py-4 border-b-[0.05px];
     }
 
     .detail-panier-mobile .titre{

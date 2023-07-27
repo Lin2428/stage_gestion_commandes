@@ -1,4 +1,8 @@
-<?= baner(title: "Favorie") ?>
+<div class="shop-baner">
+    <p class="titre-baner">Favorie</p>
+    <span class="link-baner"><a href="/" class="text-gray-400 hover:text-primary">Home</a>
+    <span class="font-bold text-xs text-gray-400"><i class="bi bi-chevron-right"></i></span> Favorie</span>
+</div>
 
 <?php if ($_SESSION['panier']) : ?>
     <div class="favorie-container">

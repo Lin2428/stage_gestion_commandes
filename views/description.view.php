@@ -2,9 +2,9 @@
     <div class="md:flex">
         <a href="" class=" font-sans text-gray-500 hover:text-primary">Home ></a><a href=""
             class=" font-sans text-gray-500 hover:text-primary">
-            <?= $produit[0]->getCategory() ?> >
+            <?= $produit->getCategory() ?> >
         </a><p class="font-sans text-gray-600">
-            <?= $produit[0]->getNom() ?>
+            <?= $produit->getNom() ?>
         </p>
     </div>
     <div>
@@ -40,11 +40,11 @@
 
 <div class="description">
     <div class="desc-image">
-        <img class="mx-auto" src="<?= image($produit[0]->getImage()) ?>" alt="">
+        <img class="mx-auto" src="<?= image($produit->getImage()) ?>" alt="">
     </div>
     <div class="desc-text">
         <p class="title-desc">
-            <?= $produit[0]->getNom() ?>
+            <?= $produit->getNom() ?>
         </p>
         <div class="star flex text-sm font-sans mb-5">
             <span class="text-yellow-500"><i class="bi bi-star-fill"></i></i></span>
@@ -54,16 +54,16 @@
             <span class="text-gray-200"><i class="bi bi-star"></i></span>
         </div>
         <p class="font-sans text-gray-500 mb-5">
-            <?= $produit[0]->getDescription() ?>
+            <?= $produit->getDescription() ?>
         </p>
         <p class="text-2xl font-bold text-primary mb-3">
-            <?= $produit[0]->getPrix() ?> XAF
+            <?= $produit->getPrix() ?> XAF
         </p>
         <div class="quantite">
             <div>
-                <button class="bg-[#f7f4ef] rounded-full px-3 py-1.5 font-bold text-sm">-</button>
-                <span class="p-2">1</span>
-                <button class="bg-[#f7f4ef] rounded-full px-3 py-1.5 font-bold text-sm">+</button>
+                <!-- <button class="bg-[#f7f4ef] rounded-full px-3 py-1.5 font-bold text-sm">-</button> -->
+                <input type="number" name="quanite" value="1" min="1" class="border border-gray-200 p-3 font-[500] w-16 rounded-md h-10 outline-1 outline-primary ">
+                <!-- <button class="bg-[#f7f4ef] rounded-full px-3 py-1.5 font-bold text-sm">+</button> -->
                 
             </div>
             <div class="md:w-[70%] md:mt-0 mt-4">
@@ -73,7 +73,7 @@
         </div>
         <p class="font-sans text-sm">Catégorie:
             <a href="" class="font-borld text-sm text-gray-400 hover:text-primary hover:underline">
-                <?= $produit[0]->getCategory() ?>
+                <?= $produit->getCategory() ?>
             </a>
         </p>
     </div>

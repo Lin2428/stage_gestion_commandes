@@ -1266,6 +1266,7 @@ body {
 
 .detail-panier-mobile {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   border-bottom-width: 0.05px;
   padding-top: 1rem;
@@ -1669,8 +1670,8 @@ body {
   height: 390px;
 }
 
-.w-14 {
-  width: 3.5rem;
+.w-16 {
+  width: 4rem;
 }
 
 .w-24 {
@@ -1707,6 +1708,10 @@ body {
 
 .w-full {
   width: 100%;
+}
+
+.w-12 {
+  width: 3rem;
 }
 
 .min-w-0 {
@@ -2054,11 +2059,6 @@ body {
   line-height: 2rem;
 }
 
-.text-5xl {
-  font-size: 3rem;
-  line-height: 1;
-}
-
 .text-\[12rem\] {
   font-size: 12rem;
 }
@@ -2223,6 +2223,10 @@ body {
 }
 
 @media (min-width: 768px) {
+  .md\:visible {
+    visibility: visible;
+  }
+
   .md\:col-span-1 {
     grid-column: span 1 / span 1;
   }
@@ -2233,6 +2237,10 @@ body {
 
   .md\:mt-0 {
     margin-top: 0px;
+  }
+
+  .md\:block {
+    display: block;
   }
 
   .md\:flex {

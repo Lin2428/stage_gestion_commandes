@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 25 juil. 2023 à 16:12
+-- Généré le : jeu. 27 juil. 2023 à 16:30
 -- Version du serveur : 10.10.3-MariaDB
 -- Version de PHP : 7.4.26
 
@@ -60,7 +60,7 @@ INSERT INTO `categories` (`id`, `nom`, `statut`, `image`) VALUES
 
 DROP TABLE IF EXISTS `clients`;
 CREATE TABLE IF NOT EXISTS `clients` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `nom` varchar(100) NOT NULL,
   `prenom` varchar(200) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `updated_at` datetime DEFAULT current_timestamp(),
   `statut` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `clients`
@@ -1154,6 +1154,60 @@ INSERT INTO `livreurs` (`id`, `nom`, `prenom`, `email`, `tel`, `password`, `crea
 (2, 'Koula', 'Pièrre', 'marcndzanangono@gmail.com', '444', '1234', '2023-07-06 00:00:00', '2023-07-07 00:00:00', '6b60975438f26adf97d0ac8c365a392f.jpg', 1),
 (3, 'Malonga', 'will le grand', 'marcndzanangono@gmail.com', '1322', '1234', '2023-07-06 00:00:00', '2023-07-07 00:00:00', '5d6da0ae949fddae79d29c98f06bca34.jpg', 1),
 (4, 'Loboko', 'martin', 'dav@gmail.com', '0000', '0000', '2023-07-06 00:00:00', '2023-07-07 00:00:00', '27287a36d97f64a4fd1d2e332408cd55.jpg', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `paniers`
+--
+
+DROP TABLE IF EXISTS `paniers`;
+CREATE TABLE IF NOT EXISTS `paniers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_client` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `paniers`
+--
+
+INSERT INTO `paniers` (`id`, `id_client`) VALUES
+(1, '64c260c74e848'),
+(2, '64c2667b45ac5'),
+(3, '64c2667b542e4'),
+(4, '64c29460c0b37'),
+(5, '64c29460c5744'),
+(6, '64c29460d0143'),
+(7, '64c29460d2edd');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `panier_items`
+--
+
+DROP TABLE IF EXISTS `panier_items`;
+CREATE TABLE IF NOT EXISTS `panier_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `panier_id` int(11) DEFAULT NULL,
+  `produit_id` int(11) DEFAULT NULL,
+  `quantite` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `panier_id` (`panier_id`),
+  KEY `produit_id` (`produit_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `panier_items`
+--
+
+INSERT INTO `panier_items` (`id`, `panier_id`, `produit_id`, `quantite`) VALUES
+(13, 1, 4, 1),
+(14, 1, 3, 3),
+(15, 7, 12, 1),
+(16, 7, 18, 1),
+(17, 7, 17, 2);
 
 -- --------------------------------------------------------
 
@@ -4768,6 +4822,13 @@ INSERT INTO `produits_commandes` (`id`, `prix`, `quantite`, `produit_id`, `comma
 ALTER TABLE `commandes`
   ADD CONSTRAINT `commandes_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`),
   ADD CONSTRAINT `commandes_ibfk_2` FOREIGN KEY (`livreur_id`) REFERENCES `livreurs` (`id`);
+
+--
+-- Contraintes pour la table `panier_items`
+--
+ALTER TABLE `panier_items`
+  ADD CONSTRAINT `panier_items_ibfk_1` FOREIGN KEY (`panier_id`) REFERENCES `paniers` (`id`),
+  ADD CONSTRAINT `panier_items_ibfk_2` FOREIGN KEY (`produit_id`) REFERENCES `produits` (`id`);
 
 --
 -- Contraintes pour la table `produits`

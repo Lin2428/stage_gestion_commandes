@@ -1,7 +1,7 @@
 <?php
 require 'bootstrap.php';
 
-$id[0] = intval($_GET['id']);
+$id = intval($_GET['id']);
 $repoProduit = new ProductRepository();
 
 $produit = $repoProduit->findById($id);
@@ -24,7 +24,7 @@ $next = [];
 
 
 for($i = 0; $i<count($produits); $i++){
-    if($produits[$i]->getId() === $produit[0]->getId()){
+    if($produits[$i]->getId() === $produit->getId()){
         if($i != 0){
             $id = $i-1;
             

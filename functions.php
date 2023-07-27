@@ -328,6 +328,12 @@ function redirect(string $url, ?string $message = null, string $messageType = 's
     exit;
 }
 
+function redirect_self(?string $message = null, string $messageType = 'success') : void
+{
+    $currentUrl = $_SERVER['PHP_SELF'];
+    redirect($currentUrl, $message, $messageType);
+}
+
 /**
  * Upload de l'image dans le dossier ./imgages
  * et renvoie le chemin de l'image en question ou null
@@ -368,29 +374,26 @@ function paginate($pageCount, $currentPage, $baseUrl)
     require LAYOUT_PATH . 'parts' . DS . 'pagination.php';
 }
 
-/**
- * Rétour la baner 
- */
-
-function baner($title, $linkName = "Home", $link = "./home")
-{
-    $html = '<div class="shop-baner">';
-    $html .= '<p class="titre-baner">' . $title . '</p>';
-    $html .= '<span class="link-baner"><a href="' . $link . '" class="text-gray-400 hover:text-primary">' . $linkName . '</a>';
-    $html .= '<span class="font-bold text-xs text-gray-400"><i class="bi bi-chevron-right"></i></span> ' . $title . '</span>';
-    $html .= '</div>';
-
-    return $html;
-}
-
 
 /**
- * Crée un id temporaire pour le client si il nest pas connecté
+ * Créer ou récupère l'ID unique du visiteur du site
  * 
- * @param string l'$idClient du client si elle exite
+ * @return string Id du visiteur
  */
-function createIdClient($idClient)
+function get_visitor_id()
 {
-    setcookie("client", (string) $idClient);
+    $id = $_COOKIE['visitor_id'] ?? null;
 
+    if($id) {
+        return $id;
+    }
+
+    $id = uniqid();
+
+    setcookie('visitor_id', $id, [
+        'httponly' => true,
+        'expires' => time() + (360 * 3600),
+    ]);
+
+    return $id;
 }

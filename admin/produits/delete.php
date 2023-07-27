@@ -27,8 +27,8 @@ if (is_post() && !empty($_POST['id'])) {
 
 
 
-view(
-    name: 'admin.products.delete',
-    pageTitle: "Suppréssion du produi",
-    params: []
-);
+// view(
+//     name: 'admin.products.delete',
+//     pageTitle: "Suppréssion du produi",
+//     params: []
+// );

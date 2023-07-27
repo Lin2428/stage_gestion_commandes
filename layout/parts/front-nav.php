@@ -1,3 +1,6 @@
+<?php
+$cartItems = PanierRepository::getItemCount();
+?>
 <nav class="nav">
     <a href="/" class="nav-logo">Logo</a>
 
@@ -17,7 +20,7 @@
             <i class="bi bi-search"></i>
         </a>
         <a href="/panier.php" class="nav-link">
-            <span class="badge">0</span>
+            <span class="badge"><?= $cartItems ?></span>
             <i class="bi bi-basket2-fill"></i>
         </a>
         <a href="/favorie.php" class="nav-link">
@@ -32,7 +35,7 @@
 
 <nav class="nav-mobile">
     <div class="nav-links">
-        <a href="/" class="nav-link">
+        <a href="../../shop.php" class="nav-link">
             <i class="bi bi-shop"></i>
             <span class="nav-title">Shop</span>
         </a>
@@ -41,7 +44,7 @@
             <span class="nav-title">Recherche</span>
         </a>
         <a href="panier.php" class="nav-link">
-            <span class="badge">0</span>
+            <span class="badge"><?= $cartItems ?></span>
             <i class="bi bi-basket2-fill"></i>
             <span class="nav-title">Panier</span>
         </a>

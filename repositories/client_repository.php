@@ -141,16 +141,16 @@ class ClientRepository
      * Récupère les id deja attribué depuis la base de données
      */
 
-     public function getId()
-     {
-         $sql = ("SELECT id_existant as id FROM id_existants");
-         $stmt = db()->query($sql);
+    //  public function getId()
+    //  {
+    //      $sql = ("SELECT id_existant as id FROM id_existants");
+    //      $stmt = db()->query($sql);
 
-         return $stmt->fetchAll();
-     }
+    //      return $stmt->fetchAll();
+    //  }
 
-     public function setId($id) 
-     {
-        $id 
-     }
+    //  public function setId($id) 
+    //  {
+       
+    //  }
 }

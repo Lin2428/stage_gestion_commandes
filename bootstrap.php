@@ -7,6 +7,7 @@ require 'constant.php';
 include ROOT . 'db.php';
 include ROOT . 'functions.php';
 
+
 model('admin.model.php');
 model('produit.model.php');
 model('category.model.php');
@@ -18,6 +19,7 @@ model('panier.model.php');
 model('favorie.model.php');
 
 // Repositories
+include_repo('panier_repository.php');
 include_repo('product_repository.php');
 include_repo('categorie_repository.php');
 include_repo('livreur_repository.php');

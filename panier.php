@@ -1,23 +1,38 @@
 <?php
 require 'bootstrap.php';
+$panier = [];
+$repoPanier = new PanierRepository();
 
-$panier = new Favorie();
+$panier = $repoPanier->getAll();
 
-$repoProduit = new ProductRepository();
+if (isset($_POST['update_panier'])) {
+    for ($i = 0; $i < count($panier); $i++) {
+        $quanite = intval($_POST['quanite' . $panier[$i]->getProduitId()]);
 
-$produits = [];
-if ($_SESSION['panier']) {
-    $id = array_keys($_SESSION['panier']);
+        if ($quanite) {
+            $data = [
+                'id' => $panier[$i]->getItemId(),
+                'quantite' => $quanite,
+            ];
 
-    $produits = $repoProduit->findById($id);
+            $repoPanier->updateCountProduit($data);
+        }else{
+            $repoPanier->delete($panier[$i]->getItemId());
+        }
+    }
+
+    flash_message("Le panier à bient été modifier");
 }
 
+$total = $repoPanier->getPrixTotal();
+$panier = $repoPanier->getAll();
 
 view(
     name: 'panier',
     pageTitle: "Panier",
     layout: "front",
     params: [
-        'produits' => $produits,
+        'panier' => $panier,
+        'total' => $total,
     ]
 );
