@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 27 juil. 2023 à 16:30
+-- Généré le : ven. 28 juil. 2023 à 17:01
 -- Version du serveur : 10.10.3-MariaDB
 -- Version de PHP : 7.4.26
 
@@ -1128,6 +1128,51 @@ INSERT INTO `commandes` (`id`, `numero`, `adresse`, `statut`, `created_at`, `upd
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `favories`
+--
+
+DROP TABLE IF EXISTS `favories`;
+CREATE TABLE IF NOT EXISTS `favories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `client_id` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `favories`
+--
+
+INSERT INTO `favories` (`id`, `client_id`) VALUES
+(1, '64c260c74e848'),
+(2, '64c29460d2edd');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `favorie_items`
+--
+
+DROP TABLE IF EXISTS `favorie_items`;
+CREATE TABLE IF NOT EXISTS `favorie_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `favorie_id` int(11) DEFAULT NULL,
+  `produit_id` int(11) DEFAULT NULL,
+  `created_at` date DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `favorie_id` (`favorie_id`),
+  KEY `produit_id` (`produit_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `favorie_items`
+--
+
+INSERT INTO `favorie_items` (`id`, `favorie_id`, `produit_id`, `created_at`) VALUES
+(41, 1, 3, '2023-07-28');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `livreurs`
 --
 
@@ -1196,18 +1241,17 @@ CREATE TABLE IF NOT EXISTS `panier_items` (
   PRIMARY KEY (`id`),
   KEY `panier_id` (`panier_id`),
   KEY `produit_id` (`produit_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `panier_items`
 --
 
 INSERT INTO `panier_items` (`id`, `panier_id`, `produit_id`, `quantite`) VALUES
-(13, 1, 4, 1),
-(14, 1, 3, 3),
-(15, 7, 12, 1),
-(16, 7, 18, 1),
-(17, 7, 17, 2);
+(41, 1, 14, 1),
+(42, 1, 12, 1),
+(43, 1, 17, 1),
+(45, 1, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -4822,6 +4866,13 @@ INSERT INTO `produits_commandes` (`id`, `prix`, `quantite`, `produit_id`, `comma
 ALTER TABLE `commandes`
   ADD CONSTRAINT `commandes_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`),
   ADD CONSTRAINT `commandes_ibfk_2` FOREIGN KEY (`livreur_id`) REFERENCES `livreurs` (`id`);
+
+--
+-- Contraintes pour la table `favorie_items`
+--
+ALTER TABLE `favorie_items`
+  ADD CONSTRAINT `favorie_items_ibfk_1` FOREIGN KEY (`favorie_id`) REFERENCES `favories` (`id`),
+  ADD CONSTRAINT `favorie_items_ibfk_2` FOREIGN KEY (`produit_id`) REFERENCES `produits` (`id`);
 
 --
 -- Contraintes pour la table `panier_items`
