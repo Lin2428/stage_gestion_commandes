@@ -12,6 +12,8 @@ class Produit
     private $description;
     private $statut;
 
+    private $inFavorite = false;
+
     public function getId(): int
     {
         return $this->id;
@@ -55,5 +57,15 @@ class Produit
     public function getStatut(): int
     {
         return $this->statut;
+    }
+
+    public function setInFavorite(bool $inFavorite)
+    {
+        $this->inFavorite = $inFavorite;
+    }
+
+    public function isInFavorite()
+    {
+        return $this->inFavorite;
     }
 }

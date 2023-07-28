@@ -19,10 +19,11 @@ model('panier.model.php');
 model('favorie.model.php');
 
 // Repositories
-include_repo('panier_repository.php');
 include_repo('product_repository.php');
 include_repo('categorie_repository.php');
 include_repo('livreur_repository.php');
 include_repo('client_repository.php');
 include_repo('commande_repository.php');
 include_repo('admin_repository.php');
+include_repo('panier_repository.php');
+include_repo('favorie_repository.php');

@@ -1,5 +1,6 @@
 <?php
 $cartItems = PanierRepository::getItemCount();
+$FavorieItems = FavorieRepository::getItemCount();
 ?>
 <nav class="nav">
     <a href="/" class="nav-logo">Logo</a>
@@ -24,7 +25,7 @@ $cartItems = PanierRepository::getItemCount();
             <i class="bi bi-basket2-fill"></i>
         </a>
         <a href="/favorie.php" class="nav-link">
-            <span class="badge">0</span>
+            <span class="badge"><?= $FavorieItems ?></span>
             <i class="bi bi-bag-heart-fill"></i>
         </a>
         <a href="#" class="nav-link">
@@ -49,7 +50,7 @@ $cartItems = PanierRepository::getItemCount();
             <span class="nav-title">Panier</span>
         </a>
         <a href="favorie.php" class="nav-link">
-            <span class="badge">0</span>
+            <span class="badge"><?= $FavorieItems ?></span>
             <i class="bi bi-bag-heart-fill"></i>
             <span class="nav-title">Favoris</span>
         </a>

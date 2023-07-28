@@ -10,7 +10,6 @@ class Panier
     private $produiImage;
     private $clientId;
     private $quantite;
-    private $total;
 
     public function getId(): ?int 
     {

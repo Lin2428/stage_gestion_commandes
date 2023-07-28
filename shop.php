@@ -1,35 +1,13 @@
 <?php
 require 'bootstrap.php';
 
-$repoPanier = new PanierRepository();
-
 $repoCategory = new CategoryRepository();
 $categories = $repoCategory->getAll();
 
 $repoProduit = new ProductRepository();
 
-
-if (!empty($_POST['action']) && $_POST['action'] === '_add_to_cart') {
-    $produitId = intval($_POST['id'] ?? null);
-    $data = $repoPanier->getOrAddCountProduit($produitId);
-
-    if (!empty($data)) {
-        $data['quantite'] += 1;
-        $repoPanier->updateCountProduit($data);
-        $message = 'La quantité a bien été modifier!';
-        $type = 'success';
-    } else {
-        if ($repoPanier->add($produitId)) {
-            $message = 'Le produit à bien été ajouté dans le panier!';
-            $type = 'success';
-        } else {
-            $message = 'Une erreur s\'est produite, veuillez réessayer!';
-            $type = 'danger';
-        }
-    }
-    redirect_self($message, $type);
-}
-
+$repoFavorie = new FavorieRepository();
+$produitFavories = $repoFavorie->getItemFavorie();
 
 $countCategorie = [];
 for ($i = 0; $i < count($categories); $i++) {
@@ -45,6 +23,16 @@ $itemCount = intval(ceil($total / $perPage));
 
 $produits = $repoProduit->getAll($page, $perPage, $_GET);
 
+$colorFavorie = [];
+for ($i = 0; $i < count($produitFavories); $i++) {
+    for ($y = 0; $y < count($produits); $y++) {
+        if ($produits[$y]->getId() === $produitFavories[$i]['id']) {
+            $color = "red";
+            $colorFavorie[$produitFavories[$i]['id']] = $color;
+        }
+    }
+}
+
 
 view(
     name: 'shop',
@@ -54,5 +42,6 @@ view(
         'categories' => $categories,
         'produits' => $produits,
         'countCategorie' => $countCategorie,
+        'colorFavorie' => $colorFavorie,
     ]
 );

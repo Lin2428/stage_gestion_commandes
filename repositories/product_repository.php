@@ -19,7 +19,7 @@ class ProductRepository
     /**
      * Recupère tout les produits depuis la base de données
      * 
-     * @return array
+     * @return Produit[]
      */
     public function getAll($page, $perPage, array $filters = [])
     {

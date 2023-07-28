@@ -328,9 +328,13 @@ function redirect(string $url, ?string $message = null, string $messageType = 's
     exit;
 }
 
-function redirect_self(?string $message = null, string $messageType = 'success') : void
+/**
+ * Fait un redirection sur la page courant
+ * 
+ * @param string $currentUrl l'url de la page courant
+ */
+function redirect_self($currentUrl, ?string $message = null, string $messageType = 'success') : void
 {
-    $currentUrl = $_SERVER['PHP_SELF'];
     redirect($currentUrl, $message, $messageType);
 }
 

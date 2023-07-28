@@ -6,29 +6,13 @@ $categories = $repoCategory->getAll();
 
 $repoProduit = new ProductRepository();
 
-$repoPanier = new PanierRepository();
+$repoFavorie = new FavorieRepository();
+$produitFavories = $repoFavorie->getItemFavorie();
+$favs = [];
 
-if (!empty($_POST['action']) && $_POST['action'] === '_add_to_cart') {
-    $produitId = intval($_POST['id'] ?? null);
-    $data = $repoPanier->getOrAddCountProduit($produitId);
-
-    if (!empty($data)) {
-        $data['quantite'] += 1;
-        $repoPanier->updateCountProduit($data);
-        $message = 'La quantité a bien été modifier!';
-        $type = 'success';
-    } else {
-        if ($repoPanier->add($produitId)) {
-            $message = 'Le produit à bien été ajouté dans le panier!';
-            $type = 'success';
-        } else {
-            $message = 'Une erreur s\'est produite, veuillez réessayer!';
-            $type = 'danger';
-        }
-    }
-    redirect_self($message, $type);
+foreach($produitFavories as $fav) {
+    $favs[] = $fav['id'];
 }
-
 
 $perPage = 10;
 $page = intval($_GET['page'] ?? 1);
@@ -40,6 +24,11 @@ $itemCount = intval(ceil($total / $perPage));
 $produits = $repoProduit->getAll($page, $perPage, $_GET);
 
 
+foreach ($produits as $produit) {
+    $inFavoris = in_array($produit->getId(), $favs);
+    $produit->setInFavorite($inFavoris);
+}
+
 view(
     name: 'home',
     pageTitle: "Acceuil",
@@ -47,5 +36,6 @@ view(
     params: [
         'categories' => $categories,
         'produits' => $produits,
+        'produitFavories' => $produitFavories,
     ]
 );

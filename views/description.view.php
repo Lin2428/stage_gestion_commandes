@@ -1,24 +1,24 @@
 <div class="flex justify-between items-center p-5 w-[100%] bg-shop bg-cover mb-10">
     <div class="md:flex">
-        <a href="" class=" font-sans text-gray-500 hover:text-primary">Home ></a><a href=""
-            class=" font-sans text-gray-500 hover:text-primary">
+        <a href="/" class=" font-sans text-gray-500 hover:text-primary">Home ></a><a href="" class=" font-sans text-gray-500 hover:text-primary">
             <?= $produit->getCategory() ?> >
-        </a><p class="font-sans text-gray-600">
+        </a>
+        <p class="font-sans text-gray-600">
             <?= $produit->getNom() ?>
         </p>
     </div>
     <div>
-        <a href="./?id=<?= $prev->getId() ?>" class="btn-produit-prev bg-primary hover:bg-orange-400 mr-2 rounded-full px-3.5 py-2  font-bold text-sm">< 
-        <div class="prev">
-            <img class="prev-image" src="<?= image($prev->getImage()) ?>" alt="">
-            <p>
-                <span class="font-bold text-sm">
-                    <?= $prev->getNom() ?>
-                </span><br>
-                <span class="text-primary font-sans">
-                    <?= $prev->getPrix() ?> XAF
-                </span>
-            </p>
+        <a href="./?id=<?= $prev->getId() ?>" class="btn-produit-prev bg-primary hover:bg-orange-400 mr-2 rounded-full px-3.5 py-2  font-bold text-sm">
+            < <div class="prev">
+                <img class="prev-image" src="<?= image($prev->getImage()) ?>" alt="">
+                <p>
+                    <span class="font-bold text-sm">
+                        <?= $prev->getNom() ?>
+                    </span><br>
+                    <span class="text-primary font-sans">
+                        <?= $prev->getPrix() ?> XAF
+                    </span>
+                </p>
     </div>
     </button>
     <a href="./?id=<?= $next->getId() ?>" class="btn-produit-nex bg-primary hover:bg-orange-400 rounded-full px-3.5 py-2 font-bold text-sm">>
@@ -38,7 +38,7 @@
 
 </div>
 
-<div class="description">
+<div class="description md:mb-5 mb-[10rem]">
     <div class="desc-image">
         <img class="mx-auto" src="<?= image($produit->getImage()) ?>" alt="">
     </div>
@@ -59,22 +59,31 @@
         <p class="text-2xl font-bold text-primary mb-3">
             <?= $produit->getPrix() ?> XAF
         </p>
-        <div class="quantite">
+        <form class="quantite" method="POST" action="/add_produit.php">
+            <input type="hidden" name="action" value="_add_to_cart">
+            <input type="hidden" name="currentPage" value="<?= $_SERVER['PHP_SELF'] . '/?id=' .  $produit->getId() ?>">
+            <input type="hidden" name="id" value="<?= $produit->getId() ?>">
             <div>
                 <!-- <button class="bg-[#f7f4ef] rounded-full px-3 py-1.5 font-bold text-sm">-</button> -->
-                <input type="number" name="quanite" value="1" min="1" class="border border-gray-200 p-3 font-[500] w-16 rounded-md h-10 outline-1 outline-primary ">
+                <input type="number" name="quantite" value="<?= $countProduit ?>" min="1" class="border border-gray-200 p-3 font-[500] w-16 rounded-md h-10 outline-1 outline-primary ">
                 <!-- <button class="bg-[#f7f4ef] rounded-full px-3 py-1.5 font-bold text-sm">+</button> -->
-                
+
             </div>
-            <div class="md:w-[70%] md:mt-0 mt-4">
-                <button class="bg-primary p-4 rounded-md hover:text-white w-[80%] font-bold text-xs"><i class="bi bi-basket2-fill"></i> AJOUTER AU PANIER</button>
-                <button class="px-4 py-3 bg-gray-100 rounded-md text-gray-400 hover:text-primary"><i class="bi bi-heart-fill"></i></button>
+            <div class="md:w-[70%] md:mt-0 mt-4 flex">
+                <button type="submit" class="bg-primary p-4 mr-1 rounded-md hover:text-white w-[80%] font-bold text-xs"><i class="bi bi-basket2-fill"></i> AJOUTER AU PANIER</button>
+        </form>
+        <form action="/add_produit.php" method="post" class="">
+            <input type="hidden" name="action" value="_add_to_favorie">
+            <input type="hidden" name="currentPage" value="<?= $_SERVER['PHP_SELF'] .'?id='. $produit->getId() ?>">
+            <input type="hidden" name="id" value="<?= $produit->getId() ?>">
+            <button type="submit" style="color: <?= $colorFavorie ?? '#ddd' ?>;" class="px-4 py-3 bg-gray-100 rounded-md text-gray-400 hover:text-primary"><i class="bi bi-heart-fill"></i></button>
+        </form>
             </div>
-        </div>
-        <p class="font-sans text-sm">Catégorie:
-            <a href="" class="font-borld text-sm text-gray-400 hover:text-primary hover:underline">
-                <?= $produit->getCategory() ?>
-            </a>
-        </p>
-    </div>
+
+    <p class="font-sans text-sm">Catégorie:
+        <a href="" class="font-borld text-sm text-gray-400 hover:text-primary hover:underline">
+            <?= $produit->getCategory() ?>
+        </a>
+    </p>
+</div>
 </div>

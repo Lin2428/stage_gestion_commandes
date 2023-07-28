@@ -181,6 +181,14 @@
         transition-duration: 300ms;
     }
 
+    .in-fav {
+        @apply text-primary transition-colors duration-300;
+    }
+
+    .card:hover .in-fav {
+        @apply text-white;
+    }
+
     .card:hover .card-head::before {
         height: 100%;
         @apply bg-primary;

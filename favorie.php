@@ -1,23 +1,15 @@
 <?php
 require 'bootstrap.php';
 
-$favorie = new Favorie();
+$repo = new FavorieRepository();
 
-$repoProduit = new ProductRepository();
-
-$produitFavorie = [];
-if ($_SESSION['favorie']) {
-    $id = array_keys($_SESSION['favorie']);
-
-    $produitFavorie = $repoProduit->findById($id);
-}
-
+$favories = $repo->getAll();
 
 view(
     name: 'favorie',
     pageTitle: "Favorie",
     layout: "front",
     params: [
-        'produitFavorie' => $produitFavorie,
+        'favories' => $favories,
     ]
 );

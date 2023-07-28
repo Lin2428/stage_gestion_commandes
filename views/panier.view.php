@@ -20,9 +20,9 @@
                     <div class="produit-panier grid grid-cols-5 items-center justify-center">
                         <div class="flex items-center justify-between">
                             <a href="delete.php/?del=<?= $produit->getItemId() ?>" class="text-gray-400 text-sm hover:text-primary"><i class="bi bi-x-circle"></i></a>
-                            <a href=""><img src="<?= image($produit->getProduitImage()) ?>" class="max-w-[90px]" alt=""></a>
+                            <a href="/description.php/?id=<?= $produit->getProduitId() ?>"><img src="<?= image($produit->getProduitImage()) ?>" class="max-w-[90px]" alt=""></a>
                         </div>
-                        <a href="" class="mx-auto text-sm font-[600] hover:text-primary">
+                        <a href="/description.php/?id=<?= $produit->getProduitId() ?>" class="mx-auto text-sm font-[600] hover:text-primary">
                             <?= $produit->getProduitNom() ?>
                         </a>
                         <p class="mx-auto text-sm font-[600]">
@@ -47,10 +47,10 @@
                 <input type="hidden" name="update_panier">
                 <?php foreach ($panier as $produit) : ?>
                     <div class="md:hidden grid grid-cols-3 items-center border-b-[0.5px]">
-                        <a href=""><img src="<?= image($produit->getProduitImage()) ?>" class="max-w-[90px]" alt=""></a>
+                        <a href="/description.php/?id=<?= $produit->getProduitId() ?>"><img src="<?= image($produit->getProduitImage()) ?>" class="max-w-[90px]" alt=""></a>
                         <div class="col-span-2">
                             <div class="detail-panier-mobile">
-                                <a href="" class="text-sm font-[600] hover:text-primary">
+                                <a href="/description.php/?id=<?= $produit->getProduitId() ?>" class="text-sm font-[600] hover:text-primary">
                                     <?= $produit->getProduitNom() ?>
                                 </a>
                                 <a href="delete.php/?del=<?= $produit->getItemId() ?>" class="text-gray-400 text-sm hover:text-primary"><i class="bi bi-x-circle"></i></a>

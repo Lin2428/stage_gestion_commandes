@@ -2,46 +2,40 @@
 
 class Favorie
 {
-    private $id;
+   private $itemId;
+   private $produitId;
+   private $produitNom;
+   private $produitPrix;
+   private $produitImage;
+   private $createdAt;
 
-    /**
-     * Défini la session si elle n'exite pas déja
-     */
-    public function __construct()
-    {
-        if (!isset($_SESSION)) {
-            session_start();
-        }
+   public function getItemId(): ?int
+   {
+    return $this->itemId;
+   }
 
-        if (!isset($_SESSION['favorie'])) {
-            $_SESSION['favorie'] = [];
-        }
-    }
+   public function getProduitId(): ?int
+   {
+    return $this->produitId;
+   }
 
-    /**
-     * Verifie si un produit est dans le tableau des favorie
-     */
-    public function getFavorie($id) : bool
-    {
-        if(!empty($_SESSION['favorie'][$id])){
-            return true;
-        }
-        return false;  
-    }
+   public function getProduitNom(): ?string
+   {
+    return $this->produitNom;
+   }
 
-    /**
-     * Ajoute un produit au favorie
-     */
-    public function add($id)
-    {
-        $_SESSION['favorie'][$id] = 1;
-    }
+   public function getProduitPrix(): ?int
+   {
+    return $this->produitPrix;
+   }
 
-    /**
-     * Supprime un produit au favorie
-     */
-    public function delete($id)
-    {
-        unset($_SESSION['favorie'][$id]);
-    }
+   public function getProduitImage(): ?string
+   {
+    return $this->produitImage;
+   }
+
+   public function getcreatedAt()
+   {
+    return date_format(date_create($this->createdAt), "F d, Y",);
+   }
 }

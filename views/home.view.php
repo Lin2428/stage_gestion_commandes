@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @var Produit[] $produits
+ */
 ?>
 <div class="baner">
     <div class="baner-text">
@@ -33,18 +35,21 @@
     <div class="grid grid-cols-3 max-sm:grid-cols-1 xl:grid-cols-4 gap-4">
         <?php foreach ($produits as $produit) : ?>
             <div class="card">
-                <a href="#">
-                    <div class="card-head">
-                        <div class="card-links">
-                            <span class="statut">Sale!</span>
-                            <a href="./?favorie=<?= $produit->getId() ?>" class="text-gray-400 z-10  hover:text-black ">
+                <div class="card-head">
+                    <div class="card-links">
+                        <span class="statut">Sale!</span>
+                        <form action="/add_produit.php" method="post" class="flex">
+                            <input type="hidden" name="action" value="_add_to_favorie">
+                            <input type="hidden" name="currentPage" value="<?= $_SERVER['PHP_SELF'] ?>">
+                            <input type="hidden" name="id" value="<?= $produit->getId() ?>">
+                            <button type="submit" class="<?= $produit->isInFavorite() ? 'in-fav' : '' ?>"  class="z-50  hover:text-black ">
                                 <i class="bi bi-heart-fill text-xl"></i>
-                            </a>
-                        </div>
-                        <img class="card-img" src="<?= base_url('/assets/dist/img/' . $produit->getImage()) ?>" alt="">
-                        <a class="card-lien-produit" href="description.php/?id=<?= $produit->getId() ?>"></a>
+                            </button>
+                        </form>
                     </div>
-                </a>
+                    <img class="card-img" src="<?= base_url('/assets/dist/img/' . $produit->getImage()) ?>" alt="">
+                    <a class="card-lien-produit" href="description.php/?id=<?= $produit->getId() ?>"></a>
+                </div>
                 <div class="card-body">
                     <div class="star flex">
                         <span class="text-yellow-500"><i class="bi bi-star-fill"></i></i></span>
@@ -63,7 +68,8 @@
                         <span class="prix-produit text-primary font-bold text-lg">
                             <?= $produit->getPrix() ?> XAF
                         </span>
-                        <form method="post" style="display: inline;">
+                        <form method="post" action="/add_produit.php" style="display: inline;">
+                            <input type="hidden" name="currentPage" value="<?= $_SERVER['PHP_SELF'] ?>">
                             <input type="hidden" name="action" value="_add_to_cart">
                             <input type="hidden" name="id" value="<?= $produit->getId() ?>">
                             <button class="bg-primary px-3 py-2 w-[2.5rem] hover:text-white rounded-2xl"><i class="bi bi-basket2-fill"></i></i></button>

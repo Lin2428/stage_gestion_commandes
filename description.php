@@ -3,6 +3,18 @@ require 'bootstrap.php';
 
 $id = intval($_GET['id']);
 $repoProduit = new ProductRepository();
+$repoPanier = new PanierRepository();
+
+$repoFavorie = new FavorieRepository();
+$produitFavories = $repoFavorie->getItemFavorie();
+
+$produitPanier = $repoPanier->getOrAddCountProduit($id);
+$countProduit = 1;
+$itemId = null;
+if(!empty($produitPanier)){
+    $countProduit = $produitPanier['quantite'];
+    $itemId = $produitPanier['id'];
+}
 
 $produit = $repoProduit->findById($id);
 
@@ -43,6 +55,18 @@ for($i = 0; $i<count($produits); $i++){
     }
 }
 
+$colorFavorie = '';
+for($i = 0; $i<count($produitFavories); $i++){
+    for($y = 0; $y<count($produits); $y++){
+        if($produit->getId() === $produitFavories[$i]['id']){
+            $color = "red";
+            $colorFavorie = $color;
+        }
+
+    }
+}
+
+
 view(
     name: 'description',
     pageTitle: "Description",
@@ -51,5 +75,8 @@ view(
         'produit' => $produit,
         'prev' => $prev,
         'next' => $next,
+        'countProduit' => $countProduit,
+        'itemId' => $itemId,
+        'colorFavorie' => $colorFavorie,
     ]
 );

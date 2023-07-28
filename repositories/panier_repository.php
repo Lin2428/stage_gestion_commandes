@@ -2,6 +2,9 @@
 class PanierRepository
 {
 
+    /**
+     * Récupère ou crée l'id du pagnet du visiteur
+     */
     public static function getOrCreateCartId()
     {
         $visitorId = get_visitor_id();
@@ -23,23 +26,7 @@ class PanierRepository
     }
 
     /**
-     * Récupère l'id du panier depuis la base de donné
-     * @param string $clientId l'id du client
-     * 
-     * @return int l'id du panier
-     */
-    public function getIdPanger($clientId)
-    {
-        $sql = "SELECT id FROM paniers WHERE id_client = '$clientId'";
-        $stmt = db()->query($sql);
-        $idPanier = $stmt->fetchColumn();
-
-        return $idPanier;
-    }
-
-    /**
-     * Récupère la quantité d'un produit si il existe et
-     * incrémente de un (1) sinon il renvoi false
+     * Récupère la quantité d'un produit si il existe 
      * 
      * @param int $produitId l'id du produit
      * 
@@ -47,32 +34,39 @@ class PanierRepository
      */
     public function getOrAddCountProduit($produitId)
     {
-        $stmt = db()->prepare("SELECT id, quantite FROM panier_items WHERE produit_id = ?");
-        $stmt->execute([$produitId]);
+        $currentCart = static::getOrCreateCartId();
+        $stmt = db()->prepare("SELECT pi.id, pi.quantite FROM paniers p INNER JOIN panier_items pi ON pi.panier_id = p.id  WHERE pi.produit_id = :produit_id AND p.id = :panier_id");
+        $stmt->execute([
+          'produit_id' => $produitId,
+          'panier_id' => $currentCart,
+        ]);
 
         $data = $stmt->fetch();
+
         return $data;
     }
 
     /**
      * Ajoute un élément dans le panier
      * @param int|null $produitId l'id du produit
+     * @param int $quantite la quantite à ajouté
      * 
      * @return bool 
      */
-    public function add($produitId): bool
+    public function add($produitId, $quantite): bool
     {
         try {
 
-            $stmt = db()->prepare('INSERT INTO panier_items (panier_id, produit_id, quantite) VALUE (:panier_id, :produit_id, 1)');
+            $stmt = db()->prepare('INSERT INTO panier_items (panier_id, produit_id, quantite) VALUE (:panier_id, :produit_id, :quantite)');
             $stmt->execute([
                 'panier_id' => static::getOrCreateCartId(),
                 'produit_id' => $produitId,
+                'quantite' => $quantite
             ]);
 
             return true;
         } catch (PDOException $e) {
-            dd($e);
+            dump($e);
         }
 
         return false;
