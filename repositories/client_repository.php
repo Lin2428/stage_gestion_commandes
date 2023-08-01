@@ -64,27 +64,21 @@ class ClientRepository
         return $stmt->fetch();
     }
 
+    public function getLastId ()
+    {
+        $stmt = db()->query("SELECT MAX(id) FROM clients");
+        return $stmt->fetchColumn();
+    }
+
     /**
      * Ajoute un nouveau client à la base de données 
      * 
-     * @param string $nom le nom du client
-     * @param string $prenom le prénom du client
-     * @param string $email l'email du client
-     * @param string $tel le tel du client
-     * @param string $password le mot de passe du client
-     * @param string $updated_at la derniere modification du client
+     *@param array $data le post du formulaire
      */
-    public function createClient($nom, $prenom, $email, $tel, $password, $updated_at)
+    public function createClient($data)
     {
-        $sql = db()->prepare("INSERT into clients (nom, prenom, email, tel, password, updated_at) VALUES (:nom, :prenom, :email, :tel, :password, :updated_at)");
-        $sql->execute([
-            'nom' => $nom,
-            'prenom' => $prenom,
-            'email' => $email,
-            'tel' => $tel,
-            'password' => $password,
-            'updated_at' => $updated_at
-        ]);
+        $sql = db()->prepare("INSERT into clients (id, nom, prenom, email, tel, password, statut) VALUES (:id, :nom, :prenom, :email, :tel, :password, :statut)");
+        $sql->execute($data);
     }
 
     /**

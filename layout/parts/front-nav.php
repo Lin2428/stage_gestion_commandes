@@ -28,7 +28,7 @@ $FavorieItems = FavorieRepository::getItemCount();
             <span class="badge"><?= $FavorieItems ?></span>
             <i class="bi bi-bag-heart-fill"></i>
         </a>
-        <a href="#" class="nav-link">
+        <a href="../../compte.php" class="nav-link">
             <i class="bi bi-person-circle"></i>
         </a>
     </div>

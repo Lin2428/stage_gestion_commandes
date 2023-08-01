@@ -386,4 +386,30 @@
   .detail-panier-mobile .titre {
     @apply text-sm font-sans;
   }
+
+  /*------------ PAGNIER ---------------*/
+
+  /*------------ COMPTE CLIENT ---------------*/
+
+  .form-client{
+    @apply px-14 bg-[#f3f3f3] mt-10;
+  }
+
+  .form-label-client{
+    @apply text-gray-900 font-sans font-[600];
+  }
+
+  .form-input-client{
+    @apply border-[0.5px] mt-2 text-sm text-gray-700 p-3 md:w-[370px] rounded-md;
+  }
+
+  .border-error{
+    border: red 0.5px solid;
+  }
+
+  .form-input-client:focus{
+    @apply border-primary;
+    outline-offset: 0px;
+    outline: none;
+  }
 }
