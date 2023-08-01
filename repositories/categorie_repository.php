@@ -34,7 +34,7 @@ class CategoryRepository
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Category::class);
 
-        return $stmt->fetchAll();
+        return $stmt->fetch();
     }
 
     /**

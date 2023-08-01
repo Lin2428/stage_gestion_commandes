@@ -36,6 +36,5 @@ view(
     params: [
         'categories' => $categories,
         'produits' => $produits,
-        'produitFavories' => $produitFavories,
     ]
 );

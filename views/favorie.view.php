@@ -15,7 +15,9 @@
                         <input type="hidden" name="id" value="<?= $favorie->getProduitId() ?>">
                         <button type="submit" class="md:p-3 hover:text-primary text-gray-400"><i class="bi bi-x"></i></button>
                     </form>
-                    <a href="/description.php/?id=<?= $favorie->getProduitId() ?>" class=""><img src="<?= image($favorie->getProduitImage()) ?>" class="md:max-w-[110px]  max-w-[120px] min-w-[70px] md:p-4" alt=""></a>
+                   <div class="md:block md:w-auto w-[190%] flex justify-center">
+                     <a href="/description.php/?id=<?= $favorie->getProduitId() ?>" class=""><img src="<?= image($favorie->getProduitImage()) ?>" class="md:max-w-[110px]  max-w-[120px] min-w-[70px] md:p-4" alt=""></a>
+                   </div>
                     <div class="md:py-[1.10rem] pl-2">
                         <a href="/description.php/?id=<?= $favorie->getProduitId() ?>" class="text-sm font-bold text-primary">
                             <?= $favorie->getProduitNom() ?>

@@ -5,9 +5,6 @@ $id = intval($_GET['id']);
 $repoProduit = new ProductRepository();
 $repoPanier = new PanierRepository();
 
-$repoFavorie = new FavorieRepository();
-$produitFavories = $repoFavorie->getItemFavorie();
-
 $produitPanier = $repoPanier->getOrAddCountProduit($id);
 $countProduit = 1;
 $itemId = null;
@@ -15,6 +12,15 @@ if(!empty($produitPanier)){
     $countProduit = $produitPanier['quantite'];
     $itemId = $produitPanier['id'];
 }
+
+$repoFavorie = new FavorieRepository();
+$produitFavories = $repoFavorie->getItemFavorie();
+$favs = [];
+
+foreach($produitFavories as $fav) {
+    $favs[] = $fav['id'];
+}
+
 
 $produit = $repoProduit->findById($id);
 
@@ -55,16 +61,9 @@ for($i = 0; $i<count($produits); $i++){
     }
 }
 
-$colorFavorie = '';
-for($i = 0; $i<count($produitFavories); $i++){
-    for($y = 0; $y<count($produits); $y++){
-        if($produit->getId() === $produitFavories[$i]['id']){
-            $color = "red";
-            $colorFavorie = $color;
-        }
 
-    }
-}
+$inFavoris = in_array($produit->getId(), $favs);
+$produit->setInFavorite($inFavoris);
 
 
 view(
@@ -77,6 +76,5 @@ view(
         'next' => $next,
         'countProduit' => $countProduit,
         'itemId' => $itemId,
-        'colorFavorie' => $colorFavorie,
     ]
 );

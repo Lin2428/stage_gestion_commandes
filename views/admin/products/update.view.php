@@ -8,24 +8,22 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <?php foreach ($produit as $product) :?>
                     <div class="col-12 col-lg-6">
-                        <?= form_input(label: "Nom", name: "nom", default: $product->getNom()) ?>
-                        <?= form_input(label: "Prix", name: "prix", type: "number", default: $product->getPrix()) ?>
+                        <?= form_input(label: "Nom", name: "nom", default: $produit->getNom()) ?>
+                        <?= form_input(label: "Prix", name: "prix", type: "number", default: $produit->getPrix()) ?>
                         <?= form_input(label: "Image", name: "image", type: "file", required: false) ?>
-                        <?php if ($product->getImage()) : ?>
+                        <?php if ($produit->getImage()) : ?>
                             <div class="image-update-prouit">
-                                <img src="<?= image($product->getImage()) ?>" alt="">
+                                <img src="<?= image($produit->getImage()) ?>" alt="">
                             </div>
                         <?php endif ?>
                     </div>
 
                     <div class="col-12 col-lg-6">
-                        <?= form_input(label: "Catégorie", name: "category_id", type: "select", options: $categories, default: $product->getCategoryId()) ?>
-                        <?= form_input(label: "Stock", name: "stock", type: "number", required: false, default: $product->getStock()) ?>
-                        <?= form_input(label: "Description", name: "description", type: "textarea", default: $product->getDescription()) ?>
+                        <?= form_input(label: "Catégorie", name: "category_id", type: "select", options: $categories, default: $produit->getCategoryId()) ?>
+                        <?= form_input(label: "Stock", name: "stock", type: "number", required: false, default: $produit->getStock()) ?>
+                        <?= form_input(label: "Description", name: "description", type: "textarea", default: $produit->getDescription()) ?>
                     </div>
-                    <?php endforeach ?>
                     <div class="col-3 mt-4">
                         <button type="submit" class="btn btn-info">Modifier</button>
                     </div>

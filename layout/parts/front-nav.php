@@ -20,7 +20,7 @@ $FavorieItems = FavorieRepository::getItemCount();
         <a href="#" class="nav-link">
             <i class="bi bi-search"></i>
         </a>
-        <a href="/panier.php" class="nav-link">
+        <a href="../../panier.php" class="nav-link">
             <span class="badge"><?= $cartItems ?></span>
             <i class="bi bi-basket2-fill"></i>
         </a>
@@ -44,12 +44,12 @@ $FavorieItems = FavorieRepository::getItemCount();
             <i class="bi bi-search"></i>
             <span class="nav-title">Recherche</span>
         </a>
-        <a href="panier.php" class="nav-link">
+        <a href="../../panier.php" class="nav-link">
             <span class="badge"><?= $cartItems ?></span>
             <i class="bi bi-basket2-fill"></i>
             <span class="nav-title">Panier</span>
         </a>
-        <a href="favorie.php" class="nav-link">
+        <a href="../../favorie.php" class="nav-link">
             <span class="badge"><?= $FavorieItems ?></span>
             <i class="bi bi-bag-heart-fill"></i>
             <span class="nav-title">Favoris</span>

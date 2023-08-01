@@ -51,7 +51,7 @@ class ProductRepository
             if (!$whereAdded) {
                 $sql .= " WHERE";
             } else {
-                $sql .= " AND";
+                $sql .= " AND ";
             }
 
             $sql .= " p.categorie_id = :category";
@@ -67,6 +67,19 @@ class ProductRepository
             }
 
             $sql .= " p.nom LIKE :nom";
+            $whereAdded = true;
+        }
+
+        $prixMin = $filters['min'] ?? null;
+        $prixMax = $filters['max'] ?? null;
+        if (!empty($prixMin && $prixMax)) {
+            if (!$whereAdded) {
+                $sql .= " WHERE p.prix";
+            } else {
+                $sql .= " AND p.prix";
+            }
+
+            $sql .= " BETWEEN :prix_min AND :prix_max ";
             $whereAdded = true;
         }
 
@@ -96,6 +109,11 @@ class ProductRepository
             $stmt->bindParam('nom', $nom);
         }
 
+        if (!empty($prixMin && $prixMax)) {
+            $stmt->bindParam('prix_min', $prixMin);
+            $stmt->bindParam('prix_max', $prixMax);
+        }
+      
         $stmt->execute();
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Produit::class);

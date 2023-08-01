@@ -76,7 +76,7 @@
             <input type="hidden" name="action" value="_add_to_favorie">
             <input type="hidden" name="currentPage" value="<?= $_SERVER['PHP_SELF'] .'?id='. $produit->getId() ?>">
             <input type="hidden" name="id" value="<?= $produit->getId() ?>">
-            <button type="submit" style="color: <?= $colorFavorie ?? '#ddd' ?>;" class="px-4 py-3 bg-gray-100 rounded-md text-gray-400 hover:text-primary"><i class="bi bi-heart-fill"></i></button>
+            <button type="submit" class="<?= $produit->isInFavorite() ? 'in-fav' : 'text-gray-300' ?> px-4 py-3 bg-gray-100 rounded-md" ><i class="bi bi-heart-fill"></i></button>
         </form>
             </div>
 

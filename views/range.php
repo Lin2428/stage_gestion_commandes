@@ -12,14 +12,14 @@
   <div x-data="range()" x-init="mintrigger(); maxtrigger()" class="relative max-w-xl w-full">
     <div>
       <input type="range"
-             step="100"
+             name="min"
              x-bind:min="min" x-bind:max="max"
              x-on:input="mintrigger"
              x-model="minprice"
              class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
 
       <input type="range" 
-             step="100"
+             name="max"
              x-bind:min="min" x-bind:max="max"
              x-on:input="maxtrigger"
              x-model="maxprice"
@@ -41,22 +41,22 @@
     
     <div class="flex justify-between items-center py-5">
       <div>
-        <input type="text" maxlength="5" x-on:input="mintrigger" x-model="minprice" class="px-3 py-2 border border-gray-200 rounded w-24 text-center">
+        <input type="number" min="500" value="" maxlength="5" x-on:input="mintrigger" x-model="minprice" class="px-3 py-2 border border-gray-200 rounded w-24 text-center">
       </div>
       <div>
-        <input type="text" maxlength="5" x-on:input="maxtrigger" x-model="maxprice" class="px-3 py-2 border border-gray-200 rounded w-24 text-center">
+        <input type="number" min="1000" max="10000" value="" maxlength="5" x-on:input="maxtrigger" x-model="maxprice" class="px-3 py-2 border border-gray-200 rounded w-24 text-center">
       </div>
     </div>
 
 <script>
     function range() {
         return {
-          minprice: 1000, 
-          maxprice: 7000,
+          minprice: <?= $_GET['min'] ?? '500' ?>, 
+          maxprice: <?= $_GET['max'] ?? '10000' ?>,
           min: 500, 
           max: 10000,
-          minthumb: 0,
-          maxthumb: 0, 
+          minthumb: 500,
+          maxthumb: 500, 
           
           mintrigger() {   
             this.minprice = Math.min(this.minprice, this.maxprice - 500);      
