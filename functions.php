@@ -265,16 +265,26 @@ function form_input($label, $name, $type = "text", $required = true, $placeholde
 function input_client(string $name, string $label, string $type = "text", $required = true, $default = null)
 {
     $default = $_POST[$name] ?? '';
-    $required = $required ? 'required' : '';
+    $required = $required ? 'required ' : '';
 
     $border = "border-gray-200";
-    if(isset($_POST[$name]) && empty($_POST[$name])){
+    if (isset($_POST[$name]) && empty($_POST[$name])) {
         $border = 'border-error';
+    }
+    if (!empty($_GET[$name])) {
+        $border = 'border-error';
+    }
+    $length = null;
+    if($name === 'password'){
+        $length = 'minlength="8"';
+    }
+     if($name === 'tel'){
+        $length = 'minlength="9"';
     }
 
     $html = '<div class="mt-4 ">';
     $html .= '<label for="' . $name . '" class="form-label-client mb-2">' . $label . '<span class="text-red-500">*</span> </label><br>';
-    $html .= '<input type="' . $type . '" name="' . $name . '" id="' . $name . '" value="'. $default .'" ' . $required . ' class="form-input-client border-error">';
+    $html .= '<input type="' . $type . '" name="' . $name . '" '. $length .' id="' . $name . '" value="' . $default . '" ' . $required . ' class="form-input-client ' . $border . '">';
     $html .= '</div>';
     return $html;
 }

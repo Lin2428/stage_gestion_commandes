@@ -77,7 +77,7 @@ class ClientRepository
      */
     public function createClient($data)
     {
-        $sql = db()->prepare("INSERT into clients (id, nom, prenom, email, tel, password, statut) VALUES (:id, :nom, :prenom, :email, :tel, :password, :statut)");
+        $sql = db()->prepare("INSERT into clients (id, nom, prenom, email, tel, password) VALUES (:id, :nom, :prenom, :email, :tel, :password)");
         $sql->execute($data);
     }
 
