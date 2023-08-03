@@ -6,6 +6,8 @@ if (get_user_connect()) {
     header('Location: /compte.php');
     exit();
 }
+
+$error = false;
 if (is_post() && !empty($_POST['login'] && !empty($_POST['password']))) {
     $user = $repo->findUser($_POST['login']);
     if ($user) {
@@ -21,13 +23,19 @@ if (is_post() && !empty($_POST['login'] && !empty($_POST['password']))) {
         } else {
             $_GET['password'] = 'error';
         }
+    } else {
+        flash_message("Ce compte n'existe pas ! Veuillez saisir les bonnes informations");
+        $_GET['login'] = 'error';
+        $_GET['password'] = 'error';
+        $error = true;
     }
-} else {
 }
 
 view(
     name: 'login',
     pageTitle: "Login",
     layout: "front",
-    params: []
+    params: [
+        'error' => $error,
+    ]
 );

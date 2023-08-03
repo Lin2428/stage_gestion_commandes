@@ -4,16 +4,22 @@
         <span class="font-bold text-xs text-gray-400"><i class="bi bi-chevron-right"></i></span> Se connecter</span>
 </div>
 
+<?php if ($error) : ?>
+    <div class="flex flex-col justify-center items-center ">
+        <div class="alert-danger"><?= read_flash_message() ?></div>
+    </div>
+<?php endif ?>
+
 <div class="flex flex-col items-center justify-center h-[100%] md:mb-6 mb-[10rem]">
-    <form method="POST" class="form-client">
-        <p class="mt-14 font-bold">Login</p>
-        <div class="mt-4 mb-2">
+    <form method="POST" class="form-client ">
+        <p class="font-bold">Login</p>
+        <div class="md:mt-4 mb-2">
             <?= input_client(name: "login", label: "Login",) ?>
         </div>
-        <div class="mt-4 mb-2">
+        <div class="md:mt-4">
             <?= input_client(name: "password", label: "Mot de passe", type: "password") ?>
         </div>
-        <button class="w-[100%] bg-primary p-4 mt-3 mb-10 rounded-md hover:text-white font-bold">Connexion</button>
+        <button class="w-[100%] bg-primary p-4 mt-3 rounded-md hover:text-white font-bold">Connexion</button>
     </form>
 
     <div class=" md:flex  md:justify-between justify-center mt-4 md:w-[35%]">

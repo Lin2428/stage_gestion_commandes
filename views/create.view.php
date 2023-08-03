@@ -13,20 +13,32 @@
 <?php if (!$create) : ?>
     <div class="flex flex-col items-center justify-center h-[100%] mb-6">
         <form class="form-client" method="POST">
-            <p class="mt-14 font-bold">Créer un compte</p>
+            <p class=" font-bold">Créer un compte</p>
             <div class="md:px-[-1rem] md:flex justify-between ">
-                <?= input_client(name: "nom", label: "Nom") ?>
-                <?= input_client(name: "prenom", label: "Prénom", required: false) ?>
+                <div class="md:mr-2 ">
+                    <?= input_client(name: "nom", label: "Nom") ?>
+                </div>
+                <div class="md:ml-2">
+                    <?= input_client(name: "prenom", label: "Prénom", required: false) ?>
+                </div>
             </div>
             <div class="md:px-[-1rem] md:flex justify-between ">
-                <?= input_client(name: "email", label: "Email", type: "email", required: false) ?>
-                <?= input_client(name: "tel", label: "Téléphone", type: "number") ?>
+                <div class="md:mr-2">
+                    <?= input_client(name: "email", label: "Email", type: "email", required: false) ?>
+                </div>
+                <div class="md:ml-2">
+                    <?= input_client(name: "tel", label: "Téléphone", type: "number") ?>
+                </div>
             </div>
             <div class="md:px-[-1rem] md:flex justify-between ">
-                <?= input_client(name: "password", label: "Mot de passe", type: "password") ?>
-                <?= input_client(name: "cpassword", label: "Confirmer le mot de passe", type: "password") ?>
+                <div class="md:mr-2">
+                    <?= input_client(name: "password", label: "Mot de passe", type: "password") ?>
+                </div>
+                <div class="md:ml-2">
+                    <?= input_client(name: "cpassword", label: "Confirmer le mot de passe", type: "password") ?>
+                </div>
             </div>
-            <button class="w-[100%] bg-primary p-4 mt-3 mb-10 rounded-md hover:text-white font-bold">Créer le compte</button>
+            <button class="w-[100%] bg-primary p-4 mt-3  rounded-md hover:text-white font-bold">Créer le compte</button>
         </form>
 
         <div class=" block md:flex justify-between mt-4 md:w-[35%] mb-[10rem]">

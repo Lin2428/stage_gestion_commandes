@@ -392,7 +392,7 @@
   /*------------ COMPTE CLIENT ---------------*/
 
   .form-client {
-    @apply px-5 bg-[#f3f3f3] mt-6;
+    @apply md:p-14 p-7 bg-[#f3f3f3] mt-10;
   }
 
   .form-label-client {
@@ -400,7 +400,7 @@
   }
 
   .form-input-client {
-    @apply border-[0.5px] mt-2 text-sm text-gray-700 p-3 md:w-[250px] w-[300px] rounded-md;
+    @apply border-[0.5px] mt-2 text-sm text-gray-700 p-3 md:w-[270px] rounded-md;
   }
 
   .border-error {
@@ -417,7 +417,7 @@
   /*-------------- READ MESSAGE -------------*/
 
   .alert-succes {
-    @apply flex pb-6 mt-6 justify-center w-[80%] bg-green-400 text-black;
+    @apply flex pb-6 mt-6 justify-center w-[80%] bg-green-400 text-white;
   }
 
   .alert-danger {
