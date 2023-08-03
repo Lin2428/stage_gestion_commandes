@@ -54,7 +54,7 @@ $FavorieItems = FavorieRepository::getItemCount();
             <i class="bi bi-bag-heart-fill"></i>
             <span class="nav-title">Favoris</span>
         </a>
-        <a href="#" class="nav-link">
+        <a href="../../compte.php" class="nav-link">
             <i class="bi bi-person-circle"></i>
             <span class="nav-title">Mon compte</span>
         </a>

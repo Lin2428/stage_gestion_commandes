@@ -64,7 +64,7 @@ class ClientRepository
         return $stmt->fetch();
     }
 
-    public function getLastId ()
+    public function getLastId()
     {
         $stmt = db()->query("SELECT MAX(id) FROM clients");
         return $stmt->fetchColumn();
@@ -79,6 +79,17 @@ class ClientRepository
     {
         $sql = db()->prepare("INSERT into clients (id, nom, prenom, email, tel, password) VALUES (:id, :nom, :prenom, :email, :tel, :password)");
         $sql->execute($data);
+    }
+
+
+    public function findUser($login)
+    {
+        $stmt = db()->prepare("SELECT c.id, c.nom, c.prenom, c.email, c.tel, c.password, c.created_at as createdAt, c.updated_at as updatedAt, statut FROM clients c WHERE c.email = :login OR c.tel = :login");
+        $stmt->execute(['login' => $login]);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Client::class);
+
+        return $stmt->fetch();
     }
 
     /**
@@ -145,6 +156,6 @@ class ClientRepository
 
     //  public function setId($id) 
     //  {
-       
+
     //  }
 }

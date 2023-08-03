@@ -275,16 +275,16 @@ function input_client(string $name, string $label, string $type = "text", $requi
         $border = 'border-error';
     }
     $length = null;
-    if($name === 'password'){
+    if ($name === 'password') {
         $length = 'minlength="8"';
     }
-     if($name === 'tel'){
+    if ($name === 'tel') {
         $length = 'minlength="9"';
     }
 
-    $html = '<div class="mt-4 ">';
+    $html = '<div class="mt-4">';
     $html .= '<label for="' . $name . '" class="form-label-client mb-2">' . $label . '<span class="text-red-500">*</span> </label><br>';
-    $html .= '<input type="' . $type . '" name="' . $name . '" '. $length .' id="' . $name . '" value="' . $default . '" ' . $required . ' class="form-input-client ' . $border . '">';
+    $html .= '<input type="' . $type . '" name="' . $name . '" ' . $length . ' id="' . $name . '" value="' . $default . '" ' . $required . ' class="form-input-client ' . $border . '">';
     $html .= '</div>';
     return $html;
 }
@@ -428,4 +428,28 @@ function get_visitor_id()
     ]);
 
     return $id;
+}
+
+
+/**
+ * Récupère l'id du visiteur dans les cookie si l'itulisateur est connecter
+ * ou récupère son id depuis la base de données
+ * 
+ * @param int $id l'id de l'utilisateur
+ */
+function get_user_connect($id = null)
+{
+    $idUser = $_COOKIE['user_id'] ?? null;
+
+    if ($idUser) {
+        return $idUser;
+    } else {
+        if ($id) {
+            setcookie('user_id', $id, [
+                'httponly' => true,
+                'expires' => time() + (3600 * 24),
+            ]);
+        }
+        return $idUser;
+    }
 }
