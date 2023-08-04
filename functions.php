@@ -283,7 +283,7 @@ function input_client(string $name, string $label, string $type = "text", $requi
     }
 
     $html = '<div class="mt-4">';
-    $html .= '<label for="' . $name . '" class="form-label-client mb-2">' . $label . '<span class="text-red-500">*</span> </label><br>';
+    $html .= '<label for="' . $name . '" class="form-label-client mb-2">' . $label . '<span> *</span> </label><br>';
     $html .= '<input type="' . $type . '" name="' . $name . '" ' . $length . ' id="' . $name . '" value="' . $default . '" ' . $required . ' class="form-input-client ' . $border . '">';
     $html .= '</div>';
     return $html;

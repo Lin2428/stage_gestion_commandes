@@ -396,11 +396,15 @@
   }
 
   .form-label-client {
-    @apply text-gray-900 font-sans font-[600];
+    @apply text-gray-600 font-sans;
+  }
+
+  .form-label-client > span{
+    @apply text-red-600;
   }
 
   .form-input-client {
-    @apply border-[0.5px] mt-2 text-sm text-gray-700 p-3 md:w-[270px] rounded-md;
+    @apply border-[0.5px] mt-2 text-sm text-gray-700 p-3 md:w-[360px] w-[230px] rounded-md;
   }
 
   .border-error {

@@ -1,6 +1,8 @@
 <?php
 $cartItems = PanierRepository::getItemCount();
 $FavorieItems = FavorieRepository::getItemCount();
+
+$icon = $_COOKIE['user_id'] ?? null;
 ?>
 <nav class="nav">
     <a href="/" class="nav-logo">Logo</a>
@@ -29,7 +31,7 @@ $FavorieItems = FavorieRepository::getItemCount();
             <i class="bi bi-bag-heart-fill"></i>
         </a>
         <a href="../../compte.php" class="nav-link">
-            <i class="bi bi-person-circle"></i>
+            <i class="<?= $icon ? 'bi bi-person-fill-check' : 'bi bi-person-circle' ?>"></i>
         </a>
     </div>
 </nav>
@@ -55,7 +57,7 @@ $FavorieItems = FavorieRepository::getItemCount();
             <span class="nav-title">Favoris</span>
         </a>
         <a href="../../compte.php" class="nav-link">
-            <i class="bi bi-person-circle"></i>
+            <i class="<?= $_COOKIE['user_id'] ? 'bi bi-person-fill-check' : 'bi bi-person-circle' ?>"></i>
             <span class="nav-title">Mon compte</span>
         </a>
     </div>
