@@ -1389,6 +1389,15 @@ body {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+/*----------- FIN READ MESSAGE ----------*/
+
+/*----------- INPUT RADIO --------------*/
+
+input[type='radio'] {
+  accent-color: rgb(26, 25, 24);
+  width: 15px;
+}
+
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
@@ -1592,6 +1601,11 @@ body {
   grid-column: span 2 / span 2;
 }
 
+.mx-3 {
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+}
+
 .mx-7 {
   margin-left: 1.75rem;
   margin-right: 1.75rem;
@@ -1605,6 +1619,11 @@ body {
 .my-0 {
   margin-top: 0px;
   margin-bottom: 0px;
+}
+
+.my-14 {
+  margin-top: 3.5rem;
+  margin-bottom: 3.5rem;
 }
 
 .my-4 {
@@ -1848,6 +1867,10 @@ body {
   width: 2.5rem;
 }
 
+.w-\[300px\] {
+  width: 300px;
+}
+
 .w-\[50\%\] {
   width: 50%;
 }
@@ -1928,6 +1951,10 @@ body {
 
 .items-center {
   align-items: center;
+}
+
+.justify-start {
+  justify-content: flex-start;
 }
 
 .justify-end {
@@ -2047,6 +2074,11 @@ body {
 .bg-gray-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+}
+
+.bg-green-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(134 239 172 / var(--tw-bg-opacity));
 }
 
 .bg-primary {
@@ -2188,6 +2220,10 @@ body {
   padding-top: 0.75rem;
 }
 
+.pt-6 {
+  padding-top: 1.5rem;
+}
+
 .pt-8 {
   padding-top: 2rem;
 }
@@ -2239,6 +2275,10 @@ body {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.font-\[450\] {
+  font-weight: 450;
 }
 
 .font-\[500\] {
@@ -2307,6 +2347,11 @@ body {
   color: rgb(255 194 34 / var(--tw-text-opacity));
 }
 
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
 .text-yellow-500 {
   --tw-text-opacity: 1;
   color: rgb(234 179 8 / var(--tw-text-opacity));
@@ -2356,6 +2401,11 @@ body {
 .hover\:bg-orange-400:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(251 146 60 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-primary_hover:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(238 172 0 / var(--tw-bg-opacity));
 }
 
 .hover\:text-black:hover {
@@ -2408,18 +2458,6 @@ body {
     margin-bottom: 1.5rem;
   }
 
-  .md\:ml-0 {
-    margin-left: 0px;
-  }
-
-  .md\:ml-2 {
-    margin-left: 0.5rem;
-  }
-
-  .md\:mr-2 {
-    margin-right: 0.5rem;
-  }
-
   .md\:mr-auto {
     margin-right: auto;
   }
@@ -2448,8 +2486,8 @@ body {
     display: none;
   }
 
-  .md\:w-\[35\%\] {
-    width: 35%;
+  .md\:w-\[500px\] {
+    width: 500px;
   }
 
   .md\:w-\[70\%\] {
@@ -2492,11 +2530,6 @@ body {
 
   .md\:p-4 {
     padding: 1rem;
-  }
-
-  .md\:px-\[-1rem\] {
-    padding-left: -1rem;
-    padding-right: -1rem;
   }
 
   .md\:py-\[1\.10rem\] {

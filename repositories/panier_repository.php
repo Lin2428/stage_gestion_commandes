@@ -102,11 +102,11 @@ class PanierRepository
     /**
      * Supprime un iteme du panier
      * 
-     * @param int $id l'id de l'item
+     * @param int|string $id l'id de l'item
      */
     public function delete($id)
     {
-        $stmt = db()->prepare("DELETE FROM panier_items WHERE id = ?");
+        $stmt = db()->prepare("DELETE FROM panier_items WHERE id = ?)");
         $stmt->execute([$id]);
     }
 

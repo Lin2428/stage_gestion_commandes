@@ -18,6 +18,7 @@ if (is_post() && !empty($_POST['login'] && !empty($_POST['password']))) {
                     'cost' => 12,
                 ];
             get_user_connect(password_hash($user->getId(), PASSWORD_BCRYPT, $options));
+            get_email_user($user->getEmail());
             header('Location: /compte.php');
             exit();
         } else {

@@ -82,6 +82,7 @@
                 </div>
             </form>
         </div>
+        
         <div class="md:col-span-1 col-span-2 mb-20 mx-auto border-[5px] md:w-[90%] w-[100%] px-6 h-[390px]">
             <div>
                 <p class="font-bold pt-3 pb-2 border-b-2 text-lg font-sans">CART TOTAL</p>
@@ -103,7 +104,7 @@
                 </sapn>
             </div>
 
-            <a href="">
+            <a href="/validation.php">
                 <button class="w-[100%]  bg-primary hover:bg-[#eeac00] hover:text-white p-3 rounded-md mt-[3rem] mb-8 text-sm font-bold">PROCEDER
                     AU PAYEMENT</button>
             </a>

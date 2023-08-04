@@ -30,8 +30,8 @@ $icon = $_COOKIE['user_id'] ?? null;
             <span class="badge"><?= $FavorieItems ?></span>
             <i class="bi bi-bag-heart-fill"></i>
         </a>
-        <a href="../../compte.php" class="nav-link">
-            <i class="<?= $icon ? 'bi bi-person-fill-check' : 'bi bi-person-circle' ?>"></i>
+        <a href="../../compte.php" class="nav-link <?= $icon ? 'bg-green-300 text-white' : '' ?>">
+            <i class="<?= $icon ? 'bi bi-person-fill-check text-lg' : 'bi bi-person-circle' ?>"></i>
         </a>
     </div>
 </nav>

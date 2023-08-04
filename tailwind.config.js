@@ -10,6 +10,7 @@ module.exports = {
     extend: {
       colors: {
         primary: '#ffc222',
+        primary_hover: '#eeac00',
       },
       backgroundImage: {
         'baner': "url('../image/baner.jpg')",

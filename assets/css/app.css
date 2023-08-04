@@ -427,4 +427,14 @@
   .alert-danger {
     @apply flex pb-6 mt-6 justify-center w-[80%] bg-red-400 text-white;
   }
+
+  /*----------- FIN READ MESSAGE ----------*/
+
+  /*----------- INPUT RADIO --------------*/
+
+ input[type='radio'] {
+    accent-color: rgb(26, 25, 24);
+    width: 15px;
+}
+
 }

@@ -135,6 +135,22 @@ class CommandeRepository
     }
 
     /**
+     * Ajoute une commande dans la base de donnée
+     * 
+     * @param string $numero le numéro de la commande
+     * @param string $adresse l'adresse de l'ivraison
+     * @param int $id l'id du client
+     */
+    public function addCommande($numero, $adresse, $clientId){
+        $sql = "INSERT INTO commandes (numero, adresse, client_id) VALUE(:numero, :adresse, :client_id)";
+        $stmt = db()->prepare($sql);
+        $stmt->execute([
+        'numero' => $numero,
+        'adresse' => $adresse,
+        'client_id' => $clientId,]);
+    }
+
+    /**
      * Modifie le livreur d'une commande
      * 
      * @param $id l'id de la commande

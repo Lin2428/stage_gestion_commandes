@@ -436,6 +436,8 @@ function get_visitor_id()
  * ou récupère son id depuis la base de données
  * 
  * @param int $id l'id de l'utilisateur
+ * 
+ * @return int
  */
 function get_user_connect($id = null)
 {
@@ -452,4 +454,41 @@ function get_user_connect($id = null)
         }
         return $idUser;
     }
+}
+
+
+/**
+ * Récupère l'email du visiteur dans les cookie si l'itulisateur est connecter
+ * 
+ * @param string $email l'email de l'utilisateur
+ * 
+ * @return string
+ */
+function get_email_user($email = null)
+{
+    $userEmail = $_COOKIE['user_email'] ?? null;
+
+    if ($userEmail) {
+        return $userEmail;
+    } else {
+        if ($email) {
+            setcookie('user_email', $email, [
+                'httponly' => true,
+                'expires' => time() + (3600 * 24),
+            ]);
+        }
+        return $userEmail;
+    }
+}
+
+/**
+ * Crée un numéro unique de la commande
+ * 
+ * @param int $nombre nombre de la commande
+ * 
+ * @return  string
+ */
+function numero_commande($nombre){
+    $nombre += 1;
+    return date('my-') . str_pad((string)$nombre, 6, "0", STR_PAD_LEFT);
 }
