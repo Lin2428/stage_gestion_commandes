@@ -111,6 +111,11 @@
         </div>
     </div>
 <?php else : ?>
+    <?php if (isset($_GET['passer'])) : ?>
+    <div class="flex flex-col justify-center items-center">
+        <div class="alert-succes"><?= read_flash_message() ?></div>
+    </div>
+<?php endif ?>
     <div class="flex flex-col items-center mt-6 mb-[10rem]">
         <span class="text-[12rem] text-[#999999] "><i class="bi bi-cart-x"></i></span>
         <span class="-mt-12 font-sans text-lg text-gray-900 mb-[4rem]">Votre panier est actuellement vide</span>

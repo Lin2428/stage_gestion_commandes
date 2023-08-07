@@ -35,7 +35,7 @@ class ProduitCommande
         return $this->commandeId;
     }
 
-    public function getNomProduit(): string 
+    public function getNomProduit(): ?string 
     {
         return $this->nomProduit;
     }

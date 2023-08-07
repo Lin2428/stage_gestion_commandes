@@ -142,12 +142,37 @@ class CommandeRepository
      * @param int $id l'id du client
      */
     public function addCommande($numero, $adresse, $clientId){
-        $sql = "INSERT INTO commandes (numero, adresse, client_id) VALUE(:numero, :adresse, :client_id)";
-        $stmt = db()->prepare($sql);
+        $db = db();
+        $sql = "INSERT INTO commandes (numero, adresse, client_id, livreur_id) VALUE(:numero, :adresse, :client_id, 1)";
+        $stmt = $db->prepare($sql);
         $stmt->execute([
         'numero' => $numero,
         'adresse' => $adresse,
         'client_id' => $clientId,]);
+
+        $idCommande = $db->lastInsertId();
+
+        return $idCommande;
+    }
+
+    /**
+     * Ajoute l'items d'une commande dans la base de donnée
+     * 
+     * @param int $prix le prix de l'item
+     * @param int $quantite la quantité de l'item
+     * @param int $produitId l'id du l'item
+     * @param int $commandeId l'id de la commande
+     */
+    public function addItemsCommande($prix, $quantite, $produitId, $commandeId){
+        
+        $sql = "INSERT INTO produits_commandes (prix, quantite, produit_id, commande_id) VALUE(:prix, :quantite, :produit_id, :commande_id)";
+        $stmt = db()->prepare($sql);
+        $stmt->execute([
+            'prix' => $prix,
+            'quantite' => $quantite,
+            'produit_id' => $produitId,
+            'commande_id' => $commandeId,
+        ]);
     }
 
     /**

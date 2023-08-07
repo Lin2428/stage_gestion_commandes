@@ -1325,17 +1325,18 @@ body {
 .form-label-client {
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --tw-text-opacity: 1;
-  color: rgb(75 85 99 / var(--tw-text-opacity));
+  color: rgb(31 41 55 / var(--tw-text-opacity));
 }
 
 .form-label-client > span {
+  font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
 }
 
 .form-input-client {
   margin-top: 0.5rem;
-  width: 230px;
+  width: 100%;
   border-radius: 0.375rem;
   border-width: 0.5px;
   padding: 0.75rem;
@@ -1391,7 +1392,33 @@ body {
 
 /*----------- FIN READ MESSAGE ----------*/
 
-/*----------- INPUT RADIO --------------*/
+/*----------- VALIDATION --------------*/
+
+.validation-title {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity));
+}
+
+.validation-text {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  overflow: auto;
+  border-radius: 0.375rem;
+  border-width: 0.5px;
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+
+@media (min-width: 768px) {
+  .validation-text {
+    max-width: 360px;
+  }
+}
 
 input[type='radio'] {
   accent-color: rgb(26, 25, 24);
@@ -1601,9 +1628,9 @@ input[type='radio'] {
   grid-column: span 2 / span 2;
 }
 
-.mx-3 {
-  margin-left: 0.75rem;
-  margin-right: 0.75rem;
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .mx-7 {
@@ -1867,10 +1894,6 @@ input[type='radio'] {
   width: 2.5rem;
 }
 
-.w-\[300px\] {
-  width: 300px;
-}
-
 .w-\[50\%\] {
   width: 50%;
 }
@@ -1933,6 +1956,10 @@ input[type='radio'] {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .grid-cols-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -1971,6 +1998,10 @@ input[type='radio'] {
 
 .gap-4 {
   gap: 1rem;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
 
 .rounded {
@@ -2458,6 +2489,14 @@ input[type='radio'] {
     margin-bottom: 1.5rem;
   }
 
+  .md\:ml-2 {
+    margin-left: 0.5rem;
+  }
+
+  .md\:mr-4 {
+    margin-right: 1rem;
+  }
+
   .md\:mr-auto {
     margin-right: auto;
   }
@@ -2530,6 +2569,11 @@ input[type='radio'] {
 
   .md\:p-4 {
     padding: 1rem;
+  }
+
+  .md\:px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 
   .md\:py-\[1\.10rem\] {

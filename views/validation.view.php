@@ -5,10 +5,36 @@
 </div>
 
 <?php if (!empty($panier)) : ?>
-    <div class="flex flex-col items-center mx-3  mt-10 md:mb-5 mb-[10rem]">
-        <form method="POST">
-            <div class="w-[100%] flex justify-center"><?= input_client(name: 'adresse', label: 'Adresse') ?></div>
-            <div class="md:w-[500px] my-14 mx-auto border-[5px] w-[300px] px-6">
+    <form method="post" class="md:flex justify-between md:px-6 mx-2  my-14 md:mb-5 mb-[10rem]">
+
+        <div class="mb-4">
+            <p class="font-bold pb-2 text-2xl mt-5 mb-5">Vos informations</p>
+            <div class="md:grid grid-cols-2 overflow-hidden">
+                <div>
+                    <span class="validation-title">Nom:</span>
+                    <div class="validation-text"><?= $user->getNom() ?></div>
+                </div>
+                <div class="md:ml-2 md:mr-4">
+                    <span class="validation-title">Prénom:</span>
+                    <div class="validation-text"><?= $user->getPrenom() ?></div>
+                </div>
+                <div>
+                    <span class="validation-title">Email:</span><br>
+                    <div class="validation-text"><?= $user->getEmail() ?></div>
+                </div>
+                <div class="md:ml-2 md:mr-4">
+                    <span class="validation-title">Téléphone:</span><br>
+                    <div class="validation-text"><?= $user->getTel() ?></div>
+                </div>
+                <div>
+                    <?= input_client(name: 'adresse', label: 'Veuillez indiquer l\'adresse de livraison') ?>
+                </div>
+            </div>
+        </div>
+
+
+        <div>
+            <div class="w-[100%] md:w-[500px] mx-auto border-[5px] px-6">
                 <div>
                     <p class="font-bold pt-6 pb-2 text-xl">Vos produits</p>
                 </div>
@@ -40,7 +66,7 @@
                 </div>
                 <button class="w-[100%]  bg-primary hover:bg-primary_hover hover:text-white p-3 rounded-md mt-[3rem] mb-8 text-sm font-bold transition-all duration-300">PROCEDER AU PAYEMENT</button>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 
 <?php endif ?>

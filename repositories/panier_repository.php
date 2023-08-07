@@ -106,8 +106,10 @@ class PanierRepository
      */
     public function delete($id)
     {
-        $stmt = db()->prepare("DELETE FROM panier_items WHERE id = ?)");
-        $stmt->execute([$id]);
+        $sql = "DELETE FROM panier_items WHERE id = $id";
+
+        db()->query($sql);
+        
     }
 
     public function getPrixTotal()

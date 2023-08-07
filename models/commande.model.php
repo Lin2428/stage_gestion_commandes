@@ -70,22 +70,22 @@ class Commande
         return $this->statut;
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
-    public function getUpdatedAt(): string
+    public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
 
-    public function getClientId(): string
+    public function getClientId(): int
     {
         return $this->clientId;
     }
 
-    public function getLivreurId(): string
+    public function getLivreurId(): ?int
     {
         return $this->livreurId;
     }

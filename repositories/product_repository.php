@@ -113,7 +113,7 @@ class ProductRepository
             $stmt->bindParam('prix_min', $prixMin);
             $stmt->bindParam('prix_max', $prixMax);
         }
-      
+
         $stmt->execute();
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Produit::class);
@@ -223,12 +223,28 @@ class ProductRepository
      * @param int $id l'id de la catégorie
      */
 
-     public function getCountCategory($id) {
+    public function getCountCategory($id)
+    {
         $sql = "SELECT COUNT(*) as count FROM produits WHERE categorie_id = $id";
 
         $stmt = db()->query($sql);
 
         return $stmt->fetch();
-     }
-     
+    }
+
+    /**
+     * Rétourne le prix d'un produit
+     *
+     *@param int $id l'id du produit
+     *
+     * @return int $prix
+     */
+    public function getPrix($id)
+    {
+        $stmt = db()->query("SELECT prix FROM produits WHERE id = $id");
+
+        $prix = $stmt->fetchColumn();
+
+        return $prix;
+    }
 }

@@ -396,15 +396,15 @@
   }
 
   .form-label-client {
-    @apply text-gray-600 font-sans;
+    @apply text-gray-800 font-sans;
   }
 
   .form-label-client > span{
-    @apply text-red-600;
+    @apply text-red-600 font-bold;
   }
 
   .form-input-client {
-    @apply border-[0.5px] mt-2 text-sm text-gray-700 p-3 md:w-[360px] w-[230px] rounded-md;
+    @apply border-[0.5px] mt-2 text-sm text-gray-700 p-3 w-[100%] md:w-[360px] rounded-md;
   }
 
   .border-error {
@@ -430,7 +430,15 @@
 
   /*----------- FIN READ MESSAGE ----------*/
 
-  /*----------- INPUT RADIO --------------*/
+  /*----------- VALIDATION --------------*/
+
+  .validation-title{
+    @apply text-gray-800 font-sans;
+  }
+
+  .validation-text{
+    @apply border-[0.5px] my-2 text-sm text-gray-700 p-3 w-[100%] md:max-w-[360px] rounded-md overflow-auto;
+  }
 
  input[type='radio'] {
     accent-color: rgb(26, 25, 24);
