@@ -24,7 +24,7 @@ foreach ($commandes as $k => $commande) {
 
 
 view(
-    name: 'compte',
+    name: 'compte/commande',
     pageTitle: "Mon compte",
     layout: "front",
     params: [

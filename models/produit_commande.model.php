@@ -40,4 +40,9 @@ class ProduitCommande
         return $this->nomProduit;
     }
 
+    public function getTotal(): ?int
+    {
+        return $this->quantite * $this->prix;
+    }
+
 }

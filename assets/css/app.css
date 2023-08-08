@@ -12,7 +12,7 @@
   /*------------ NAVIGATION ---------------*/
 
   .nav {
-    @apply flex justify-between items-center w-full bg-white py-3 px-4 lg:px-8;
+    @apply flex justify-between  items-center w-full bg-white py-3 px-4 lg:px-8;
   }
 
   .nav-logo {
@@ -311,11 +311,23 @@
     @apply flex flex-col justify-center items-center w-[100%] py-[5rem] bg-shop bg-cover bg-center;
   }
 
+  .shop-baner-client {
+    @apply flex flex-col justify-center items-center w-[100%] py-[2rem] bg-shop bg-cover bg-center;
+  }
+
   .shop-baner .titre-baner {
     @apply font-bold text-5xl mb-4;
   }
 
+  .shop-baner-client .titre-baner {
+    @apply font-bold text-5xl mb-4;
+  }
+
   .shop-baner .link-baner {
+    @apply px-3 font-sans;
+  }
+
+  .shop-baner-client .link-baner {
     @apply px-3 font-sans;
   }
 
@@ -443,6 +455,48 @@
  input[type='radio'] {
     accent-color: rgb(26, 25, 24);
     width: 15px;
+}
+
+/*----------- FIN VALIDATION -----------*/
+
+/*----------- COMPTE CLIENT -----------*/
+
+.card-profil {
+  @apply border-[0.05px]  h-[100%] fixed md:w-[300px];
+  
+}
+
+.profil-link {
+  @apply flex justify-between items-center px-6 py-3 hover:bg-primary hover:text-white transition-all duration-300;
+}
+
+.active-link{
+  @apply bg-primary text-white;
+}
+ 
+.profil-ligne{
+  @apply font-sans font-[500];
+}
+
+.profil-value{
+  @apply font-sans  text-gray-600;
+}
+
+
+.btn{
+  @apply w-[100%] md:w-[auto] p-3 transition-all duration-300 rounded-md text-sm font-bold font-sans mb-4;
+}
+
+.card-commande{
+  @apply w-[100%] max-w-[700px] p-4 rounded-xl border;
+}
+
+.compte-commande{
+  @apply m-3 border p-4 rounded-md;
+}
+
+.commande-bage{
+  @apply  px-2 pb-1 text-sm font-sans font-bold bg-primary mb-5 rounded-md text-white;
 }
 
 }

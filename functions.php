@@ -64,17 +64,25 @@ function is_active(string $url): string
     return '';
 }
 
-/**
- * Formate le code à debuger avec la balise <pre> de html
- */
-/*
-function debug($var)
+function is_active_client(string $url): string
 {
-    echo "<pre>";
-    var_dump($var);
-    echo "</pre>";
+    $activePage = $_SERVER['PHP_SELF'];
+    $parts = explode('/', $activePage);
+    unset($parts[0]);
+    $part = $parts[1]; 
+    
+    $part = explode('.', $part);
+    unset($part[1]);
+
+    $active  = $part[0];
+
+    if ($active === $url) {
+        return 'active-link';
+    }
+
+    return '';
 }
-*/
+
 
 /**
  * Retourne le chémin d'un repository
@@ -264,7 +272,7 @@ function form_input($label, $name, $type = "text", $required = true, $placeholde
 
 function input_client(string $name, string $label, string $type = "text", $required = true, $default = null)
 {
-    $default = $_POST[$name] ?? '';
+    $default = $_POST[$name] ?? $default;
     $required = $required ? 'required ' : '';
 
     $border = "border-gray-200";

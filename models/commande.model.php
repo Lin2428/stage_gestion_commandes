@@ -10,6 +10,7 @@ class Commande
     private $updatedAt;
     private $clientId;
     private $livreurId;
+    private $total = null;
 
     
 
@@ -104,5 +105,13 @@ class Commande
     public function getLivreur()
     {
         return $this->livreur;
+    }
+
+    public function setTotal(int $total){
+        $this->total = $total;
+    }
+
+    public function getTotalPrix(){
+        return $this->total;
     }
 }

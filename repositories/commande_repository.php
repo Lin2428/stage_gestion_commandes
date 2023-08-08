@@ -121,6 +121,22 @@ class CommandeRepository
     }
 
     /**
+     * Récupère les commendes d'un client
+     * 
+     * @param int $id l'id du client
+     */
+    public function findCommande($id)
+    {
+        $stmt = db()->prepare("SELECT cm.id, cm.numero, cm.adresse, cm.statut, DATE(cm.created_at) as createdAt, cm.updated_at as updatedAt, cm.client_id as clientId, cm.livreur_id as livreurId FROM commandes cm  WHERE cm.client_id = ?");
+        $stmt->execute([$id]);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Commande::class);
+        $commande = $stmt->fetchall();
+        
+
+        return $commande;
+    }
+
+    /**
      * Recupère les produits, les prix et la quantité d'une commande
      * 
      * @param $id l'id de la commande
@@ -133,6 +149,7 @@ class CommandeRepository
 
         return $stmt->fetchAll();
     }
+
 
     /**
      * Ajoute une commande dans la base de donnée
@@ -190,6 +207,24 @@ class CommandeRepository
             'id' => $id,
             'livreur_id' => $livreur_id,
         ]);
+    }
+
+    /**
+     * Retourne le prix total d'une commande
+     * 
+     * @param int $commandeId l'id de la commande
+     * 
+     * @return int
+     */
+    public function getPrixTotal($commandeId)
+    {
+       
+        $stmt = db()->prepare("SELECT SUM(pc.prix * pc.quantite) FROM produits_commandes pc WHERE pc.commande_id = ?");
+        $stmt->execute([$commandeId]);
+        
+        $total = $stmt->fetchColumn();
+
+        return (int) $total;
     }
 
 }

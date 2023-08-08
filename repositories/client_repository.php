@@ -93,25 +93,31 @@ class ClientRepository
     }
 
     /**
-     * Modifie un produit
-     * 
+     * Modifie les information d'un client
+     *
+     * @param array $data les  information du client
+     */
+    public function updateClient($data)
+    {
+        $sql = db()->prepare("UPDATE clients SET nom = :nom, prenom = :prenom, email = :email, tel = :tel WHERE id = :id");
+
+        $sql->execute($data);
+    }
+
+     /**
+     * Modifie les information d'un client
+     *
      * @param int $id l'id du client
-     * @param string $prenom le prénom du client
-     * @param string $email l'email du client
-     * @param string $tel le tel du client
      * @param string $password le mot de passe du client
      */
-    public function updateClient($id, $nom, $prenom, $email, $tel, $password)
+    public function updatePassword($id, $password)
     {
-        $sql = db()->prepare("UPDATE clients SET nom = :nom, prenm = :prenom, email = :email, tel = :tel, password = :password WHERE id = :id");
+        $sql = db()->prepare("UPDATE clients SET password = :password WHERE id = :id");
 
+        dump($id ,$password);
         $sql->execute([
             'id' => $id,
-            'nom' => $nom,
-            'prenom' => $prenom,
-            'email' => $email,
-            'tel' => $tel,
-            'password' => $password
+            'password' => $password,
         ]);
     }
 

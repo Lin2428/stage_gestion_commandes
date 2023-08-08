@@ -4,35 +4,28 @@
         <span class="font-bold text-xs text-gray-400"><i class="bi bi-chevron-right"></i></span> Mon compte</span>
 </div>
 
-<div class="grid grid-cols-3 mb-20 relative ">
+
+<div class="grid grid-cols-3 mb-20 relative">
     <div class="col-span-1">
-        <?php require 'compte/compte-sidebar.php' ?>
+        <?php require 'compte-sidebar.php' ?>
     </div>
 
 
 
-    <div class="flex flex-col col-span-2 md:mr-20 my-10">
-        <div class="border rounded-md">
-            <p class="text-xl font-bold px-3 py-6">Tableau de bord</p>
-            <div class="flex justify-between items-center px-6 border-t-[0.05px]">
-                <span class="font-[600] text-sm py-2">Nombre des commandes</span>
-                <span class="font-[600] text-sm py-2">10</span>
+    <div class="flex flex-col col-span-2 mr-3">
+        <p class="text-xl font-bold py-6 border-b-[0.05px]">Mes commandes</p>
+        <form action="" class="md:flex justify-between items-center mt-2 mb-4">
+            <label for="category" class="font-[700] text-sm">Filtrer: </label>
+            <div class="flex justify-between items-center overflow-auto md:w-[560px]">
+                <div><input type="checkbox" name="passer" id="passer"> <label for="passer" class="text-sm"> Passée</label></div>
+                <div><input type="checkbox" name="traiter" id="traiter"> <label for="traiter" class="text-sm"> Traitée</label></div>
+                <div><input type="checkbox" name="livraison" id="livraison"> <label for="livraison" class="text-sm"> Livraison</label></div>
+                <div><input type="checkbox" name="livrer" id="livrer"><label for="livrer" class="text-sm"> Livrée</label></div>
+                <div><input type="checkbox" name="annuler" id="annuler"><label for="annuler" class="text-sm"> Annulée</label></div>
             </div>
-            <div class="flex justify-between items-center px-6 border-t-[0.05px]">
-                <span class="font-[600] text-sm py-2">Commandes en attentes</span>
-                <span class="font-[600] text-sm py-2">1</span>
-            </div>
-            <div class="flex justify-between items-center px-6 border-t-[0.05px]">
-                <span class="font-[600] text-sm py-2">Commandes livrées</span>
-                <span class="font-[600] text-sm py-2">8</span>
-            </div>
-            <div class="flex justify-between items-center px-6 border-t-[0.05px]">
-                <span class="font-[600] text-sm py-2">Commandes annulées</span>
-                <span class="font-[600] text-sm py-2">1</span>
-            </div>
-        </div>
+            <div><button class="py-1 px-2 rounded-md bg-primary text-white hover:bg-primary_hover transition-all duration-300"><i class="bi bi-search"></i></button></div>
+        </form>
 
-        <p class="text-xl font-bold py-6 border-b-[0.05px]">Commande en attentes</p>
         <?php foreach ($commandes as $k => $commande) : ?>
             <div class="compte-commande">
                 <div class="flex justify-between items-center">
@@ -58,6 +51,6 @@
                 </div>
             </div>
         <?php endforeach ?>
-
     </div>
+</div>
 </div>
