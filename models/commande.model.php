@@ -73,12 +73,12 @@ class Commande
 
     public function getCreatedAt()
     {
-        return $this->createdAt;
+        return date_format(date_create($this->createdAt), 'd/m/Y');
     }
 
     public function getUpdatedAt()
     {
-        return $this->updatedAt;
+        return date_format(date_create($this->updatedAt), 'd/m/Y');
     }
 
     public function getClientId(): int

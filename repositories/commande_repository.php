@@ -22,19 +22,19 @@ class CommandeRepository
     public function getAll($page, $perPage, array $filters = [])
     {
         $sql = "SELECT cm.id, cm.numero, cm.adresse, cm.statut, cm.created_at as createdAt, cm.updated_at as updatedAt, cm.client_id as clientId, cm.livreur_id as livreurId, c.nom as clientNom, c.prenom as clientPrenom, c.tel as clientTel, c.email as clientEmail, l.nom as livreurNom, l.prenom as livreurPrenom, l.tel as livreurTel, l.email as livreurEmail  FROM commandes cm INNER JOIN clients c ON c.id = cm.client_id INNER JOIN livreurs l ON l.id = cm.livreur_id ";
-        
+
         $statut = $filters['statut'] ?? null;
 
         $whereAdded = false;
 
-        if(!empty($statut)) {
+        if (!empty($statut)) {
             $whereAdded = true;
             $sql .= " WHERE cm.statut = :statut ";
         }
 
         $search = $filters['search'] ?? null;
-        if(!empty($search)) {
-            if(!$whereAdded) {
+        if (!empty($search)) {
+            if (!$whereAdded) {
                 $sql .= " WHERE ";
             } else {
                 $sql .= " AND ";
@@ -45,8 +45,8 @@ class CommandeRepository
         }
 
         $numero = $filters['numero'] ?? null;
-        if(!empty($numero)) {
-            if(!$whereAdded) {
+        if (!empty($numero)) {
+            if (!$whereAdded) {
                 $sql .= " WHERE ";
             } else {
                 $sql .= " AND ";
@@ -57,8 +57,8 @@ class CommandeRepository
         }
 
         $date = $filters['date'] ?? null;
-        if(!empty($date)) {
-            if(!$whereAdded) {
+        if (!empty($date)) {
+            if (!$whereAdded) {
                 $sql .= " WHERE ";
             } else {
                 $sql .= " AND ";
@@ -76,21 +76,21 @@ class CommandeRepository
         $stmt->bindParam('l', $perPage, PDO::PARAM_INT);
         $stmt->bindParam('o', $offset, PDO::PARAM_INT);
 
-        if(!empty($statut)) {
+        if (!empty($statut)) {
             $stmt->bindParam('statut', $statut);
         }
 
-        if(!empty($search)) {
+        if (!empty($search)) {
             $search = "%$search%";
             $stmt->bindParam('search', $search);
         }
 
-        if(!empty($numero)) {
+        if (!empty($numero)) {
             $numero = "%$numero%";
             $stmt->bindParam('numero', $numero);
         }
 
-        if(!empty($date)) {
+        if (!empty($date)) {
             $stmt->bindParam('date', $date);
         }
 
@@ -123,15 +123,80 @@ class CommandeRepository
     /**
      * Récupère les commendes d'un client
      * 
+     * @param bool $statut pour filtrer juste les commande en attente
+     * 
+     * @param array filtre pour filtrer par statut
+     * 
      * @param int $id l'id du client
      */
-    public function findCommande($id)
+    public function findCommande($id, $statut = false, $filtre = [])
     {
-        $stmt = db()->prepare("SELECT cm.id, cm.numero, cm.adresse, cm.statut, DATE(cm.created_at) as createdAt, cm.updated_at as updatedAt, cm.client_id as clientId, cm.livreur_id as livreurId FROM commandes cm  WHERE cm.client_id = ?");
+        $sql = "SELECT cm.id, cm.numero, cm.adresse, cm.statut, DATE(cm.created_at) as createdAt, cm.updated_at as updatedAt, cm.client_id as clientId, cm.livreur_id as livreurId FROM commandes cm  WHERE cm.client_id = ?";
+        if ($statut) {
+            $sql .= " AND (cm.statut = 'passer' OR cm.statut = 'traiter' OR cm.statut = 'livraison')";
+        }
+
+        if (!empty($filtre)) {
+            $sql .= " AND (";
+
+            $passer = $filtre['passer'] ?? null;
+            $traiter = $filtre['traiter'] ?? null;
+            $livraison = $filtre['livraison'] ?? null;
+            $livrer = $filtre['livrer'] ?? null;
+            $annuler = $filtre['annuler'] ?? null;
+
+            $OR = false;
+
+            if ($passer) {
+                $sql .= " cm.statut = 'passer'";
+                $OR = true;
+            }
+
+            if ($traiter) {
+                if ($OR) {
+                    $sql .= " OR ";
+                }
+
+                $sql .= " cm.statut = 'traiter' ";
+                $OR = true;
+            }
+
+            if ($livraison) {
+                if ($OR) {
+                    $sql .= " OR ";
+                }
+
+                $sql .= " cm.statut = 'livraison' ";
+                $OR = true;
+            }
+
+            if ($livrer) {
+                if ($OR) {
+                    $sql .= " OR ";
+                }
+
+                $sql .= " cm.statut = 'livrer' ";
+                $OR = true;
+            }
+
+            if ($annuler) {
+                if ($OR) {
+                    $sql .= " OR ";
+                }
+
+                $sql .= " cm.statut = 'annuler' ";
+                $OR = true;
+            }
+
+            $sql .= ")";
+        }
+
+
+        $stmt = db()->prepare($sql);
         $stmt->execute([$id]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, Commande::class);
         $commande = $stmt->fetchall();
-        
+
 
         return $commande;
     }
@@ -150,6 +215,31 @@ class CommandeRepository
         return $stmt->fetchAll();
     }
 
+    /**
+     * Récupère le nombre des commandes par rapport au statut
+     * 
+     * @param int $id l'id du client
+     * @param string|null $statut le statut de la commande
+     * 
+     * @return int
+     */
+
+    public function getCountClient($id, $statut = null)
+    {
+        $sql = "SELECT COUNT(*) FROM commandes WHERE client_id = $id";
+
+        if ($statut) {
+            if ($statut === 'passer') {
+                $sql .= " AND (statut = 'passer' OR statut = 'traiter' OR statut = 'livraison') ";
+            } else {
+                $sql .= " AND statut = '$statut'";
+            }
+        }
+        $stmt = db()->query($sql);
+
+        return $stmt->fetchColumn();
+    }
+
 
     /**
      * Ajoute une commande dans la base de donnée
@@ -158,14 +248,16 @@ class CommandeRepository
      * @param string $adresse l'adresse de l'ivraison
      * @param int $id l'id du client
      */
-    public function addCommande($numero, $adresse, $clientId){
+    public function addCommande($numero, $adresse, $clientId)
+    {
         $db = db();
         $sql = "INSERT INTO commandes (numero, adresse, client_id, livreur_id) VALUE(:numero, :adresse, :client_id, 1)";
         $stmt = $db->prepare($sql);
         $stmt->execute([
-        'numero' => $numero,
-        'adresse' => $adresse,
-        'client_id' => $clientId,]);
+            'numero' => $numero,
+            'adresse' => $adresse,
+            'client_id' => $clientId,
+        ]);
 
         $idCommande = $db->lastInsertId();
 
@@ -180,8 +272,9 @@ class CommandeRepository
      * @param int $produitId l'id du l'item
      * @param int $commandeId l'id de la commande
      */
-    public function addItemsCommande($prix, $quantite, $produitId, $commandeId){
-        
+    public function addItemsCommande($prix, $quantite, $produitId, $commandeId)
+    {
+
         $sql = "INSERT INTO produits_commandes (prix, quantite, produit_id, commande_id) VALUE(:prix, :quantite, :produit_id, :commande_id)";
         $stmt = db()->prepare($sql);
         $stmt->execute([
@@ -218,13 +311,12 @@ class CommandeRepository
      */
     public function getPrixTotal($commandeId)
     {
-       
+
         $stmt = db()->prepare("SELECT SUM(pc.prix * pc.quantite) FROM produits_commandes pc WHERE pc.commande_id = ?");
         $stmt->execute([$commandeId]);
-        
+
         $total = $stmt->fetchColumn();
 
         return (int) $total;
     }
-
 }

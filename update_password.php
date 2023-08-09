@@ -26,7 +26,6 @@ if (isset($_POST['password'])) {
 
             $password = password_hash($_POST['password'], PASSWORD_BCRYPT, $options);
             $id = $client->getId();
-            dump($password);
             $repo->updatePassword($id, $password);
             flash_message("Votre mot de passe a été modifier avec succès");
             $message = true;

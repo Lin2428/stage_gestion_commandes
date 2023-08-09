@@ -9,27 +9,22 @@ if (empty(get_user_connect())) {
 $repoClient = new ClientRepository();
 $repoCommande = new CommandeRepository();
 
+$id = intval($_POST['id']);
 
 $client = $repoClient->findUser($_COOKIE['user_email']);
-$commandes = $repoCommande->findCommande($client->getId(), filtre: $_GET);
+$commande = $repoCommande->findById($id);
 
-
-
-$produits = [];
-foreach ($commandes as $k => $commande) {
-    $produits[$k] = $repoCommande->getArticleById($commande->getId());
-    $total = $repoCommande->getPrixTotal($commande->getId());
-    $commande->setTotal($total);
-}
-
+$produits = $repoCommande->getArticleById($commande->getId());
+$total = $repoCommande->getPrixTotal($commande->getId());
+$commande->setTotal($total);
 
 view(
-    name: 'compte/commande',
+    name: 'compte/detail',
     pageTitle: "Mon compte",
     layout: "front",
     params: [
         'client' => $client,
-        'commandes' => $commandes,
+        'commande' => $commande,
         'produits' => $produits,
     ]
 );

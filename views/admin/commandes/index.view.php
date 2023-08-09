@@ -40,7 +40,7 @@ $status = [
                         <td><?= $commande->getNumero() ?></td>
 
                         <td><span class="badge bg-warning"><?= $commande->getStatut() ?></span></td>
-                        <td><?= date_format(date_create($commande->getCreatedAt()), 'd/m/Y')  ?></td>
+                        <td><?= $commande->getCreatedAt() ?></td>
                         <td><?= $commande->clientNom ?></td>
                         <td><?= $commande->livreurNom ?></td>
                         <td><?= liste_action($commande->getId(), "commandes") ?></td>

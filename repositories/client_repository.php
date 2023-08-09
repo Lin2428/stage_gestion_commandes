@@ -113,8 +113,6 @@ class ClientRepository
     public function updatePassword($id, $password)
     {
         $sql = db()->prepare("UPDATE clients SET password = :password WHERE id = :id");
-
-        dump($id ,$password);
         $sql->execute([
             'id' => $id,
             'password' => $password,

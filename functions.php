@@ -500,3 +500,23 @@ function numero_commande($nombre){
     $nombre += 1;
     return date('my-') . str_pad((string)$nombre, 6, "0", STR_PAD_LEFT);
 }
+
+/**
+ * Rétourne une checkbox
+ * 
+ * @param string $name le nom de l'élément input
+ * @param  string $label le label de l'élément
+ * 
+ * @return string $html
+ */
+function checkbox($name, $label){
+    $checked = ""; 
+
+    if(isset($_GET[$name])){
+        $checked = "checked";
+    }
+    $html = '<div><input type="checkbox" '. $checked.' name="'. $name .'" id="'. $name .'" >';
+    $html .= '<label for="'. $name .'" class="text-sm"> '. $label .'</label></div>';
+
+    return $html;
+}

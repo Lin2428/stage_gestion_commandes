@@ -411,7 +411,7 @@
     @apply text-gray-800 font-sans;
   }
 
-  .form-label-client > span{
+  .form-label-client > span {
     @apply text-red-600 font-bold;
   }
 
@@ -444,59 +444,78 @@
 
   /*----------- VALIDATION --------------*/
 
-  .validation-title{
+  .validation-title {
     @apply text-gray-800 font-sans;
   }
 
-  .validation-text{
+  .validation-text {
     @apply border-[0.5px] my-2 text-sm text-gray-700 p-3 w-[100%] md:max-w-[360px] rounded-md overflow-auto;
   }
 
- input[type='radio'] {
+  input[type="radio"] {
     accent-color: rgb(26, 25, 24);
     width: 15px;
-}
+  }
 
-/*----------- FIN VALIDATION -----------*/
+  /*----------- FIN VALIDATION -----------*/
 
-/*----------- COMPTE CLIENT -----------*/
+  /*----------- COMPTE CLIENT -----------*/
 
-.card-profil {
-  @apply border-[0.05px]  h-[100%] fixed md:w-[300px];
-  
-}
+  .compte-content {
+    position: fixed;
+    width: 100%;
+    height: 65%;
+    overflow: auto;
+  }
+  .compte-grid {
+    @apply md:flex justify-center h-[auto] mb-[10rem];
+  }
 
-.profil-link {
-  @apply flex justify-between items-center px-6 py-3 hover:bg-primary hover:text-white transition-all duration-300;
-}
+  .card-profil {
+    @apply border-[0.05px]  h-[100%] md:fixed md:block hidden left-0 w-[100%] md:w-[250px];
+  }
 
-.active-link{
-  @apply bg-primary text-white;
-}
- 
-.profil-ligne{
-  @apply font-sans font-[500];
-}
+  .profil-link {
+    @apply flex justify-between items-center px-6 py-3 hover:bg-primary hover:text-white transition-all duration-300;
+  }
 
-.profil-value{
-  @apply font-sans  text-gray-600;
-}
+  .profil-link-mobile{
+    @apply flex flex-col justify-center items-center p-2 border hover:bg-primary hover:text-white transition-all duration-300;
+  }
 
+  .active-link {
+    @apply bg-primary text-white;
+  }
 
-.btn{
-  @apply w-[100%] md:w-[auto] p-3 transition-all duration-300 rounded-md text-sm font-bold font-sans mb-4;
-}
+  .profil-ligne {
+    @apply font-sans font-[500];
+  }
 
-.card-commande{
-  @apply w-[100%] max-w-[700px] p-4 rounded-xl border;
-}
+  .profil-value {
+    @apply font-sans  text-gray-600;
+  }
 
-.compte-commande{
-  @apply m-3 border p-4 rounded-md;
-}
+  .compte-grid-2 {
+    @apply flex flex-col px-3 w-[100%] mt-3 min-w-0;
+  }
 
-.commande-bage{
-  @apply  px-2 pb-1 text-sm font-sans font-bold bg-primary mb-5 rounded-md text-white;
-}
+  .form-compte {
+    @apply md:p-10 p-5 border rounded-md;
+  }
 
+  .btn {
+    @apply w-[100%] md:w-[auto] p-3 transition-all duration-300 rounded-md text-sm font-bold font-sans mb-4;
+  }
+
+  .card-commande {
+    @apply w-[100%] max-w-[700px] rounded-xl border;
+  }
+
+  .compte-commande {
+    @apply m-3 border p-4 rounded-md;
+  }
+
+  .commande-bage {
+    @apply px-2 text-sm font-sans font-bold bg-primary  rounded-md text-gray-800;
+  }
 }
