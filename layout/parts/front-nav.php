@@ -57,7 +57,7 @@ $icon = $_COOKIE['user_id'] ?? null;
             <span class="nav-title">Favoris</span>
         </a>
         <a href="../../compte.php" class="nav-link">
-            <i class="<?= $_COOKIE['user_id'] ? 'bi bi-person-fill-check' : 'bi bi-person-circle' ?>"></i>
+            <i class="<?= $icon ? 'bi bi-person-fill-check' : 'bi bi-person-circle' ?>"></i>
             <span class="nav-title">Mon compte</span>
         </a>
     </div>

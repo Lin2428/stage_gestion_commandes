@@ -5,7 +5,7 @@
 </div>
 
 <div class="compte-content">
-    <div class="compte-grid ">
+    <div class="compte-grid">
         <?php require 'compte-sidebar.php' ?>
  
 
@@ -16,7 +16,7 @@
             <?php if ($create) : ?>
                     <div class="alert-succes mb-3"><?= read_flash_message() ?></div>
             <?php endif ?>
-                <div class=" h-[100%] mb-6 max-w-[470px]">
+                <div class=" h-[100%] mb-6">
                     <form class="form-compte" method="POST">
                         <p class=" font-bold">Modifier le compte</p>
                         <?= input_client(name: "nom", label: "Nom", default: $client->getNom()) ?>
