@@ -11,7 +11,7 @@ $repoCommande = new CommandeRepository();
 
 
 $client = $repoClient->findUser($_COOKIE['user_email']);
-$commandes = $repoCommande->findCommande($client->getId(), filtre: $_GET);
+$commandes = array_reverse($repoCommande->findCommande($client->getId(), filtre: $_GET));
 
 
 

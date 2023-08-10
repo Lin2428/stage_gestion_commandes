@@ -8,7 +8,7 @@
     <div class="compte-grid ">
         <?php require 'compte-sidebar.php' ?>
 
-        <div class="compte-grid-2 justify-center items-center">
+        <div class="compte-grid-2 justify-center md:items-center">
             <?php if ($message) : ?>
                 <div class="alert-succes mb-4"><?= read_flash_message() ?></div>
             <?php endif ?>

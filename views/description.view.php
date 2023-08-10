@@ -59,31 +59,53 @@
         <p class="text-2xl font-bold text-primary mb-3">
             <?= $produit->getPrix() ?> XAF
         </p>
-        <form class="quantite" method="POST" action="/add_produit.php">
-            <input type="hidden" name="action" value="_add_to_cart">
-            <input type="hidden" name="currentPage" value="<?= $_SERVER['PHP_SELF'] . '/?id=' .  $produit->getId() ?>">
-            <input type="hidden" name="id" value="<?= $produit->getId() ?>">
-            <div>
-                <!-- <button class="bg-[#f7f4ef] rounded-full px-3 py-1.5 font-bold text-sm">-</button> -->
-                <input type="number" name="quantite" value="<?= $countProduit ?>" min="1" class="border border-gray-200 p-3 font-[500] w-16 rounded-md h-10 outline-1 outline-primary ">
-                <!-- <button class="bg-[#f7f4ef] rounded-full px-3 py-1.5 font-bold text-sm">+</button> -->
+        <?php if ($produit->getStatut()) : ?>
+            <form class="quantite" method="POST" action="/add_produit.php">
+                <input type="hidden" name="action" value="_add_to_cart">
+                <input type="hidden" name="currentPage" value="<?= $_SERVER['PHP_SELF'] . '/?id=' .  $produit->getId() ?>">
+                <input type="hidden" name="id" value="<?= $produit->getId() ?>">
+                <div>
+                    <!-- <button class="bg-[#f7f4ef] rounded-full px-3 py-1.5 font-bold text-sm">-</button> -->
+                    <input type="number" name="quantite" value="<?= $countProduit ?>" min="1" class="border border-gray-200 p-3 font-[500] w-16 rounded-md h-10 outline-1 outline-primary ">
+                    <!-- <button class="bg-[#f7f4ef] rounded-full px-3 py-1.5 font-bold text-sm">+</button> -->
 
-            </div>
-            <div class="md:w-[70%] md:mt-0 mt-4 flex">
-                <button type="submit" class="bg-primary p-4 mr-1 rounded-md hover:text-white w-[80%] font-bold text-xs"><i class="bi bi-basket2-fill"></i> AJOUTER AU PANIER</button>
-        </form>
-        <form action="/add_produit.php" method="post" class="">
-            <input type="hidden" name="action" value="_add_to_favorie">
-            <input type="hidden" name="currentPage" value="<?= $_SERVER['PHP_SELF'] .'?id='. $produit->getId() ?>">
-            <input type="hidden" name="id" value="<?= $produit->getId() ?>">
-            <button type="submit" class="<?= $produit->isInFavorite() ? 'in-fav' : 'text-gray-300' ?> px-4 py-3 bg-gray-100 rounded-md" ><i class="bi bi-heart-fill"></i></button>
-        </form>
-            </div>
+                </div>
+                <div class="md:w-[70%] md:mt-0 mt-4 flex">
+                    <button type="submit" class="bg-primary p-4 mr-1 rounded-md hover:text-white w-[80%] font-bold text-xs"><i class="bi bi-basket2-fill"></i> AJOUTER AU PANIER</button>
+            </form>
+            <form action="/add_produit.php" method="post" class="">
+                <input type="hidden" name="action" value="_add_to_favorie">
+                <input type="hidden" name="currentPage" value="<?= $_SERVER['PHP_SELF'] . '?id=' . $produit->getId() ?>">
+                <input type="hidden" name="id" value="<?= $produit->getId() ?>">
+                <button type="submit" class="<?= $produit->isInFavorite() ? 'in-fav' : 'text-gray-300' ?> px-4 py-3 bg-gray-100 rounded-md"><i class="bi bi-heart-fill"></i></button>
+            </form>
+    </div>
+<?php else : ?>
+    <div class="quantite">
+        <input type="number" disabled value="1" class="border border-gray-200 p-3 font-[500] w-16 rounded-md h-10 outline-1 ">
+        <div class="md:w-[70%] md:mt-0 mt-4 flex">
+            <span class="flex justify-center bg-orange-300 p-4 mr-1 rounded-md w-[80%] font-bold text-xs text-gray-400"><i class="bi bi-basket2-fill text-gray-400"></i> AJOUTER AU PANIER</span>
+            <form action="/add_produit.php" method="post" class="">
+                <input type="hidden" name="action" value="_add_to_favorie">
+                <input type="hidden" name="currentPage" value="<?= $_SERVER['PHP_SELF'] . '?id=' . $produit->getId() ?>">
+                <input type="hidden" name="id" value="<?= $produit->getId() ?>">
+                <button type="submit" class="<?= $produit->isInFavorite() ? 'in-fav' : 'text-gray-300' ?> px-4 py-3 bg-gray-100 rounded-md"><i class="bi bi-heart-fill"></i></button>
+            </form>
+        </div>
+    </div>
+<?php endif ?>
 
-    <p class="font-sans text-sm">Catégorie:
-        <a href="" class="font-borld text-sm text-gray-400 hover:text-primary hover:underline">
-            <?= $produit->getCategory() ?>
-        </a>
-    </p>
+
+<p class="font-sans text-sm">Catégorie:
+    <a href="" class="font-borld text-sm text-gray-400 hover:text-primary hover:underline">
+        <?= $produit->getCategory() ?>
+    </a>
+</p>
+<?php if ($produit->getStatut()) : ?>
+    <p class="font-borld text-sm text-gray-400">Disponible</p>
+<?php else : ?>
+    <p class="font-borld text-sm text-gray-400">Indisponible</p>
+<?php endif ?>
+
 </div>
 </div>

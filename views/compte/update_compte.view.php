@@ -9,7 +9,7 @@
         <?php require 'compte-sidebar.php' ?>
  
 
-        <div class="compte-grid-2 justify-center items-center">
+        <div class="compte-grid-2 justify-center md:items-center">
             <?php if ($userExiste) : ?>
                     <div class="alert-danger mb-3"><?= read_flash_message() ?></div>
             <?php endif ?>

@@ -173,7 +173,7 @@
   }
 
   .card-links .statut {
-    @apply bg-black py-[4px] px-2 items-center rounded-full text-white text-xs font-bold;
+    @apply  py-[4px] px-2 items-center rounded-full text-white text-xs font-bold;
   }
 
   .card-img {
@@ -500,7 +500,7 @@
   }
 
   .form-compte {
-    @apply md:p-10 p-5 border rounded-md;
+    @apply md:p-10 p-5 border rounded-md w-[100%];
   }
 
   .btn {

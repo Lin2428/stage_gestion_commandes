@@ -71,7 +71,7 @@ class FavorieRepository
     {
         $favorieId = static::getOrCreateFavorieId();
 
-        $stmt = db()->prepare("SELECT fi.id as itemId, fi.produit_id as produitId, fi.created_at as createdAt, p.nom as produitNom, p.prix as produitPrix, p.image as produitImage FROM  favorie_items fi INNER JOIN produits p ON p.id = fi.produit_id WHERE fi.favorie_id = ? ");
+        $stmt = db()->prepare("SELECT fi.id as itemId, fi.produit_id as produitId, fi.created_at as createdAt, p.nom as produitNom, p.prix as produitPrix, p.statut as statut, p.image as produitImage FROM  favorie_items fi INNER JOIN produits p ON p.id = fi.produit_id WHERE fi.favorie_id = ? ");
         $stmt->execute([$favorieId]);
         $stmt->setFetchMode(PDO::FETCH_CLASS, Favorie::class);
 

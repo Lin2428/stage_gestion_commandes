@@ -28,7 +28,7 @@ $sql->execute([
 echo "ok";
 */
 
-$status = ['passer', 'traiter', 'livraison', 'livrer', 'annuler'];
+/*$status = ['passer', 'traiter', 'livraison', 'livrer', 'annuler'];
 
 $pdo = db();
 
@@ -73,4 +73,16 @@ for ($i = 1; $i <= 1000; $i++) {
     }
 
     echo "Insertion : $i \n";
+}*/
+
+class A {
+    function __construct( protected $name = 'a'){}
 }
+
+class B extends A {
+    function __construct(A $a) {
+        die(var_dump($a->name));
+    }
+}
+
+new B(new A);

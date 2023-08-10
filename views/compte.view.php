@@ -78,6 +78,10 @@
                                 </div>
                             </div>
                         <?php endforeach ?>
+                        <div class=" flex justify-between border-t-[0.05px] text-sm py-2 col-span-4">
+                            <span class="font-[600]">Total</span>
+                            <span class="font-[600]"><?= $commande->getTotalPrix() ?> XAF</span>
+                        </div>
                     </div>
                 </div>
             <?php endforeach ?>

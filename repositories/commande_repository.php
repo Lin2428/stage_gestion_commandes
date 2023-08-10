@@ -292,13 +292,14 @@ class CommandeRepository
      * 
      * @param $livreur_id l'id du livreur
      */
-    public function updateLivreurCommande($id, $livreur_id)
+    public function updateCommande($id, $livreur_id, $statut)
     {
-        $sql = db()->prepare("UPDATE commandes SET livreur_id = :livreur_id, updated_at = CURRENT_TIMESTAMP() WHERE id = :id");
+        $sql = db()->prepare("UPDATE commandes SET statut = :statut, livreur_id = :livreur_id, updated_at = CURRENT_TIMESTAMP() WHERE id = :id");
 
         $sql->execute([
             'id' => $id,
             'livreur_id' => $livreur_id,
+            'statut' => $statut
         ]);
     }
 
@@ -318,5 +319,21 @@ class CommandeRepository
         $total = $stmt->fetchColumn();
 
         return (int) $total;
+    }
+
+
+/**
+     * Retourne le dépence total d'une client
+     * @param int $commandeId l'id de la commande
+     * 
+     * @return int
+     */
+    public function getDepence($clientId)
+    {
+
+        $stmt = db()->prepare("SELECT SUM(pc.prix * pc.quantite) as prix FROM produits_commandes pc INNER JOIN commandes c ON c.id = pc.commande_id WHERE c.client_id = ?");
+        $stmt->execute([$clientId]);
+
+        return (int) $stmt->fetchColumn();
     }
 }

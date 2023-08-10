@@ -8,6 +8,7 @@ class Favorie
    private $produitPrix;
    private $produitImage;
    private $createdAt;
+   private $statut;
 
    public function getItemId(): ?int
    {
@@ -32,6 +33,11 @@ class Favorie
    public function getProduitImage(): ?string
    {
     return $this->produitImage;
+   }
+
+   public function getProduitStatut(): ?string
+   {
+    return $this->statut;
    }
 
    public function getcreatedAt()

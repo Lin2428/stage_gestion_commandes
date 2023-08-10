@@ -11,16 +11,15 @@
 
         <div class="compte-grid-2">
             <p class="text-xl font-bold py-4 border-b-[0.05px]">Mes commandes</p>
-            <form method="GET" class="md:flex justify-between items-center mt-2 mb-4">
-                <label for="category" class="font-[700] text-sm">Filtrer: </label>
+            <form method="GET" class="md:flex  items-center mt-2 mb-4">
+                <label for="category" class="font-[700] text-sm md:mr-10">Filtrer: </label>
                 <div class="flex justify-between items-center overflow-auto md:w-[560px]">
-                    <?= checkbox(name:"passer", label: "Passée") ?>
-                    <?= checkbox(name:"traiter", label: "Traitée") ?>
-                    <?= checkbox(name:"livraison", label: "Livraison") ?>
-                    <?= checkbox(name:"livrer", label: "Livrée") ?>
-                    <?= checkbox(name:"annuler", label: "Annulée") ?>
+                    <button><?= checkbox(name:"passer", label: "Passée") ?></button>
+                    <button><?= checkbox(name:"traiter", label: "Traitée") ?></button>
+                    <button><?= checkbox(name:"livraison", label: "Livraison") ?></button>
+                    <button><?= checkbox(name:"livrer", label: "Livrée") ?></button>
+                    <button><?= checkbox(name:"annuler", label: "Annulée") ?></button>
                 </div>
-                <div><button class="py-1 px-2 rounded-md bg-primary text-white hover:bg-primary_hover transition-all duration-300"><i class="bi bi-search"></i></button></div>
             </form>
 
             <div class="relative overflow-x-auto">

@@ -11,7 +11,7 @@ $repoCommande = new CommandeRepository();
 
 
 $client = $repoClient->findUser($_COOKIE['user_email']);
-$commandes = $repoCommande->findCommande($client->getId(), statut: true);
+$commandes = array_reverse($repoCommande->findCommande($client->getId(), statut: true));
 
 $nombreCommande = $repoCommande->getCountClient($client->getId());
 $commandePasse = $repoCommande->getCountClient($client->getId(), 'passer');
@@ -19,13 +19,13 @@ $commandeLivre = $repoCommande->getCountClient($client->getId(), 'livrer');
 
 
 
-$depenceTotal = 0;
+$depenceTotal = $repoCommande->getDepence($client->getId());
+
 $produits = [];
 foreach ($commandes as $k => $commande) {
     $produits[$k] = $repoCommande->getArticleById($commande->getId());
     $total = $repoCommande->getPrixTotal($commande->getId());
     $commande->setTotal($total);
-    $depenceTotal = $commande->getTotalPrix();
 }
 
 

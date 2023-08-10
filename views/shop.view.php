@@ -16,10 +16,12 @@
                     <div class="card">
                         <div class="card-head">
                             <div class="card-links">
-                                <span class="statut">Sale!</span>
+                                <span class="statut <?= $produit->getStatut() ? 'bg-black' : 'bg-red-400' ?>">
+                                    <?= $produit->getStatut() ? 'Disponible !' : 'Indisponible' ?>
+                                </span>
                                 <form action="/add_produit.php" method="post" class="flex">
                                     <input type="hidden" name="action" value="_add_to_favorie">
-                                    <input type="hidden" name="currentPage" value="<?=  $_SERVER['REQUEST_URI'] ?>">
+                                    <input type="hidden" name="currentPage" value="<?= $_SERVER['REQUEST_URI'] ?>">
                                     <input type="hidden" name="id" value="<?= $produit->getId() ?>">
                                     <button type="submit" class="z-50  hover:text-black <?= $produit->isInFavorite() ? 'in-fav' : 'text-gray-300' ?>">
                                         <i class="bi bi-heart-fill text-xl"></i>
@@ -48,12 +50,16 @@
                                 <span class="prix-produit text-primary font-bold text-lg">
                                     <?= $produit->getPrix() ?> XAF
                                 </span>
-                                <form method="post" action="/add_produit.php" style="display: inline;">
-                                    <input type="hidden" name="currentPage" value="<?= $_SERVER['PHP_SELF'] ?>">
-                                    <input type="hidden" name="action" value="_add_to_cart">
-                                    <input type="hidden" name="id" value="<?= $produit->getId() ?>">
-                                    <button class="bg-primary px-3 py-2 w-[2.5rem] hover:text-white rounded-2xl"><i class="bi bi-basket2-fill"></i></i></button>
-                                </form>
+                                <?php if ($produit->getStatut()) : ?>
+                                    <form method="post" action="/add_produit.php" style="display: inline;">
+                                        <input type="hidden" name="currentPage" value="<?= $_SERVER['PHP_SELF'] ?>">
+                                        <input type="hidden" name="action" value="_add_to_cart">
+                                        <input type="hidden" name="id" value="<?= $produit->getId() ?>">
+                                        <button class="bg-primary px-3 py-2 w-[2.5rem] hover:text-white rounded-2xl"><i class="bi bi-basket2-fill"></i></i></button>
+                                    </form>
+                                <?php else : ?>
+                                    <span class="bg-orange-300 px-3 py-2 w-[2.5rem] rounded-2xl"><i class="bi bi-basket2-fill text-gray-400"></i></i></button>
+                                    <?php endif ?>
                             </div>
                         </div>
                     </div>
