@@ -1,6 +1,11 @@
 <?php
 require '../../bootstrap.php';
 
+if(!get_admin_connect()){
+    header("Location: ../login.php");
+    exit;
+}
+
 $repo = new LivreurRepository();
 
 if (is_post()) {

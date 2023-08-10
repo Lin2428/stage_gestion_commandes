@@ -1,9 +1,18 @@
+<?php
+$message = read_flash_message();
+?>
+
 <div class="shop-baner">
     <p class="titre-baner">Panier</p>
     <span class="link-baner"><a href="/" class="text-gray-400 hover:text-primary">Home</a>
         <span class="font-bold text-xs text-gray-400"><i class="bi bi-chevron-right"></i></span> Panier</span>
 </div>
-
+<br>
+<?php if ($message) : ?>
+    <div class="flex justify-center w-[100%]">
+        <div class="alert-succes mb-4"><?= $message ?></div>
+    </div>
+<?php endif ?>
 <?php if (!empty($panier)) : ?>
     <div class="grid md:grid-cols-3 p-6 mt-16">
         <div class="panier col-span-2">
@@ -26,7 +35,7 @@
                             <?= $produit->getProduitNom() ?>
                         </a>
                         <p class="mx-auto text-sm font-[600]">
-                            <?= $produit->getProduitPrix() ?> XAF
+                            <?= $produit->getProduitPrix() ?>
                         </p>
                         <div class="mx-auto">
                             <input type="number" name="quanite<?= $produit->getProduitId() ?>" value="<?= $produit->getQuantite(); ?>" min="0" class="border border-gray-200 p-3 font-[500] w-16 rounded-md h-10 outline-1 outline-primary ">
@@ -37,7 +46,7 @@
                     </div>
                 <?php endforeach ?>
                 <div class="md:flex justify-end">
-                    <button type="submit" class="bg-primary md:w-auto w-[100%] mb-5 p-4 rounded-md mt-5 text-sm font-bold hover:bg-[#eeac00] hover:text-white">UPDATE
+                    <button type="submit" class="bg-primary md:w-auto w-[100%] mb-5 p-4 rounded-md mt-5 text-sm font-bold hover:bg-[#eeac00] hover:text-white transition-all duration-300">MODIFIER LE
                         PANIER</button>
                 </div>
             </form>
@@ -58,7 +67,7 @@
                             <div class="detail-panier-mobile">
                                 <span class="titre">Prix</span>
                                 <a href="" class="text-sm font-[600] hover:text-primary">
-                                    <?= $produit->getProduitPrix() ?> XAF
+                                    <?= $produit->getProduitPrix() ?>
                                 </a>
                             </div>
                             <div class="detail-panier-mobile">
@@ -77,20 +86,20 @@
                     </div>
                 <?php endforeach ?>
                 <div class="md:flex justify-end">
-                    <button type="submit" class="bg-primary md:w-auto w-[100%] mb-5 p-4 rounded-md mt-5 text-sm font-bold hover:bg-[#eeac00] hover:text-white">UPDATE
+                    <button type="submit" class="bg-primary md:w-auto w-[100%] mb-5 p-4 rounded-md mt-5 text-sm font-bold hover:bg-[#eeac00] hover:text-white transition-all duration-300">MODIFIER LE
                         PANIER</button>
                 </div>
             </form>
         </div>
-        
+
         <div class="md:col-span-1 col-span-2 mb-20 mx-auto border-[5px] md:w-[90%] w-[100%] px-6 h-[390px]">
             <div>
-                <p class="font-bold pt-3 pb-2 border-b-2 text-lg font-sans">CART TOTAL</p>
+                <p class="font-bold pt-3 pb-2 border-b-2 text-lg font-sans">TOTAL PANIER</p>
             </div>
             <div class="flex justify-between items-center py-5 border-b-[0.05px]">
-                <sapn class="text-sm font-bold">SUBTOTAL</sapn>
+                <sapn class="text-sm font-bold">TOTAL</sapn>
                 <sapn class="font-bold">
-                    <?= $total ?> XAF
+                    <?= number_format($total, 0, thousands_separator: " ") ?> XAF
                 </sapn>
             </div>
             <div class="flex justify-between py-5 border-b-[0.05px]">
@@ -100,26 +109,26 @@
             <div class="flex justify-between items-center pt-8">
                 <sapn class="text-sm font-bold">TOTAL</sapn>
                 <sapn class="text-primary font-bold text-lg">
-                    <?= $total ?> XAF
+                    <?= number_format($total, 0, thousands_separator: " ") ?> XAF
                 </sapn>
             </div>
 
             <a href="/validation.php">
-                <button class="w-[100%]  bg-primary hover:bg-[#eeac00] hover:text-white p-3 rounded-md mt-[3rem] mb-8 text-sm font-bold">PROCEDER
+                <button class="w-[100%]  bg-primary hover:bg-[#eeac00] hover:text-white p-3 rounded-md mt-[3rem] mb-8 text-sm font-bold transition-all duration-300">PROCEDER
                     AU PAYEMENT</button>
             </a>
         </div>
     </div>
 <?php else : ?>
     <?php if (isset($_GET['passer'])) : ?>
-    <div class="flex flex-col justify-center items-center">
-        <div class="alert-succes"><?= read_flash_message() ?></div>
-    </div>
-<?php endif ?>
+        <div class="flex flex-col justify-center items-center">
+            <div class="alert-succes"><?= read_flash_message() ?></div>
+        </div>
+    <?php endif ?>
     <div class="flex flex-col items-center mt-6 mb-[10rem]">
         <span class="text-[12rem] text-[#999999] "><i class="bi bi-cart-x"></i></span>
         <span class="-mt-12 font-sans text-lg text-gray-900 mb-[4rem]">Votre panier est actuellement vide</span>
-        <a href="shop.php"><button class="bg-primary font-[600] text-sm rounded-md hover:text-white p-4">RETOURNER A LA
+        <a href="shop.php"><button class="bg-primary font-[600] text-sm rounded-md hover:text-white p-4 transition-all duration-300">RETOURNER A LA
                 BOUTIQUE</button></a>
     </div>
 <?php endif ?>

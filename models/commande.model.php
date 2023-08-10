@@ -68,17 +68,29 @@ class Commande
 
     public function getStatut(): string
     {
-        return $this->statut;
+        if($this->statut === "passer"){
+            return "Commande non traité";
+        }
+        else if($this->statut === "traiter"){
+            return "Commande traité";
+        }
+        else if($this->statut === "livraison"){
+            return "En cours de livraison";
+        }
+        else if($this->statut === "livrer"){
+            return "Commande livrée";
+        }
+        return "Commande annulée";
     }
 
     public function getCreatedAt()
     {
-        return date_format(date_create($this->createdAt), 'd/m/Y');
+        return date_format(date_create($this->createdAt), 'd/m/Y à h:i');
     }
 
     public function getUpdatedAt()
     {
-        return date_format(date_create($this->updatedAt), 'd/m/Y');
+        return date_format(date_create($this->updatedAt), 'd/m/Y à h:i');
     }
 
     public function getClientId(): int
@@ -112,6 +124,6 @@ class Commande
     }
 
     public function getTotalPrix(){
-        return $this->total;
+        return number_format($this->total, 0, thousands_separator: " ")." XAF";
     }
 }

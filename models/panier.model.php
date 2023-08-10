@@ -31,9 +31,9 @@ class Panier
         return $this->produitNom;
     }
 
-    public function getProduitPrix(): ?int 
+    public function getProduitPrix()
     {
-        return $this->produitPrix;
+        return number_format($this->produitPrix, 0, thousands_separator: " ")." XAF";
     }
 
     public function getProduitImage(): ?string
@@ -51,8 +51,9 @@ class Panier
         return $this->quantite;
     }
 
-    public function getTotal(): ?int 
+    public function getTotal()
     {
-        return $this->quantite * $this->produitPrix;
+        $total = $this->quantite * $this->produitPrix;
+        return number_format($total, 0, thousands_separator: " ")." XAF";
     }
 }

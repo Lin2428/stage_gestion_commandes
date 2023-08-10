@@ -59,7 +59,7 @@
                                     <span class="commande-bage"><?= $commande->getStatut() ?></span>
                                 </td>
                                 <td class="py-4 border-t-[0.05px] font-bold">
-                                    <?= $commande->getTotalPrix() ?> XAF
+                                    <?= $commande->getTotalPrix() ?>
                                 </td>
                                 <td class="py-4 border-t-[0.05px]">
                                     <?= $commande->getCreatedAt() ?>

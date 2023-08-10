@@ -1,6 +1,9 @@
 <?php
 require '../../bootstrap.php';
-
+if(!get_admin_connect()){
+    header('Location: '. base_url('admin/login.php').'');
+    exit;
+   }
 $id = $_GET['id'];
 
 $repo = new CommandeRepository();
@@ -8,10 +11,9 @@ $commande = $repo->findById($id);
 
 $articles = $repo->getArticleById($commande->getId());
 
-$total = 0;
-for($i = 0; $i<count($articles); $i++){
-    $total += ($articles[$i]->getPrix() * $articles[$i]->getQuantite());
-}
+$total = $repo->getPrixTotal($commande->getId());
+$commande->setTotal($total);
+
 
 view(
     name: 'admin.commandes.detail',

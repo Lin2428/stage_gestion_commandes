@@ -5,10 +5,9 @@ new DateTime();
 <div class="d-flex align-items-center justify-content-between mb-4">
     <h1 class="h2">Détails de la commande</h1>
     <div class="d-flex">
-        <a href="<?= "/admin/commandes/update.php" ?>?id= <?= $commande->getLivreur()->getId() ?>" class="btn btn-info me-2">Changer de livreur</a>
+        <a href="<?= "/admin/commandes/update.php" ?>?id= <?= $commande->getLivreur()->getId() ?>" class="btn btn-info me-2">Modifier</a>
         <form action="<?= "/admin/commandes/delete.php" ?>" method="POST">
             <input type="hidden" name="id" value="<?= $commande->getId() ?>">
-            <button type="submit" class="btn btn-danger me-2">Supprimer</button>
         </form>
         <a href="/admin/commandes" class="btn btn-primary">Liste des commandes</a>
     </div>
@@ -71,9 +70,9 @@ new DateTime();
                 <?php foreach ($articles as $article) : ?>
                     <tr>
                         <td><?= $article->getNomProduit() ?></td>
-                        <td><?= $article->getPrix() ?> XAF</td>
+                        <td><?= $article->getPrix() ?></td>
                         <td><?= $article->getQuantite() ?></td>
-                        <td class="text-end"><?= $article->getQuantite() * $article->getPrix() ?></td>
+                        <td class="text-end"><?= $article->getTotal() ?></td>
                     </tr>
                 <?php endforeach ?>
 
@@ -81,7 +80,7 @@ new DateTime();
                     <th>&nbsp;</th>
                     <th>&nbsp;</th>
                     <th>Total </th>
-                    <th class="text-end"><?= $total ?> XAF</th>
+                    <th class="text-end"><?= $commande->getTotalPrix() ?></th>
                 </tr>
             </tbody>
         </table>

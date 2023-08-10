@@ -69,8 +69,8 @@ function is_active_client(string $url): string
     $activePage = $_SERVER['PHP_SELF'];
     $parts = explode('/', $activePage);
     unset($parts[0]);
-    $part = $parts[1]; 
-    
+    $part = $parts[1];
+
     $part = explode('.', $part);
     unset($part[1]);
 
@@ -199,10 +199,12 @@ function liste_action($id, $dossier, $detail = true, $desactive = false, int $st
         $html .= '<a href="' . base_url('/admin/' . $dossier . '/detail.php?id=' . $id) . '" class=" btn bouton_action btn-sm bg-info"><span data-feather="info"><span></a> ';
     }
     $html .= '<a href="' . base_url('/admin/' . $dossier . '/update.php?id=' . $id) . '" class="btn bouton_action bg-primary btn-sm me-1"><span data-feather="edit"><span></a>';
-    $html .= '<form action="' . base_url('/admin/' . $dossier . '/delete.php') . '" method="POST" class="d-inline text-align-center">';
-    $html .= '<input type="hidden" name="id" value="' . $id . '">';
-    $html .= '<button type="submit" class="bouton_action ' . $class . '  btn-sm btn"><span data-feather="' . $active . '"><span></button>';
-    $html .= ' </form>';
+    if ($dossier <> "commandes") {
+        $html .= '<form action="' . base_url('/admin/' . $dossier . '/delete.php') . '" method="POST" class="d-inline text-align-center">';
+        $html .= '<input type="hidden" name="id" value="' . $id . '">';
+        $html .= '<button type="submit" class="bouton_action ' . $class . '  btn-sm btn"><span data-feather="' . $active . '"><span></button>';
+        $html .= ' </form>';
+    }
 
     return $html;
 }
@@ -447,6 +449,32 @@ function get_visitor_id()
  * 
  * @return int
  */
+function get_admin_connect($id = null)
+{
+    $idAdmin = $_COOKIE['admin_id'] ?? null;
+
+    if ($idAdmin) {
+        return $idAdmin;
+    } else {
+        if ($id) {
+            setcookie('admin_id', $id, [
+                'httponly' => true,
+            ]);
+        }
+        return $idAdmin;
+    }
+}
+
+
+
+/**
+ * Récupère l'id de l'admin dans les cookie si l'admin est connecter
+ * ou récupère son id depuis la base de données
+ * 
+ * @param int $id l'id de l'utilisateur
+ * 
+ * @return int
+ */
 function get_user_connect($id = null)
 {
     $idUser = $_COOKIE['user_id'] ?? null;
@@ -496,7 +524,8 @@ function get_email_user($email = null)
  * 
  * @return  string
  */
-function numero_commande($nombre){
+function numero_commande($nombre)
+{
     $nombre += 1;
     return date('my-') . str_pad((string)$nombre, 6, "0", STR_PAD_LEFT);
 }
@@ -509,14 +538,15 @@ function numero_commande($nombre){
  * 
  * @return string $html
  */
-function checkbox($name, $label){
-    $checked = ""; 
+function checkbox($name, $label)
+{
+    $checked = "";
 
-    if(isset($_GET[$name])){
+    if (isset($_GET[$name])) {
         $checked = "checked";
     }
-    $html = '<div><input type="checkbox" '. $checked.' name="'. $name .'" id="'. $name .'" >';
-    $html .= '<label for="'. $name .'" class="text-sm"> '. $label .'</label></div>';
+    $html = '<div><input type="checkbox" ' . $checked . ' name="' . $name . '" id="' . $name . '" >';
+    $html .= '<label for="' . $name . '" class="text-sm"> ' . $label . '</label></div>';
 
     return $html;
 }

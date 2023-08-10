@@ -25,8 +25,8 @@
                         <?php foreach ($produits as $produit) : ?>
                             <span class="border-t-[0.05px] text-sm py-2"><?= $produit->getNomProduit() ?></span>
                             <span class="border-t-[0.05px] text-sm py-2"><?= $produit->getQuantite() ?></span>
-                            <span class="border-t-[0.05px] text-sm py-2"><?= $produit->getPrix() ?> XAF</span>
-                            <span class="border-t-[0.05px] text-sm py-2"><?= $produit->getTotal() ?>XAF</span>
+                            <span class="border-t-[0.05px] text-sm py-2"><?= $produit->getPrix() ?></span>
+                            <span class="border-t-[0.05px] text-sm py-2"><?= $produit->getTotal() ?></span>
                         <?php endforeach ?>
                         <div class=" flex justify-between border-t-[0.05px] text-sm py-2 col-span-4">
                             <span class="font-[600]">Total</span>

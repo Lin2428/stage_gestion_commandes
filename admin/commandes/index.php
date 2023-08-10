@@ -1,5 +1,9 @@
 <?php
 require '../../bootstrap.php';
+if(!get_admin_connect()){
+    header('Location: '. base_url('admin/login.php').'');
+    exit;
+   }
 
 $repo = new CommandeRepository();
 

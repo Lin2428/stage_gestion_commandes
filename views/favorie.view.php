@@ -1,8 +1,18 @@
+<?php
+$message = read_flash_message();
+?>
+
 <div class="shop-baner">
     <p class="titre-baner">Favorie</p>
     <span class="link-baner"><a href="/" class="text-gray-400 hover:text-primary">Home</a>
         <span class="font-bold text-xs text-gray-400"><i class="bi bi-chevron-right"></i></span> Favorie</span>
 </div>
+
+<?php if ($message) : ?>
+    <div class="flex justify-center w-[100%]">
+        <div class="alert-succes mb-4"><?= $message ?></div>
+    </div>
+<?php endif ?>
 
 <?php if (!empty($favories)) : ?>
     <div class="favorie-container">
@@ -36,7 +46,7 @@
                             <input type="hidden" name="currentPage" value="<?= $_SERVER['PHP_SELF'] ?>">
                             <input type="hidden" name="action" value="_add_to_cart">
                             <input type="hidden" name="id" value="<?= $favorie->getProduitId() ?>">
-                            <button class="bg-primary px-3 py-2 w-[2.5rem] hover:text-white rounded-xl"><i class="bi bi-basket2-fill"></i></i></button>
+                            <button class="bg-primary px-3 py-2 w-[2.5rem] hover:text-white rounded-xl transition-all duration-300"><i class="bi bi-basket2-fill"></i></i></button>
                         </form>
                     <?php else : ?>
                         <div class="py-2">

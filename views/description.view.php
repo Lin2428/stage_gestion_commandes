@@ -1,3 +1,7 @@
+<?php
+$message = read_flash_message();
+?>
+
 <div class="flex justify-between items-center p-5 w-[100%] bg-shop bg-cover mb-10">
     <div class="md:flex">
         <a href="/" class=" font-sans text-gray-500 hover:text-primary">Home ></a><a href="" class=" font-sans text-gray-500 hover:text-primary">
@@ -7,6 +11,7 @@
             <?= $produit->getNom() ?>
         </p>
     </div>
+
     <div>
         <a href="./?id=<?= $prev->getId() ?>" class="btn-produit-prev bg-primary hover:bg-orange-400 mr-2 rounded-full px-3.5 py-2  font-bold text-sm">
             < <div class="prev">
@@ -37,7 +42,11 @@
 </div>
 
 </div>
-
+    <?php if ($message) : ?>
+        <div class="flex justify-center w-[100%]">
+            <div class="alert-succes mb-4"><?= $message ?></div>
+        </div>
+    <?php endif ?>
 <div class="description md:mb-5 mb-[10rem]">
     <div class="desc-image">
         <img class="mx-auto" src="<?= image($produit->getImage()) ?>" alt="">
@@ -71,7 +80,7 @@
 
                 </div>
                 <div class="md:w-[70%] md:mt-0 mt-4 flex">
-                    <button type="submit" class="bg-primary p-4 mr-1 rounded-md hover:text-white w-[80%] font-bold text-xs"><i class="bi bi-basket2-fill"></i> AJOUTER AU PANIER</button>
+                    <button type="submit" class="bg-primary p-4 mr-1 rounded-md hover:text-white w-[80%] font-bold text-xs transition-all duration-300"><i class="bi bi-basket2-fill"></i> AJOUTER AU PANIER</button>
             </form>
             <form action="/add_produit.php" method="post" class="">
                 <input type="hidden" name="action" value="_add_to_favorie">
@@ -84,7 +93,7 @@
     <div class="quantite">
         <input type="number" disabled value="1" class="border border-gray-200 p-3 font-[500] w-16 rounded-md h-10 outline-1 ">
         <div class="md:w-[70%] md:mt-0 mt-4 flex">
-            <span class="flex justify-center bg-orange-300 p-4 mr-1 rounded-md w-[80%] font-bold text-xs text-gray-400"><i class="bi bi-basket2-fill text-gray-400"></i> AJOUTER AU PANIER</span>
+            <span class="flex justify-center bg-orange-300 p-4 mr-1 rounded-md w-[80%] font-bold text-xs text-gray-400 "><i class="bi bi-basket2-fill text-gray-400"></i> AJOUTER AU PANIER</span>
             <form action="/add_produit.php" method="post" class="">
                 <input type="hidden" name="action" value="_add_to_favorie">
                 <input type="hidden" name="currentPage" value="<?= $_SERVER['PHP_SELF'] . '?id=' . $produit->getId() ?>">

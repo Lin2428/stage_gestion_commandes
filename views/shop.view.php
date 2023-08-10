@@ -1,3 +1,7 @@
+<?php
+    $message = read_flash_message();
+?>
+
 <button class="filter-fond">
 </button>
 <div class="shop-baner">
@@ -5,6 +9,12 @@
     <span class="link-baner"><a href="/" class="text-gray-400 hover:text-primary">Home</a>
         <span class="font-bold text-xs text-gray-400"><i class="bi bi-chevron-right"></i></span> <?= $shopName ?? "Shop" ?></span>
 </div>
+<br>
+<?php if ($message) : ?>
+    <div class="flex justify-center w-[100%]">
+        <div class="alert-succes mb-4"><?= $message ?></div>
+    </div>
+<?php endif ?>
 <br>
 <button class="md:hidden text-sm font-bold mx-7 active-filter-mobile"><i class="bi bi-sliders"></i> FILTRE</button>
 
@@ -55,7 +65,7 @@
                                         <input type="hidden" name="currentPage" value="<?= $_SERVER['PHP_SELF'] ?>">
                                         <input type="hidden" name="action" value="_add_to_cart">
                                         <input type="hidden" name="id" value="<?= $produit->getId() ?>">
-                                        <button class="bg-primary px-3 py-2 w-[2.5rem] hover:text-white rounded-2xl"><i class="bi bi-basket2-fill"></i></i></button>
+                                        <button class="bg-primary px-3 py-2 w-[2.5rem] hover:text-white rounded-2xl transition-all duration-300"><i class="bi bi-basket2-fill"></i></i></button>
                                     </form>
                                 <?php else : ?>
                                     <span class="bg-orange-300 px-3 py-2 w-[2.5rem] rounded-2xl"><i class="bi bi-basket2-fill text-gray-400"></i></i></button>
@@ -111,10 +121,10 @@
             <p class="font-bold text-lg pb-3 mb-5 border-dashed border-b-[0.07px]  border-gray-300">Filtrer par prix</p>
             <div>
                 <?php require 'range.php'; ?>
-                <button type="submit" class="py-0.5 px-4 mt-4 text-xs bg-primary rounded-lg font-[700]">FILTRER</button>
+                <button type="submit" class="py-0.5 px-4 mt-4 text-xs bg-primary rounded-lg hover:text-white font-[700] transition-all duration-300">FILTRER</button>
             </div>
         </form>
-        <form method="GET"><button type="submit" class="bg-primary p-4 mt-10 rounded-md hover:text-white w-[100%] font-bold text-xs">TOUT LES PRODUITS</button></form>
+        <form method="GET"><button type="submit" class="bg-primary p-4 mt-10 rounded-md hover:text-white w-[100%] font-bold text-xs transition-all duration-300">TOUT LES PRODUITS</button></form>
     </div>
 </div>
 <br><br><br>

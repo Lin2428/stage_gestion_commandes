@@ -3,6 +3,8 @@
 /**
  * @var Produit[] $produits
  */
+
+$message = read_flash_message();
 ?>
 <div class="baner">
     <div class="baner-text">
@@ -17,6 +19,11 @@
 </div>
 
 <section class="categories">
+    <?php if ($message) : ?>
+        <div class="flex justify-center w-[100%]">
+            <div class="alert-succes mb-4"><?= $message ?></div>
+        </div>
+    <?php endif ?>
     <div class="category-container">
         <?php foreach ($categories as $k => $category) : ?>
             <form method="GET" action="/shop.php">
@@ -79,11 +86,11 @@
                                 <input type="hidden" name="currentPage" value="<?= $_SERVER['PHP_SELF'] ?>">
                                 <input type="hidden" name="action" value="_add_to_cart">
                                 <input type="hidden" name="id" value="<?= $produit->getId() ?>">
-                                <button class="bg-primary px-3 py-2 w-[2.5rem] hover:text-white rounded-2xl"><i class="bi bi-basket2-fill"></i></i></button>
+                                <button class="bg-primary px-3 py-2 w-[2.5rem] hover:text-white rounded-2xl transition-all duration-300"><i class="bi bi-basket2-fill"></i></i></button>
                             </form>
-                            <?php else: ?>
-                                <span class="bg-orange-300 px-3 py-2 w-[2.5rem] rounded-2xl"><i class="bi bi-basket2-fill text-gray-400"></i></i></button>
-                        <?php endif ?>
+                        <?php else : ?>
+                            <span class="bg-orange-300 px-3 py-2 w-[2.5rem] rounded-2xl"><i class="bi bi-basket2-fill text-gray-400"></i></i></button>
+                            <?php endif ?>
                     </div>
                 </div>
             </div>

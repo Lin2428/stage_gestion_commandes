@@ -131,7 +131,7 @@ class CommandeRepository
      */
     public function findCommande($id, $statut = false, $filtre = [])
     {
-        $sql = "SELECT cm.id, cm.numero, cm.adresse, cm.statut, DATE(cm.created_at) as createdAt, cm.updated_at as updatedAt, cm.client_id as clientId, cm.livreur_id as livreurId FROM commandes cm  WHERE cm.client_id = ?";
+        $sql = "SELECT cm.id, cm.numero, cm.adresse, cm.statut, cm.created_at as createdAt, cm.updated_at as updatedAt, cm.client_id as clientId, cm.livreur_id as livreurId FROM commandes cm  WHERE cm.client_id = ?";
         if ($statut) {
             $sql .= " AND (cm.statut = 'passer' OR cm.statut = 'traiter' OR cm.statut = 'livraison')";
         }
