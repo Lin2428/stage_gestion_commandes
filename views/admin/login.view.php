@@ -15,7 +15,7 @@
         <form method="POST" class="form-client ">
             <p class="font-bold">Login</p>
             <div class="md:mt-4 mb-2">
-                <?= input_client(name: "login", label: "Email ou numéro de téléphone",) ?>
+                <?= input_client(name: "email", label: "Email",) ?>
             </div>
             <div class="md:mt-4">
                 <?= input_client(name: "password", label: "Mot de passe", type: "password") ?>

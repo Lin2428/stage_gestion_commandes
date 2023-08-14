@@ -6,20 +6,28 @@ if (get_admin_connect()) {
     exit;
 }
 
-$error = false;
-if (is_post() && !empty($_POST['login'] && !empty($_POST['password']))) {
-    if ($_POST['login'] === "admin@gmail.com" && $_POST['password'] === "admin123@") {
+$repo = new AdminRepository();
 
-        get_admin_connect(password_hash($_POST['login'], PASSWORD_BCRYPT));
-        header('Location: ' . base_url('admin/index.php'));
-        exit();
+$error = false;
+if (is_post() && !empty($_POST['email'] && !empty($_POST['password']))) {
+    $admin =  $repo->getAdmin($_POST['email']);
+    if ($admin) {
+
+        if (password_verify($_POST['password'], $admin->getPassword())) {
+            get_admin_connect(password_hash($_POST['email'], PASSWORD_BCRYPT));
+            header('Location: ' . base_url('admin/index.php'));
+            exit();
+        } else {
+            $_GET['password'] = 'error';
+        }
     } else {
         flash_message("Ce compte n'existe pas ! Veuillez saisir les bonnes informations");
-        $_GET['login'] = 'error';
+        $_GET['email'] = 'error';
         $_GET['password'] = 'error';
         $error = true;
     }
 }
+
 
 view(
     name: 'admin/login',

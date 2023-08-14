@@ -75,14 +75,19 @@ for ($i = 1; $i <= 1000; $i++) {
     echo "Insertion : $i \n";
 }*/
 
-class A {
-    function __construct( protected $name = 'a'){}
-}
+// class A {
+//     function __construct( protected $name = 'a'){}
+// }
 
-class B extends A {
-    function __construct(A $a) {
-        die(var_dump($a->name));
-    }
-}
+// class B extends A {
+//     function __construct(A $a) {
+//         die(var_dump($a->name));
+//     }
+// }
 
-new B(new A);
+// new B(new A);
+
+$options = [
+    'cost' => 12
+];
+ echo password_hash("azertyuiop", PASSWORD_BCRYPT, $options);

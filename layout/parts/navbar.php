@@ -146,7 +146,7 @@
                     <img src="<?= base_url('assets/dist/img/avatars/avatar.jpg" ') ?>class=" avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
+                    <a class="dropdown-item" href="<?= base_url('admin/create.php') ?>"><i class="align-middle me-1" data-feather="user"></i> Ajouter un compte</a>
                     <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>

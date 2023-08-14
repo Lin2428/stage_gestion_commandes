@@ -94,6 +94,7 @@ class CommandeRepository
             $stmt->bindParam('date', $date);
         }
 
+
         $stmt->execute();
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, Commande::class);

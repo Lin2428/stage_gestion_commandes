@@ -2,6 +2,31 @@
 
 class AdminRepository
 {
+
+    /**
+     * Rétourne les information de l'admin
+     * 
+     * @param string $email l'email de l'admin
+     */
+    public function getAdmin($email){
+        $stmt = db()->prepare("SELECT * FROM admin WHERE email = ?");
+        $stmt->execute([$email]);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Admin::class);
+
+        return $stmt->fetch();
+    }
+
+    /**
+     * Crée un nouveau compte adminnistrateur
+     */
+    public function createAdmin($email, $password){
+        $stmt = db()->prepare("INSERT INTO admin (email, password) VALUES (:email, :password)");
+        $stmt->execute([
+            'email' => $email,
+            'password' => $password
+        ]);
+    }
     /**
      * Recupère les prix de la date courant
      */

@@ -1934,6 +1934,10 @@ input[type="radio"] {
   margin-right: 0.25rem;
 }
 
+.mr-10 {
+  margin-right: 2.5rem;
+}
+
 .mr-2 {
   margin-right: 0.5rem;
 }
@@ -2002,10 +2006,6 @@ input[type="radio"] {
 
 .mt-\[3rem\] {
   margin-top: 3rem;
-}
-
-.mr-10 {
-  margin-right: 2.5rem;
 }
 
 .block {
@@ -2110,10 +2110,6 @@ input[type="radio"] {
 
 .w-full {
   width: 100%;
-}
-
-.w-\[\] {
-  width: ;
 }
 
 .min-w-0 {
@@ -2752,6 +2748,10 @@ input[type="radio"] {
     margin-left: 0.5rem;
   }
 
+  .md\:mr-10 {
+    margin-right: 2.5rem;
+  }
+
   .md\:mr-4 {
     margin-right: 1rem;
   }
@@ -2766,10 +2766,6 @@ input[type="radio"] {
 
   .md\:mt-4 {
     margin-top: 1rem;
-  }
-
-  .md\:mr-10 {
-    margin-right: 2.5rem;
   }
 
   .md\:block {
