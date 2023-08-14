@@ -10,6 +10,9 @@ class Commande
     private $updatedAt;
     private $clientId;
     private $livreurId;
+    private $total = null;
+
+    
 
     /**
      * @var Client
@@ -65,25 +68,37 @@ class Commande
 
     public function getStatut(): string
     {
-        return $this->statut;
+        if($this->statut === "passer"){
+            return "Commande non traité";
+        }
+        else if($this->statut === "traiter"){
+            return "Commande traité";
+        }
+        else if($this->statut === "livraison"){
+            return "En cours de livraison";
+        }
+        else if($this->statut === "livrer"){
+            return "Commande livrée";
+        }
+        return "Commande annulée";
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt()
     {
-        return $this->createdAt;
+        return date_format(date_create($this->createdAt), 'd/m/Y à h:i');
     }
 
-    public function getUpdatedAt(): string
+    public function getUpdatedAt()
     {
-        return $this->updatedAt;
+        return date_format(date_create($this->updatedAt), 'd/m/Y à h:i');
     }
 
-    public function getClientId(): string
+    public function getClientId(): int
     {
         return $this->clientId;
     }
 
-    public function getLivreurId(): string
+    public function getLivreurId(): ?int
     {
         return $this->livreurId;
     }
@@ -102,5 +117,13 @@ class Commande
     public function getLivreur()
     {
         return $this->livreur;
+    }
+
+    public function setTotal(int $total){
+        $this->total = $total;
+    }
+
+    public function getTotalPrix(){
+        return number_format($this->total, 0, thousands_separator: " ")." XAF";
     }
 }

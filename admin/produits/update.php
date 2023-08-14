@@ -1,19 +1,25 @@
 <?php
 require '../../bootstrap.php';
 
+if(!get_admin_connect()){
+    header('Location: '. base_url('admin/login.php').'');
+    exit;
+   }
+
 $id = $_GET['id'];
 
 
 $repo = new ProductRepository();
 $produit = $repo->findById($id);
 $categories = $repo->getCategoriesLookup();
+
 if (is_post()) {
     if (!empty($_POST['nom'] && $_POST['prix']) && $_POST['category_id']) {
         $image = '';
         if (!empty($_FILES['image']['name'])){
             $image = uploadImage();
         }else{
-            $image = $produit[0]->getImage();
+            $image = $produit->getImage();
         }
         if ($image <> "is-invalid") {
 
@@ -27,7 +33,7 @@ if (is_post()) {
             $stock = intval($_POST['stock']);
 
             $repo->updateProduit($data);
-            unlink(image($produit[0]->getImage()));
+            unlink(image($produit->getImage()));
 
             redirect('/admin/produits', "Le produit à bien été Modifier");
         }

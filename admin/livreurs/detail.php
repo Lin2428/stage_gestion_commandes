@@ -1,5 +1,9 @@
 <?php
 require '../../bootstrap.php';
+if(!get_admin_connect()){
+    header("Location: ../login.php");
+    exit;
+   }
 $id = $_GET['id'];
 
 $repository = new LivreurRepository();

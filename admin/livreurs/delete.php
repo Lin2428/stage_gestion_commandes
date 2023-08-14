@@ -1,5 +1,9 @@
 <?php
 require '../../bootstrap.php';
+if(!get_admin_connect()){
+    header("Location: ../login.php");
+    exit;
+   }
 
 if (is_post() && !empty($_POST['id'])) {
     $id = $_POST['id'];

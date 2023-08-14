@@ -64,17 +64,25 @@ function is_active(string $url): string
     return '';
 }
 
-/**
- * Formate le code à debuger avec la balise <pre> de html
- */
-/*
-function debug($var)
+function is_active_client(string $url): string
 {
-    echo "<pre>";
-    var_dump($var);
-    echo "</pre>";
+    $activePage = $_SERVER['PHP_SELF'];
+    $parts = explode('/', $activePage);
+    unset($parts[0]);
+    $part = $parts[1];
+
+    $part = explode('.', $part);
+    unset($part[1]);
+
+    $active  = $part[0];
+
+    if ($active === $url) {
+        return 'active-link';
+    }
+
+    return '';
 }
-*/
+
 
 /**
  * Retourne le chémin d'un repository
@@ -128,7 +136,8 @@ function base_url($link)
  * 
  * @param $nom le nom du fichier
  */
-function model($nom){
+function model($nom)
+{
     return require ROOT . 'models' . DS . $nom;
 }
 
@@ -145,12 +154,25 @@ function css($name)
 }
 
 /**
+ * Load js from asset dir
+ */
+function js($name)
+{
+    if (!str_contains($name, '.js')) {
+        $name .= '.js';
+    }
+
+    return '<script src="' . SITE_URL . '/assets/' . $name . '" ></script>';
+}
+
+/**
  * Load l'image depuis assets
  * 
  * @param $image l'image 
  */
-function image($name){
- return base_url('/assets/dist/img/'. $name);
+function image($name)
+{
+    return base_url('/assets/dist/img/' . $name);
 }
 
 
@@ -168,7 +190,7 @@ function liste_action($id, $dossier, $detail = true, $desactive = false, int $st
 {
     $active = $desactive ? "power" : 'x';
     $class = "bg-danger";
-    if($desactive === true && $statut === 0){
+    if ($desactive === true && $statut === 0) {
         $active = "power";
         $class = "bg-success";
     }
@@ -177,10 +199,12 @@ function liste_action($id, $dossier, $detail = true, $desactive = false, int $st
         $html .= '<a href="' . base_url('/admin/' . $dossier . '/detail.php?id=' . $id) . '" class=" btn bouton_action btn-sm bg-info"><span data-feather="info"><span></a> ';
     }
     $html .= '<a href="' . base_url('/admin/' . $dossier . '/update.php?id=' . $id) . '" class="btn bouton_action bg-primary btn-sm me-1"><span data-feather="edit"><span></a>';
-    $html .= '<form action="' . base_url('/admin/' . $dossier . '/delete.php') . '" method="POST" class="d-inline text-align-center">';
-    $html .= '<input type="hidden" name="id" value="' . $id . '">';
-    $html .= '<button type="submit" class="bouton_action '. $class .'  btn-sm btn"><span data-feather="'. $active .'"><span></button>';
-    $html .= ' </form>';
+    if ($dossier <> "commandes") {
+        $html .= '<form action="' . base_url('/admin/' . $dossier . '/delete.php') . '" method="POST" class="d-inline text-align-center">';
+        $html .= '<input type="hidden" name="id" value="' . $id . '">';
+        $html .= '<button type="submit" class="bouton_action ' . $class . '  btn-sm btn"><span data-feather="' . $active . '"><span></button>';
+        $html .= ' </form>';
+    }
 
     return $html;
 }
@@ -188,7 +212,7 @@ function liste_action($id, $dossier, $detail = true, $desactive = false, int $st
 /**
  * Retourne une card comportant un champs input
  * 
- * @param string $label le label de l'input
+ * @param string|bool $label le label de l'input
  * @param string $type le type de l'input
  * @param string $name le name de l'input
  * @param string $default la valeur par defau du champs
@@ -196,26 +220,41 @@ function liste_action($id, $dossier, $detail = true, $desactive = false, int $st
  * 
  * @return string $html le conde html
  */
-function form_input($label, $name, $type = "text", $required = true, $default = null, array $options = [])
+function form_input($label, $name, $type = "text", $required = true, $placeholder = '', $default = null, array $options = [], $valueSource = 'POST')
 {
-    $defaultValue = $_POST[$name] ?? $default ?? '';
+    if ($valueSource === 'POST') {
+        $data = $_POST;
+    } else {
+        $data = $_GET;
+    }
+
+    $defaultValue = $data[$name] ?? $default ?? '';
 
     $isRequired = $required ? 'required' : '';
 
     $class = "form-control";
-    if (isset($_POST[$name]) && empty($_POST[$name]) && $required) {
+    if ($type === 'select') {
+        $class = 'form-select';
+    }
+
+    if (isset($data[$name]) && empty($data[$name]) && $required) {
         $class .= ' is-invalid';
     }
 
-    $html = '<div class="mb-3">';
-    $html .= '<label for="' . $name . '" class="form-label">' . $label . '</label>';
+
+    if ($label) {
+        $html = '<div class="mb-3">';
+        $html .= '<label for="' . $name . '" class="form-label">' . $label . '</label>';
+    } else {
+        $html = '<div>';
+    }
 
     if ($type === "textarea") {
-        $html .= '<textarea id="' . $name . '" class="form-control" name="' . $name . '" rows="3"  placeholder="' . $label . '">' .  $defaultValue . '</textarea>';
+        $html .= '<textarea id="' . $name . '" class="form-control" name="' . $name . '" rows="3"  placeholder="' . $label . '">' . $defaultValue . '</textarea>';
     } elseif ($type === 'select') {
-        $html .= '<select  name="' . $name . '" id="' . $name . '" ' . $isRequired . ' value="' .  $defaultValue . '" class="' . $class . '">';
+        $html .= '<select  name="' . $name . '" id="' . $name . '" ' . $isRequired . ' value="' . $defaultValue . '" class="' . $class . '">';
         foreach ($options as $value => $text) {
-            $selected = $defaultValue === $value ? 'selected' : '';
+            $selected = $defaultValue == $value ? 'selected' : '';
             $html .= '<option ' . $selected . ' value="' . $value . '">' . $text . '</option>';
         }
         $html .= '</select>';
@@ -224,11 +263,39 @@ function form_input($label, $name, $type = "text", $required = true, $default = 
             $defaultValue = uploadImage();
             $class .= ' ' . $defaultValue;
         }
-        $html .= '<input type="' . $type . '" name="' . $name . '" id="' . $name . '" ' . $isRequired . ' value="' .  $defaultValue . '" class="' . $class . '" placeholder="' . $label . '">';
+        $html .= '<input type="' . $type . '" name="' . $name . '" id="' . $name . '" ' . $isRequired . ' value="' . $defaultValue . '" class="' . $class . '" placeholder="' . $label . $placeholder . '">';
     }
 
     $html .= "</div>";
 
+    return $html;
+}
+
+
+function input_client(string $name, string $label, string $type = "text", $required = true, $default = null)
+{
+    $default = $_POST[$name] ?? $default;
+    $required = $required ? 'required ' : '';
+
+    $border = "border-gray-200";
+    if (isset($_POST[$name]) && empty($_POST[$name])) {
+        $border = 'border-error';
+    }
+    if (!empty($_GET[$name])) {
+        $border = 'border-error';
+    }
+    $length = null;
+    if ($name === 'password') {
+        $length = 'minlength="8"';
+    }
+    if ($name === 'tel') {
+        $length = 'minlength="9"';
+    }
+
+    $html = '<div class="mt-4">';
+    $html .= '<label for="' . $name . '" class="form-label-client mb-2">' . $label . '<span> *</span> </label><br>';
+    $html .= '<input type="' . $type . '" name="' . $name . '" ' . $length . ' id="' . $name . '" value="' . $default . '" ' . $required . ' class="form-input-client ' . $border . '">';
+    $html .= '</div>';
     return $html;
 }
 
@@ -300,6 +367,16 @@ function redirect(string $url, ?string $message = null, string $messageType = 's
 }
 
 /**
+ * Fait un redirection sur la page courant
+ * 
+ * @param string $currentUrl l'url de la page courant
+ */
+function redirect_self($currentUrl, ?string $message = null, string $messageType = 'success'): void
+{
+    redirect($currentUrl, $message, $messageType);
+}
+
+/**
  * Upload de l'image dans le dossier ./imgages
  * et renvoie le chemin de l'image en question ou null
  * s'il y a eu une erreur
@@ -324,14 +401,152 @@ function uploadImage(): ?string
 
     $tmpName = $_FILES['image']['tmp_name'];
     $uniqueName = md5(uniqid(rand(), true));
-    $fileName = $uniqueName . '.' .  $extention;
+    $fileName = $uniqueName . '.' . $extention;
 
-    move_uploaded_file($tmpName, "../../assets/dist/img/".$fileName);
+    move_uploaded_file($tmpName, "../../assets/dist/img/" . $fileName);
 
     return $fileName;
 }
 
-
-function paginate($pageCount, $currentPage, $baseUrl) {
+/**
+ * Retour la pagination
+ */
+function paginate($pageCount, $currentPage, $baseUrl)
+{
     require LAYOUT_PATH . 'parts' . DS . 'pagination.php';
+}
+
+
+/**
+ * Créer ou récupère l'ID unique du visiteur du site
+ * 
+ * @return string Id du visiteur
+ */
+function get_visitor_id()
+{
+    $id = $_COOKIE['visitor_id'] ?? null;
+
+    if ($id) {
+        return $id;
+    }
+
+    $id = uniqid();
+
+    setcookie('visitor_id', $id, [
+        'httponly' => true,
+        'expires' => time() + (360 * 3600),
+    ]);
+
+    return $id;
+}
+
+
+/**
+ * Récupère l'id du visiteur dans les cookie si l'itulisateur est connecter
+ * ou récupère son id depuis la base de données
+ * 
+ * @param int $id l'id de l'utilisateur
+ * 
+ * @return int
+ */
+function get_admin_connect($id = null)
+{
+    $idAdmin = $_COOKIE['admin_id'] ?? null;
+
+    if ($idAdmin) {
+        return $idAdmin;
+    } else {
+        if ($id) {
+            setcookie('admin_id', $id, [
+                'httponly' => true,
+            ]);
+        }
+        return $idAdmin;
+    }
+}
+
+
+
+/**
+ * Récupère l'id de l'admin dans les cookie si l'admin est connecter
+ * ou récupère son id depuis la base de données
+ * 
+ * @param int $id l'id de l'utilisateur
+ * 
+ * @return int
+ */
+function get_user_connect($id = null)
+{
+    $idUser = $_COOKIE['user_id'] ?? null;
+
+    if ($idUser) {
+        return $idUser;
+    } else {
+        if ($id) {
+            setcookie('user_id', $id, [
+                'httponly' => true,
+                'expires' => time() + (3600 * 24),
+            ]);
+        }
+        return $idUser;
+    }
+}
+
+
+/**
+ * Récupère l'email du visiteur dans les cookie si l'itulisateur est connecter
+ * 
+ * @param string $email l'email de l'utilisateur
+ * 
+ * @return string
+ */
+function get_email_user($email = null)
+{
+    $userEmail = $_COOKIE['user_email'] ?? null;
+
+    if ($userEmail) {
+        return $userEmail;
+    } else {
+        if ($email) {
+            setcookie('user_email', $email, [
+                'httponly' => true,
+                'expires' => time() + (3600 * 24),
+            ]);
+        }
+        return $userEmail;
+    }
+}
+
+/**
+ * Crée un numéro unique de la commande
+ * 
+ * @param int $nombre nombre de la commande
+ * 
+ * @return  string
+ */
+function numero_commande($nombre)
+{
+    $nombre += 1;
+    return date('my-') . str_pad((string)$nombre, 6, "0", STR_PAD_LEFT);
+}
+
+/**
+ * Rétourne une checkbox
+ * 
+ * @param string $name le nom de l'élément input
+ * @param  string $label le label de l'élément
+ * 
+ * @return string $html
+ */
+function checkbox($name, $label)
+{
+    $checked = "";
+
+    if (isset($_GET[$name])) {
+        $checked = "checked";
+    }
+    $html = '<div><input type="checkbox" ' . $checked . ' name="' . $name . '" id="' . $name . '" >';
+    $html .= '<label for="' . $name . '" class="text-sm"> ' . $label . '</label></div>';
+
+    return $html;
 }

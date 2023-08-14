@@ -2,11 +2,21 @@
 
 class Admin
 {
+    private $email;
+    private $password;
     private $revenuCurrent;
     private $nbCommande;
     private $nbLivrer;
     private $total;
 
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
     public function getCurrentRevenu(): ?int
     {
         return $this->revenuCurrent;

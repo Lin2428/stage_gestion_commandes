@@ -1,5 +1,9 @@
 <?php
 require '../../bootstrap.php';
+if(!get_admin_connect()){
+    header('Location: '. base_url('admin/login.php').'');
+    exit;
+   }
 
 $repo = new CommandeRepository();
 
@@ -9,7 +13,7 @@ $total = $repo->getCount();
 
 $itemCount = intval(ceil($total / $perPage));
 
-$commandes = $repo->getAll($page, $perPage);
+$commandes = $repo->getAll($page, $perPage, $_GET);
 
 view(
     name: 'admin.commandes.index',

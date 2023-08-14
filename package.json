@@ -1,0 +1,23 @@
+{
+  "name": "gestion_commandes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "tailwindcss -i ./assets/css/app.css -o ./assets/css/output.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lin2428/stage_gestion_commandes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lin2428/stage_gestion_commandes/issues"
+  },
+  "homepage": "https://github.com/Lin2428/stage_gestion_commandes#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.3.3"
+  }
+}

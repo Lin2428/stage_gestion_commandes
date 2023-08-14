@@ -15,14 +15,14 @@ class ProduitCommande
         return $this->id;
     }
 
-    public function getPrix(): int 
+    public function getPrix()
     {
-        return $this->prix;
+        return number_format($this->prix, 0, thousands_separator: " ")." XAF";
     }
 
-    public function getQuantite(): int
+    public function getQuantite()
     {
-        return $this->quantite;
+        return number_format($this->quantite, 0, thousands_separator: " ");
     }
 
     public function getProduitId(): int 
@@ -35,9 +35,15 @@ class ProduitCommande
         return $this->commandeId;
     }
 
-    public function getNomProduit(): string 
+    public function getNomProduit(): ?string 
     {
         return $this->nomProduit;
+    }
+
+    public function getTotal()
+    {
+        $total = $this->quantite * $this->prix;
+        return number_format($total, 0, thousands_separator: " ")." XAF";
     }
 
 }

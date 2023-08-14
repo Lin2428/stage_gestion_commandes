@@ -1,5 +1,9 @@
 <?php
 require '../../bootstrap.php';
+if(!get_admin_connect()){
+    header('Location: '. base_url('admin/login.php').'');
+    exit;
+   }
 
 $id = $_GET['id'];
 
@@ -9,11 +13,23 @@ $categorie = $repo->findById($id);
 
 if (is_post()) {
     if (!empty($_POST['nom'])) {
-        $data = $_POST;
-        $data['id'] = $id;
-        $repo->updateCategory($data);
+        $image = '';
+        if (!empty($_FILES['image']['name'])) {
+            $image = uploadImage();
+        } else {
+            $image = $categorie[0]->getImage();
+        }
+        if ($image <> "is-invalid"){
+            $data = $_POST;
+            $data['id'] = $id;
+            $data['image'] = $image;
+            $repo->updateCategory($data);
 
-        redirect('/admin/categories', "Le produit à bien été Modifier");
+            unlink(image($categorie[0]->getImage()));
+    
+            redirect('/admin/categories', "Le produit à bien été Modifier");
+        }
+       
     }
 }
 

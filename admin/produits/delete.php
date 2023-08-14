@@ -1,6 +1,11 @@
 <?php
 require '../../bootstrap.php';
 
+if(!get_admin_connect()){
+    header('Location: '. base_url('admin/login.php').'');
+    exit;
+   }
+
 if (is_post() && !empty($_POST['id'])) {
 
     $id = $_POST['id'];
@@ -9,7 +14,7 @@ if (is_post() && !empty($_POST['id'])) {
     $produit = $repos->findById($id);
 
     $statut = 0;
-    if ($produit[0]->getStatut() === 0) {
+    if ($produit->getStatut() === 0) {
         $statut = 1;
         flash_message("Le produit a bient été mis en vente");
     }else{
@@ -27,8 +32,8 @@ if (is_post() && !empty($_POST['id'])) {
 
 
 
-view(
-    name: 'admin.products.delete',
-    pageTitle: "Suppréssion du produi",
-    params: []
-);
+// view(
+//     name: 'admin.products.delete',
+//     pageTitle: "Suppréssion du produi",
+//     params: []
+// );

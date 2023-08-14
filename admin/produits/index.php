@@ -1,6 +1,11 @@
 <?php
 require '../../bootstrap.php';
 
+if(!get_admin_connect()){
+    header('Location: '. base_url('admin/login.php').'');
+    exit;
+   }
+
 $repo = new ProductRepository();
 
 $perPage = 10;
@@ -10,7 +15,9 @@ $total = $repo->getCount();
 
 $itemCount = intval(ceil($total / $perPage));
 
-$produits = $repo->getAll($page, $perPage);
+$produits = $repo->getAll($page, $perPage, $_GET);
+
+$categories = $repo->getCategoriesLookup();
 
 
 
@@ -21,5 +28,6 @@ view(
         'produits' => $produits,
         'pageCount' => $itemCount,
         'page' => $page,
+        'categories' => $categories,
     ]
 );

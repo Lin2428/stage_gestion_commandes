@@ -8,6 +8,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Image</th>
                     <th>Nom</th>
                     <th>Statut</th>
                     <th class="text-center">Action</th>
@@ -18,6 +19,7 @@
                 <?php foreach ($categories as $categorie) : ?>
                     <tr>
                         <td><?= $categorie->getId() ?></td>
+                        <td><img class="image-liste-produit" src="<?= image($categorie->getImage()) ?>" alt="image"></td>
                         <td><?= $categorie->getNom() ?></td>
                         <td>
                         <?php if ($categorie->getStatut() === 0) : ?>
