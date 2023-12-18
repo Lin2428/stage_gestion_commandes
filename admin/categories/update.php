@@ -25,7 +25,7 @@ if (is_post()) {
             $data['image'] = $image;
             $repo->updateCategory($data);
 
-            unlink(image($categorie[0]->getImage()));
+            unlink(image($categorie->getImage()));
     
             redirect('/admin/categories', "Le produit à bien été Modifier");
         }

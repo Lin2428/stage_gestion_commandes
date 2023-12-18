@@ -1157,7 +1157,7 @@ CREATE TABLE IF NOT EXISTS `favorie_items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `favorie_id` int(11) DEFAULT NULL,
   `produit_id` int(11) DEFAULT NULL,
-  `created_at` date DEFAULT current_timestamp(),
+  `created_at` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `favorie_id` (`favorie_id`),
   KEY `produit_id` (`produit_id`)

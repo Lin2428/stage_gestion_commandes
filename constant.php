@@ -2,7 +2,7 @@
 
 define('SITE_URL', 'http://localhost:81');
 
-define('HOST', '127.0.0.1');
+define('HOST', 'localhost');
 define('DB_NAME', 'gestion_commandes');
 define('USER', 'root');
 define('PASS', '');

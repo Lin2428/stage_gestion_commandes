@@ -252,7 +252,7 @@ class CommandeRepository
     public function addCommande($numero, $adresse, $clientId)
     {
         $db = db();
-        $sql = "INSERT INTO commandes (numero, adresse, client_id, livreur_id) VALUE(:numero, :adresse, :client_id, 1)";
+        $sql = "INSERT INTO commandes (numero, adresse, client_id, livreur_id) VALUE(:numero, :adresse, :client_id, 2)";
         $stmt = $db->prepare($sql);
         $stmt->execute([
             'numero' => $numero,

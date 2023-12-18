@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="form-group">
-                    <?= form_input(label: "Nom", name: "nom", default: $categorie[0]->getNom()) ?>
+                    <?= form_input(label: "Nom", name: "nom", default: $categorie->getNom()) ?>
                     <?= form_input(label: "Image", name: "image", type: 'file', required: false) ?>
                     <button type="submit" class="btn btn-info">Modifier</button>
                 </div>
